@@ -1,0 +1,81 @@
+{% macro link(l) %}
+    {% if l.children %}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" 
+                data-toggle="dropdown">{{l.label}} <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+        {% for l2 in l.children %}
+            {{ link(l2) }}
+        {% endfor %}
+        </ul>
+        </li>
+    {% else %}
+        <li>
+        {% if l.href %}
+            <a href="{{l.href}}" 
+                {% if l.target %}target="{{l.target}}"{% endif %}>{{l.label}}</a>
+        {% else %}
+            <b>{{l.label}}</b>            
+        {% endif %}       
+        </li>
+    {% endif %}
+{%- endmacro %}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+    <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" 
+                data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Home</a>
+    </div>
+    <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+    {% for l in links %}
+        {% if l.children %}
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+                data-toggle="dropdown">{{l.label}} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            {% for l2 in l.children %}
+                <li>
+                {% if l2.rel == 'external' %}
+                    <a href="{{l2.href}}" target="{{l.get('target','_blank')}}">
+                        {{l2.label}}
+                        <span class="glyphicon glyphicon-new-window"></span>
+                    </a>
+                {% else %}
+                    <a href="{{l2.href}}" target="{{l.get('target','_self')}}">{{l2.label}}</a>
+                {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+            </li>
+        {% else %}
+            <li>
+            {% if l.rel == 'external' %}
+                <a href="{{l.href}}" target="{{l.get('target','_blank')}}">
+                    {{l.label}}
+                    <span class="glyphicon glyphicon-new-window"></span>
+                </a>
+            {% else %}
+                <a href="{{l.href}}" target="{{l.get('target','_self')}}">{{l.label}}</a>
+            {% endif %}
+            </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+
+    <form class="navbar-form navbar-left" role="search" 
+        method="get"
+        action="{{conf.web_prefix}}/{{conf.pages_tpl}}">
+      <div class="form-group">
+        <input type="text" name="q" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+    </div>
+    </div>
+</div>

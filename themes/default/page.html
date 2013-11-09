@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block meta %}
+<meta name="description" content="{{page.description}}">
+<meta name="keywords" content="{{page.keywords}}">
+{% endblock %}
+{% block title %}{{page.title}}{% endblock %}
+{% block content %}
+<p>
+{% for t in page.tags %}
+    <a  class="label label-default"
+        href="/{{conf.pages_tpl}}?t={{t}}">{{t}}</a>
+{% endfor %}
+</p>
+{{page.target_text|safe}}
+{% endblock %}

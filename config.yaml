@@ -1,0 +1,12 @@
+blurb_max: 50
+home_page: home.md
+site:
+  author: Example Author
+  description: "Example Site Description
+    goes here"
+  keywords: example, pykwiki
+  title: Example Site
+theme: default
+web_prefix: ''
+base_path: /home/nullism/github/pykwiki/
+markdown_exts: ['codehilite','toc','pykwiki.ext.page', 'pykwiki.ext.tpl']

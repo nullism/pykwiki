@@ -1,0 +1,140 @@
+#!/usr/bin/env python2
+import os
+import sys
+import pykwiki.core
+import argparse
+import logging
+import time
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+logger.addHandler(logging.StreamHandler())
+
+conf = pykwiki.core.conf
+ctrl = pykwiki.core.ctrl
+
+def command_new(args):
+    ''' Create a new project in args.base_path '''
+
+    logger.info('='*40)
+    path = args.base_path
+    new_path = os.path.join(path, args.project_name)
+    if os.path.exists(new_path):
+        raise Exception('Project path: %s already exists!'%(new_path))
+
+    logger.info('Creating new project in %s'%(new_path))
+    os.makedirs(new_path)
+    conf.base_path = new_path
+    conf.save()
+    
+    # Unpack project zipfile
+    
+    return True
+
+def command_cache(args):
+    ''' Cache one or more pages '''
+
+    logger.info('='*40)
+    plist = None
+    if args.pages:
+        plist = args.pages
+    force = False
+    if args.force:
+        force = True
+    ctrl.cache_pages(plist, force=force)
+    logger.info('='*40)
+    ctrl.cache_theme()   
+    return True
+
+def command_index(args):
+    ''' Rebuild the search index '''
+
+    logger.info('='*40)
+    ctrl.index_pages()
+    return True
+
+def load_config(args):
+    ''' Attempt to read config.yaml if present in args.base_path '''
+
+    if args.config_file:
+        conf.load(args.config_file)
+    else:
+        conf.base_path = args.base_path
+        try:
+            conf.load(os.path.join(args.base_path, 'config.yaml'))
+        except:
+            logger.warning('Could not load %s/config.yaml, '\
+                'using default settings'%(args.base_path))
+            return False
+    return True
+
+if __name__ == "__main__":
+    stime = time.time()
+
+    # --------------------------------------------------------------------------
+    # Setup the argument parser
+    # --------------------------------------------------------------------------
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-b', '--base-path',
+        help='the base directory to operate on, defaults to current directory',
+        default=os.getcwd())
+    parser.add_argument('-c', '--config-file',
+        help='full path to configuration YAML file to load') 
+
+    subparsers = parser.add_subparsers(dest='command')
+
+    # --------------------------------------------------------------------------
+    # New subgroup
+    # --------------------------------------------------------------------------
+    parser_new = subparsers.add_parser('new',
+        help='create a new project')
+    parser_new.add_argument('project_name', 
+        help='the name of the project')
+    
+    # --------------------------------------------------------------------------
+    # Search index subgroup
+    # --------------------------------------------------------------------------
+    parser_index = subparsers.add_parser('index', 
+        help='build the search index')
+
+    # --------------------------------------------------------------------------
+    # Cache subgroup
+    # --------------------------------------------------------------------------
+    parser_cache = subparsers.add_parser('cache',
+        help='cache and index pages')
+    parser_cache.add_argument('-p', '--pages', nargs='+', type=str,
+        help='a list of source pages to cache, like page1.md page2.md ...')
+    parser_cache.add_argument('-f', '--force', action='store_true',
+        help='force cache even if file has not been modified')
+    parser_cache.add_argument('-n', '--no-index', action='store_true',
+        help='skip rebuilding to search index')
+
+
+    
+    args = parser.parse_args()
+
+    # --------------------------------------------------------------------------
+    # Create new project
+    # --------------------------------------------------------------------------
+    if args.command == 'new':
+        command_new(args)
+
+    # --------------------------------------------------------------------------
+    # Index pages
+    # --------------------------------------------------------------------------
+    elif args.command == 'index':
+        load_config(args)
+        command_index(args)
+
+    # --------------------------------------------------------------------------
+    # Cache pages        
+    # --------------------------------------------------------------------------
+    elif args.command == 'cache':
+        load_config(args)
+        command_cache(args)
+        if not args.no_index:
+            command_index(args)
+
+    taken = time.time() - stime
+    logger.info('='*40)
+    logger.info('Operations completed in %ss'%(taken)) 
