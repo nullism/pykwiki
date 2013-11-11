@@ -60,7 +60,7 @@ class Config(object):
     page_tpl = 'page.html'
     pages_tpl = 'pages.html'
     menu_tpl = 'menu.html'
-    source_ext = '.mkd'
+    source_ext = '.md'
     target_ext = '.html'
     template_ext = '.tpl'
     time_format = '%H:%M:%S'
@@ -75,7 +75,7 @@ class Config(object):
     ]
     page_conf_re = re.compile('\[\[(.*?)\]\]', re.DOTALL)
     blurb_max = 50
-    home_page = 'index.mkd'
+    home_page = 'index'
 
     config_text_properties = [
         'web_prefix',
@@ -88,6 +88,7 @@ class Config(object):
         'time_format',
         'date_format',
         'timestamp_format',
+        'source_ext',
     ]
 
     def __init__(self):
@@ -243,10 +244,13 @@ class PageController(object):
         u_write(out, html)
 
         # Home page
-        home_page = os.path.join(conf.source_path, conf.home_page)
-        if os.path.exists(home_page):
+        home_page = conf.home_page
+        if not home_page.endswith(conf.source_ext):
+            home_page = home_page + conf.source_ext 
+        home_page_path = os.path.join(conf.source_path, home_page)
+        if os.path.exists(home_page_path):
             conf.logger.info('Writing %s as home page (index.html)'%(home_page))
-            pg = Page(conf.home_page)
+            pg = Page(home_page)
             html = render_theme_template(conf.page_tpl, page=pg)
             out = os.path.join(conf.target_path, 'index.html')
             u_write(out, html)
@@ -680,7 +684,9 @@ class Page(object):
 
     @property
     def target_mtime(self):
-        return os.path.getmtime(self.target_path)
+        if os.path.exists(self.target_path):
+            return os.path.getmtime(self.target_path)
+        return 0
 
     @property
     def source_mtime(self):

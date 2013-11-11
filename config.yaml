@@ -1,14 +1,15 @@
 blurb_max: 50
-home_page: home.mkd
+home_page: home
 site:
-  author: Example Author
-  description: "Example Site Description
-    goes here"
-  keywords: example, pykwiki
-  title: Example Site
+  author: Aaron Meier
+  description: "PyKwiki is a static file wiki suitable for 
+    blogs, wikis, or almost any type of documentation"
+  keywords: pykwiki, wiki, cms, blog
+  title: PyKwiki
 theme: default
 web_prefix: ''
 base_path: /home/nullism/github/pykwiki/
 markdown_exts: ['codehilite','toc','pykwiki.ext.page', 'pykwiki.ext.tpl']
 date_format: "%B %d, %Y"
 time_format: "%H:%I"
+source_ext: '.md'

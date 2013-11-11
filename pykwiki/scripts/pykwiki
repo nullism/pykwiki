@@ -45,8 +45,13 @@ def command_cache(args):
         plist = args.pages
     force = False
     if args.force:
-        os.utime(conf.link_path, None)
         force = True
+    if not os.path.exists(conf.link_json_path) or \
+            os.path.getmtime(conf.link_path) > \
+            os.path.getmtime(conf.link_json_path):
+        logger.info('%s was modified, caching ALL pages'%(conf.link_path))
+        force = True        
+
     ctrl.cache_pages(plist, force=force)
     logger.info('='*40)
     ctrl.cache_theme() 
