@@ -1,0 +1,26 @@
+<div class="panel-group" id="date_accordion">
+{% for pd in ctrl.get_page_dates(limit=20) %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#date_accordion" href="#collapse_{{pd|idsafe}}">
+          {{pd}}
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_{{pd|idsafe}}" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul>
+        {% for p in ctrl.get_pages(filters=[['mdate_string','==',pd]], sort_key='title', direction='asc') %}
+            <li><a href="{{p.url}}">{{p.title}}</a></li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+{% endfor %}
+</div>
+
+
+

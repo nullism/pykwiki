@@ -68,13 +68,13 @@
     {% endfor %}
     </ul>
 
-    <form class="navbar-form navbar-left" role="search" 
+    <form class="navbar-form navbar-right" role="search" 
         method="get"
         action="{{conf.web_prefix}}/{{conf.pages_tpl}}">
       <div class="form-group">
         <input type="text" name="q" class="form-control" placeholder="Search">
       </div>
-      <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+      <button type="submit" class="btn btn-primary" style="display: none;"><span class="glyphicon glyphicon-search"></span></button>
     </form>
     </div>
     </div>

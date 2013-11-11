@@ -33,12 +33,9 @@ class TPLPreprocessor(markdown.preprocessors.Preprocessor):
                 d = yaml.load(args)           
             
             html = render_tpl(tpl, **d)
-            #print "HTML\n%s\n\n"%(html)
-            #print "MD'D\n%s\n\n"%(markdown.markdown(html))
             text = pat.sub(html, text, 1)        
  
         return text.split('\n')
-
 
 class TPLExtension(markdown.Extension):
 

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{conf.web_prefix}}/static/codehilite/manni.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="{{conf.web_prefix}}/static/bootstrap3/js/bootstrap.min.js"></script>
+    <script src="{{conf.web_prefix}}/static/respond.min.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -35,6 +36,13 @@
         padding: 5px;
         border-radius: 10px;
         color: #999;
+    }
+    .toc ul, .toc li, .toc ul li { 
+        margin-left: 10px;
+        padding-left: 0px;
+    }
+    h1:target, h2:target, h3:target { 
+        background-color: #dfd;
     }
     </style> 
     <script>

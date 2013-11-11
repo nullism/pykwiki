@@ -10,13 +10,24 @@ import codecs
 import shutil
 import time
 
-def render_template(f, **kwargs):
+def set_jinja_filters(env):
+    import jinja_filters
+    env.filters['idsafe'] = jinja_filters.idsafe
+    return env
+
+def render_theme_template(f, **kwargs):
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(
         [conf.theme_path, conf.default_theme_path]))
+    env = set_jinja_filters(env)
     tpl = env.get_template(f)
-    return tpl.render(conf=conf, ctrl=ctrl, 
+    return tpl.render(conf=conf, ctrl=ctrl,
         topt=ctrl.theme_options, **kwargs)
 
+def render_text(text, **kwargs):
+    env = set_jinja_filters(jinja2.Environment())
+    tpl = env.from_string(text)
+    return tpl.render(**kwargs)
+    
 def u_read(fname):
     fh = codecs.open(fname, encoding='utf-8')
     txt = fh.read()
@@ -36,6 +47,7 @@ class Config(object):
     upload_dir = 'uploads'
     target_dir = 'docroot'
     link_file = 'links.yaml'
+    link_json_file = 'links.json'
     theme_dir = 'themes'
     theme = 'default'
     logger = None
@@ -48,9 +60,12 @@ class Config(object):
     page_tpl = 'page.html'
     pages_tpl = 'pages.html'
     menu_tpl = 'menu.html'
-    source_ext = '.md'
+    source_ext = '.mkd'
     target_ext = '.html'
     template_ext = '.tpl'
+    time_format = '%H:%M:%S'
+    timestamp_format = '%Y-%m-%d %H:%M'
+    date_format = '%Y-%m-%d'
     index_file = 'idx.json'
     stop_words = ['the','and']
     markdown_exts = [
@@ -60,7 +75,7 @@ class Config(object):
     ]
     page_conf_re = re.compile('\[\[(.*?)\]\]', re.DOTALL)
     blurb_max = 50
-    home_page = 'index.md'
+    home_page = 'index.mkd'
 
     config_text_properties = [
         'web_prefix',
@@ -70,6 +85,9 @@ class Config(object):
         'site',
         'base_path',
         'markdown_exts',
+        'time_format',
+        'date_format',
+        'timestamp_format',
     ]
 
     def __init__(self):
@@ -107,6 +125,14 @@ class Config(object):
         return os.path.join(self.base_path, self.theme_dir, 'default')
 
     @property
+    def link_path(self):
+        return os.path.join(self.base_path, self.link_file)
+
+    @property
+    def link_json_path(self):
+        return os.path.join(self.target_path, self.link_json_file)
+
+    @property
     def theme_path(self):
         return os.path.join(self.base_path, self.theme_dir, self.theme)
 
@@ -117,6 +143,14 @@ class Config(object):
     @property
     def upload_path(self):
         return os.path.join(self.source_path, self.upload_dir)
+
+    @property
+    def upload_target_path(self):
+        return os.path.join(self.target_path, self.upload_dir)
+    
+    @property
+    def upload_web_path(self):
+        return self.web_prefix + '/' + self.upload_dir
 
     @property
     def target_path(self):
@@ -153,6 +187,7 @@ class Config(object):
 class PageController(object):
      
     _pages = []
+    _source_files = []
     _theme_menu = None
     _theme_options = None
     index_data = {}
@@ -162,7 +197,7 @@ class PageController(object):
  
     def cache_pages(self, plist=None, force=False):
         if not plist:
-            plist = self.get_all_pages()
+            plist = self.source_files
 
         for pf in plist:
             pg = Page(pf)
@@ -171,13 +206,39 @@ class PageController(object):
                     continue
             pg.save()
 
+    def cache_uploads(self):
+        if not os.path.exists(conf.upload_path):
+            conf.logger.warning('Upload directory not found')
+            return False
+        if not os.path.exists(conf.upload_target_path):
+            os.makedirs(conf.upload_target_path)
+
+        conf.logger.info('Caching uploads...')
+        for root, dirs, files in os.walk(conf.upload_path):
+            for f in files:
+                src_path = os.path.join(root, f)
+                tgt_path = src_path.replace(conf.upload_path, conf.upload_target_path)
+                if os.path.exists(tgt_path):
+                    src_mt = os.path.getmtime(src_path)
+                    tgt_mt = os.path.getmtime(tgt_path)
+                    if src_mt < tgt_mt:
+                        continue
+                tgt_dir, tgt_fname = os.path.split(tgt_path)
+                if not os.path.exists(tgt_dir):
+                    os.makedirs(tgt_dir)
+                conf.logger.debug('Copying %s to %s'%(src_path, tgt_path))
+                shutil.copy(src_path, tgt_path)
+
+        return True
+         
+
     def cache_theme(self):
         ''' Cache specific theme files '''
 
         conf.logger.info('Caching theme files')
 
         # Page Listing / Search
-        html = render_template(conf.pages_tpl)
+        html = render_theme_template(conf.pages_tpl)
         out = os.path.join(conf.target_path, conf.pages_tpl)
         u_write(out, html)
 
@@ -186,7 +247,7 @@ class PageController(object):
         if os.path.exists(home_page):
             conf.logger.info('Writing %s as home page (index.html)'%(home_page))
             pg = Page(conf.home_page)
-            html = render_template(conf.page_tpl, page=pg)
+            html = render_theme_template(conf.page_tpl, page=pg)
             out = os.path.join(conf.target_path, 'index.html')
             u_write(out, html)
 
@@ -215,7 +276,17 @@ class PageController(object):
         if self._theme_menu:
             return self._theme_menu
 
-        link_path = os.path.join(conf.base_path, conf.link_file)
+        if os.path.exists(conf.link_json_path):
+            if os.path.getmtime(conf.link_path) \
+                    <= os.path.getmtime(conf.link_json_path):
+                js = u_read(conf.link_json_path)
+                links = json.loads(js)
+                self._theme_menu = render_theme_template(conf.menu_tpl, 
+                    links=links)
+                return self._theme_menu
+
+        conf.logger.info('Generating theme menu from %s'%(conf.link_file))
+        link_path = conf.link_path
         if not os.path.exists(link_path):
             return 'Unable to locate %s'%(link_path)
         
@@ -226,6 +297,8 @@ class PageController(object):
                 new_d = d[key]
                 new_d['label'] = key
                 if new_d.get('page'):
+                    if not new_d['page'].endswith(conf.source_ext):
+                        new_d['page'] = new_d['page'] + conf.source_ext
                     new_d['href'] = conf.web_prefix + '/' +\
                         new_d['page'].replace(conf.source_ext, conf.target_ext)
                     new_d['rel'] = 'internal'
@@ -240,15 +313,25 @@ class PageController(object):
         ltxt = u_read(link_path)
         links = yaml.load(ltxt)
         menu_links = get_clean_links(links)
-        self._theme_menu = render_template(conf.menu_tpl, links=menu_links)
-        
+        self._theme_menu = render_theme_template(conf.menu_tpl, links=menu_links)
+        u_write(conf.link_json_path, json.dumps(menu_links))
         return self._theme_menu
 
+    @property
+    def page_info(self, plist=None):
+
+        if self._page_info:
+            return self._page_info
+
+        if not plist:
+            plist = self.source_files
+        
+        
 
     def index_pages(self, plist=None, search_index=True):
     
         if not plist:
-            plist = self.get_all_pages()
+            plist = self.source_files
 
         if self.index_data:
             return
@@ -317,11 +400,99 @@ class PageController(object):
         json.dump(self.index_data, fh)
         fh.close()
         
+    def get_pages(self, sort_key='mtime', private=False, direction='desc', 
+            filters=None, limit=0):
+        direction = direction.lower()
+        rev = False
+        if direction == 'desc' or direction == 'descending':
+            rev = True
+        
+        if not limit:
+            limit = 10000
 
-    def get_all_pages(self):
+        plist = self.pages
+        if not private:
+            plist = [p for p in plist if not p.conf.get('private')]
 
+        if filters:
+            for f in filters:
+                try:
+                    k, o, v = f
+                except:
+                    raise Exception('Invalid filter found: %s'%(f))
+
+                if o == '==':
+                    plist = [p for p in plist if getattr(p, k) == v]
+                elif o == '>':
+                    plist = [p for p in plist if getattr(p, k) > v]
+                elif o == '>=':
+                    plist = [p for p in plist if getattr(p, k) >= v]
+                elif o == '<':
+                    plist = [p for p in plist if getattr(p, k) < v]
+                elif o == '<=':
+                    plist = [p for p in plist if getattr(p, k) <= v]
+                elif o == '!=':
+                    plist = [p for p in plist if getattr(p, k) != v]
+                else:
+                    raise Exception('Invalid filter operator found: %s'%(o))
+                                    
+        if sort_key:
+            plist.sort(key=lambda x: getattr(x, sort_key), reverse=rev)
+
+        if len(plist) > limit:
+            plist = plist[0:limit]
+
+        return plist
+
+    def get_page_dates(self, private=False, direction='desc', limit=0):
+        direction = direction.lower()
+        rev = False
+        if direction == 'desc' or direction == 'descending':
+            rev = True
+
+        if not limit:
+            limit = 10000
+
+        plist = self.pages
+
+        if not private:
+            plist = [p for p in plist if not p.conf.get('private')]
+
+        plist.sort(key=lambda x: x.mtime, reverse=rev)
+        dlist = []
+        for p in plist:
+            if p.mdate_string not in dlist and len(dlist) < limit:
+                dlist.append(p.mdate_string)
+        return dlist
+
+    @property
+    def page_dates(self):
+        return self.get_page_dates(direction='desc')
+
+    @property
+    def pages(self):
         if self._pages:
             return self._pages
+        plist = self.source_files
+        pages = []
+        for pf in plist:
+            pages.append(Page(pf))
+        self._pages = pages
+        return self._pages
+
+    @property
+    def tags(self):
+        tags = []
+        for p in self.pages:
+            for t in p.tags:
+                tags.append(t)
+        return sorted(list(set(tags)))
+
+    @property
+    def source_files(self):
+
+        if self._source_files:
+            return self._source_files
 
         for root, dirs, files in os.walk(conf.source_path):
             for f in files:
@@ -329,9 +500,9 @@ class PageController(object):
                     continue
                 fullpath = os.path.join(root, f)
                 fname = fullpath.replace(conf.source_path+'/', '')
-                self._pages.append(fname)
+                self._source_files.append(fname)
 
-        return self._pages
+        return self._source_files
 
 class Page(object):
     ''' Page object (str:source_fname)
@@ -371,7 +542,7 @@ class Page(object):
         pc = self.conf
         tt = self.target_text
         conf.logger.info('Saving to: %s'%(self.target_path))        
-        html = render_template(conf.page_tpl, page=self)        
+        html = render_theme_template(conf.page_tpl, page=self)        
         u_write(self.target_path, html)
 
 
@@ -418,6 +589,10 @@ class Page(object):
             conf.source_ext, conf.target_ext)
 
     @property
+    def url(self):
+        return '%s/%s'%(conf.web_prefix, self.target_fname)
+
+    @property
     def source_text(self):
         if self._source_text:
             return self._source_text
@@ -459,8 +634,49 @@ class Page(object):
     def mtime(self):
         if self._mtime:
             return self._mtime
+
+        if self.conf.get('modified'):
+            self._mtime = time.mktime(time.strptime(self.conf['modified'], conf.timestamp_format))
+            return self._mtime
+            
         self._mtime = self.source_mtime
         return self._mtime
+
+    @property
+    def mtime_tuple(self):
+        return time.localtime(self.mtime)
+
+    @property
+    def mtimestamp(self):
+        return time.strftime(conf.timestamp_format, self.mtime_tuple)
+
+    @property
+    def mtime_string(self):
+        return time.strftime(conf.time_format, self.mtime_tuple)
+
+    @property
+    def mdate_string(self):
+        return time.strftime(conf.date_format, self.mtime_tuple)
+
+    @property
+    def mtime_hour(self):
+        return time.strftime('%H', self.mtime_tuple)
+
+    @property
+    def mtime_minute(self):
+        return time.strftime('%M', self.mtime_tuple)
+
+    @property
+    def mdate_day(self):
+        return time.strftime('%d', self.mtime_tuple)
+
+    @property
+    def mdate_month(self):
+        return time.strftime('%m', self.mtime_tuple)
+
+    @property
+    def mdate_year(self):
+        return time.strftime('%Y', self.mtime_tuple)
 
     @property
     def target_mtime(self):

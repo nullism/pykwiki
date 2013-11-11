@@ -1,5 +1,5 @@
 blurb_max: 50
-home_page: home.md
+home_page: home.mkd
 site:
   author: Example Author
   description: "Example Site Description
@@ -10,3 +10,5 @@ theme: default
 web_prefix: ''
 base_path: /home/nullism/github/pykwiki/
 markdown_exts: ['codehilite','toc','pykwiki.ext.page', 'pykwiki.ext.tpl']
+date_format: "%B %d, %Y"
+time_format: "%H:%I"

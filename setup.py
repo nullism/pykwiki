@@ -22,7 +22,7 @@ A pure-python, light-weight, static wiki, blog, website engine designed for spee
     package_data={'pykwiki':['data/*.zip']},
     url = 'http://pykwiki.nullism.com',
     license = 'MIT',
-    requires = ['markdown (>=2.0)', 'jinja2 (>=1.0)', 'pyyaml (>=3.0)'],
+    requires = ['markdown (>=2.3)', 'jinja2 (>=2.6)', 'pyyaml (>=3.0)'],
     provides = ['pykwiki']
 )
 

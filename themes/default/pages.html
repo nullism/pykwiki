@@ -122,23 +122,31 @@ $(document).ready(function() {
     ,"json");
 });
 </script>
-<div>
-<div class="input-group">
-    <input type="text" id="search_text" class="form-control" 
-        onkeydown="if (event.keyCode == 13) { $('#search_button').click(); return false; }"
-        placeholder="Search" 
-    />
-    <span class="input-group-btn">
-    <button class="btn btn-primary"
-        id="search_button"
-        onclick="list_pages_by_query($('#search_text').val())">
-        <span class="glyphicon glyphicon-search"></span>
-    </button>
-    </span>
-</div>
-</div>
-<h2 id="results">Results</h2>
-<div id="pages">
+<div class="col-sm-3">
+
+    <div class="input-group">
+        <input type="text" id="search_text" class="form-control" 
+            onkeydown="if (event.keyCode == 13) { $('#search_button').click(); return false; }"
+            placeholder="Search" 
+        />
+        <span class="input-group-btn">
+        <button class="btn btn-primary"
+            id="search_button"
+            onclick="list_pages_by_query($('#search_text').val())">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+        </span>
+    </div>
+    <br />
+
+    {% include 'datelist.html' %}
 </div>
 
+<div class="col-sm-9">
+    {% for t in ctrl.tags %}
+        <a class="label label-default" href="#" onclick="list_pages_by_tag('{{t|e}}'); return false;">{{t}}</a>
+    {% endfor %}
+    <h2 id="results">Results</h2>
+    <div id="pages"></div>
+</div>
 {% endblock %}
