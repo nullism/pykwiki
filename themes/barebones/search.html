@@ -47,16 +47,10 @@ function list_page_by_id(id) {
     }
     shown_ids.push(id);
     var page = idx.info[file];
-    page.dt = new Date(page.mepoch * 1000);
     var el_d = $('<div></div>');
-    var el_h = $('<h3></h3>');
-    var el_t = $('<small></small>');
+    var el_h = $('<h2></h2>');
     var el_p = $('<p></p>');
     el_h.html('<a href="/'+file+'">'+page.title+'</a>');
-    el_t.addClass('pull-right');
-    el_t.addClass('text-muted');
-    el_t.html(page.dt.toDateString());
-    el_h.append(el_t);
     el_p.html(page.blurb);
     el_d.append(el_h);
     el_d.append(el_p);
@@ -68,7 +62,6 @@ function list_pages_by_tag(tag) {
     for(var i=0; i<idx.tags[tag].length; i++) { 
         list_page_by_id(idx.tags[tag][i]);
     }
-    $('#results').html('Results for tag "'+tag+'"');
 }
 
 function list_pages_by_query(search) {
@@ -93,7 +86,6 @@ function list_pages_by_query(search) {
     if(to_show.length < 1) { 
         no_results();
     }
-    $('#results').html('Results for query "'+search+'"');
 }
 
 function start_callback(data) { 
@@ -113,7 +105,7 @@ function start_callback(data) {
 $(document).ready(function() { 
     // Get the search index file
     $('#pages').html('Loading search index...');
-    $.get('{{conf.web_prefix}}/{{conf.index_file}}',
+    $.get('/{{conf.index_file}}',
         function(data) { 
             if(data) {
                 start_callback(data);                
@@ -122,31 +114,11 @@ $(document).ready(function() {
     ,"json");
 });
 </script>
-<div class="col-sm-3">
-
-    <div class="input-group">
-        <input type="text" id="search_text" class="form-control" 
-            onkeydown="if (event.keyCode == 13) { $('#search_button').click(); return false; }"
-            placeholder="Search" 
-        />
-        <span class="input-group-btn">
-        <button class="btn btn-primary"
-            id="search_button"
-            onclick="list_pages_by_query($('#search_text').val())">
-            <span class="glyphicon glyphicon-search"></span>
-        </button>
-        </span>
-    </div>
-    <br />
-
-    {% include 'datelist.html' %}
+<div>
+<input type="text" id="search_text" />
+<button onclick="list_pages_by_query($('#search_text').val())">Search</button>
+</div>
+<div id="pages">
 </div>
 
-<div class="col-sm-9">
-    {% for t in ctrl.tags %}
-        <a class="label label-default" href="#" onclick="list_pages_by_tag('{{t|e}}'); return false;">{{t}}</a>
-    {% endfor %}
-    <h2 id="results">Results</h2>
-    <div id="pages"></div>
-</div>
 {% endblock %}

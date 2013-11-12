@@ -11,6 +11,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="{{conf.web_prefix}}/static/bootstrap3/js/bootstrap.min.js"></script>
     <script src="{{conf.web_prefix}}/static/respond.min.js"></script>
+    <script src="{{conf.web_prefix}}/static/mustachejs/mustache.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -18,7 +19,6 @@
     <![endif]-->   
     <style type="text/css">
     html, body { height: 100%; }
-    /* Wrapper for page content to push down footer */
     #wrap {
         min-height: 100%;
         height: auto;
@@ -26,15 +26,21 @@
         margin: 0 auto -60px;
         /* Pad bottom by footer height */
         padding: 0 0 60px;
-        background: #f5f5f5;
-        border-top: 1px solid #f2f2f2;
     }
 
-    /* Set the fixed height of the footer here */
     #footer {
       height: 60px;
       padding-top: 20px;
       background: #eee;
+    }
+
+    .carousel-indicators li { 
+        background-color: #bbb;
+        border-color: #aaa;
+    }
+    .carousel-indicators .active {
+        background-color: #ccc;
+        border-color: #bbb;
     }
 
     .toc { 

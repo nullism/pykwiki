@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{% block title %}Recent{% endblock %}
+{% block content %}
+<script>
+var info_data = null;
+var page_list = [];
+var page_tpl = null;
+
+function display_page(fname) {
+    var page = info_data['info'][fname];
+    var html = page_tpl({'pg':page});
+    $('#pages').append(html);
+}
+
+function display_pages(sort_key, reverse) {
+    if(reverse) { 
+        page_list.sort(function(a, b) { 
+            return b[sort_key] - a[sort_key];
+        });        
+
+    } else { 
+        page_list.sort(function(a, b) { 
+            return a[sort_key] - b[sort_key];
+        });        
+    }
+    
+    for(var i in page_list) { 
+        display_page(page_list[i].page);
+    }
+}
+
+function info_data_cb(data) { 
+    info_data = data;
+    for(var k in data['info']) {
+        data['info'][k]['page'] = k;
+        page_list.push(data['info'][k]);
+    }
+    page_tpl = Mustache.compile($('#page_tpl').html());
+    display_pages('mtime', true);   
+}
+
+$(document).ready(function() { 
+    $.get('{{conf.web_prefix}}/{{conf.page_data_file}}',
+        function(data) { 
+            if(data) {
+                info_data_cb(data);                
+            }
+        }
+    ,"json");
+});
+</script>
+
+<div id="pages"></div>
+
+{% include 'jstemplates.html' %}
+{% endblock %}

@@ -58,7 +58,8 @@ class Config(object):
         'keywords':'example, pykwiki'
     }
     page_tpl = 'page.html'
-    pages_tpl = 'pages.html'
+    search_tpl = 'search.html'
+    pagelist_tpl = 'pagelist.html'
     menu_tpl = 'menu.html'
     source_ext = '.md'
     target_ext = '.html'
@@ -67,6 +68,7 @@ class Config(object):
     timestamp_format = '%Y-%m-%d %H:%M'
     date_format = '%Y-%m-%d'
     index_file = 'idx.json'
+    page_data_file = 'pages.json'
     stop_words = ['the','and']
     markdown_exts = [
         'codehilite','toc',
@@ -238,9 +240,14 @@ class PageController(object):
 
         conf.logger.info('Caching theme files')
 
-        # Page Listing / Search
-        html = render_theme_template(conf.pages_tpl)
-        out = os.path.join(conf.target_path, conf.pages_tpl)
+        # Page Search
+        html = render_theme_template(conf.search_tpl)
+        out = os.path.join(conf.target_path, conf.search_tpl)
+        u_write(out, html)
+
+        # Page Listing 
+        html = render_theme_template(conf.pagelist_tpl)
+        out = os.path.join(conf.target_path, conf.pagelist_tpl)
         u_write(out, html)
 
         # Home page
@@ -353,9 +360,14 @@ class PageController(object):
                 continue
             ids[this_id] = pg.target_fname
             info[pg.target_fname] = dict(
-                title=pg.conf.get('title'),
+                title=pg.title,
                 blurb=pg.blurb,
-                mepoch=int(pg.mtime)
+                url=pg.url,
+                mtime=int(pg.mtime),
+                mtimestamp=pg.mtimestamp,
+                mtime_string=pg.mtime_string,
+                mdate_string=pg.mdate_string,
+                author=pg.author,
             )
 
             # Tags
@@ -369,7 +381,7 @@ class PageController(object):
 
             # Search Index
             if search_index:
-                s_text = '%s %s'%(pg.conf.get('title',''), pg.source_text)
+                s_text = '%s %s'%(pg.conf.get('title','')*10, pg.source_text)
                 s_text = s_text.replace("'",'').lower()
                 s_text = re.sub('[^a-z0-9\-\ ]', ' ', s_text)
                 for word in s_text.split():
@@ -393,16 +405,22 @@ class PageController(object):
         self.index_data = {
             'ids':ids, 
             'index':data, 
-            'info':info, 
             'tags':tags,
             'updated':int(time.time()),
         }
 
+        page_info = {
+            'info':info,
+            'ids':ids,
+        }
+            
+        page_info_path = os.path.join(conf.target_path, conf.page_data_file)
+        conf.logger.info('Writing page info to %s'%(page_info_path))
+        u_write(page_info_path, json.dumps(page_info))
+        
         index_path = os.path.join(conf.target_path, conf.index_file)
         conf.logger.info('Writing search index to %s'%(index_path))
-        fh = open(index_path, 'w')
-        json.dump(self.index_data, fh)
-        fh.close()
+        u_write(index_path, json.dumps(self.index_data))
         
     def get_pages(self, sort_key='mtime', private=False, direction='desc', 
             filters=None, limit=0):
@@ -557,7 +575,7 @@ class Page(object):
         if self.conf.get('author'):
             self._author = self.conf['author']
             return self._author
-        self._author = conf.site_author
+        self._author = conf.site.get('author', 'Nobody')
         return self._author
 
     @property

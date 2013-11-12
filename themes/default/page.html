@@ -8,7 +8,7 @@
 <p>
 {% for t in page.tags %}
     <a  class="label label-default"
-        href="/{{conf.pages_tpl}}?t={{t}}">{{t}}</a>
+        href="/{{conf.search_tpl}}?t={{t}}">{{t}}</a>
 {% endfor %}
 </p>
 {{page.target_text|safe}}
