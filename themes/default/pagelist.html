@@ -38,8 +38,10 @@ function info_data_cb(data) {
     page_tpl = Mustache.compile($('#page_tpl').html());
     display_pages('mtime', true);   
 }
-
+ 
 $(document).ready(function() { 
+    $('.toc').hide();
+    /*
     $.get('{{conf.web_prefix}}/{{conf.page_data_file}}',
         function(data) { 
             if(data) {
@@ -47,10 +49,29 @@ $(document).ready(function() {
             }
         }
     ,"json");
+    */
 });
+
 </script>
 
-<div id="pages"></div>
+{% for pg in ctrl.get_pages(sort_key='mtime', limit=5, direction='desc') %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div>
+                <a href="{{pg.url}}">{{pg.title}}</a>
+                <span class="pull-right text-muted">{{pg.mdate_string}}</span>
+            </div>
+        </div>
+        <div class="panel-body">
+        <div class="htmltruncate-md">
+            {{pg.target_text|safe}}
+            <div class="htmltruncate-bottom"></div>
+        </div>
+        <a href="{{pg.url}}" class="btn btn-default">...</a>
+        </div>
+
+    </div>
+{% endfor %}
 
 {% include 'jstemplates.html' %}
 {% endblock %}

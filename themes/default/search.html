@@ -5,6 +5,7 @@
 var idx = null;
 var page_data = null;
 var shown_ids = [];
+var page_tpl = null;
 
 function clear_pages() { 
     shown_ids = [];
@@ -48,20 +49,8 @@ function list_page_by_id(id) {
     }
     shown_ids.push(id);
     var page = page_data.info[file];
-    page.dt = new Date(page.mtime * 1000);
-    var el_d = $('<div></div>');
-    var el_h = $('<h3></h3>');
-    var el_t = $('<small></small>');
-    var el_p = $('<p></p>');
-    el_h.html('<a href="/'+file+'">'+page.title+'</a>');
-    el_t.addClass('pull-right');
-    el_t.addClass('text-muted');
-    el_t.html(page.dt.toDateString());
-    el_h.append(el_t);
-    el_p.html(page.blurb);
-    el_d.append(el_h);
-    el_d.append(el_p);
-    $('#pages').append(el_d);
+    html = page_tpl({'pg':page});
+    $('#pages').append(html);
 }
 
 function list_pages_by_tag(tag) { 
@@ -111,6 +100,7 @@ function page_data_cb(data) {
     $('#pages').html('Search index loaded');
     $('#taglist').show('fast');
     page_data = data;
+    page_tpl = Mustache.compile($('#search_result_tpl').html());
     var q = get_param('q');
     if(q) { 
         list_pages_by_query(q);

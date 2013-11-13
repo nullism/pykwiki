@@ -58,6 +58,7 @@ class Config(object):
         'keywords':'example, pykwiki'
     }
     page_tpl = 'page.html'
+    docroot_index = 'index.html'
     search_tpl = 'search.html'
     pagelist_tpl = 'pagelist.html'
     menu_tpl = 'menu.html'
@@ -252,15 +253,21 @@ class PageController(object):
 
         # Home page
         home_page = conf.home_page
-        if not home_page.endswith(conf.source_ext):
-            home_page = home_page + conf.source_ext 
-        home_page_path = os.path.join(conf.source_path, home_page)
-        if os.path.exists(home_page_path):
-            conf.logger.info('Writing %s as home page (index.html)'%(home_page))
-            pg = Page(home_page)
-            html = render_theme_template(conf.page_tpl, page=pg)
-            out = os.path.join(conf.target_path, 'index.html')
-            u_write(out, html)
+        if home_page in [conf.pagelist_tpl, conf.search_tpl]:
+            html = render_theme_template(home_page)
+            out = os.path.join(conf.target_path, conf.docroot_index)
+            u_write(out, html) 
+        else:
+            if not home_page.endswith(conf.source_ext):
+                home_page = home_page + conf.source_ext 
+            home_page_path = os.path.join(conf.source_path, home_page)
+            if os.path.exists(home_page_path):
+                conf.logger.info('Writing %s as home page (%s)'\
+                    %(home_page, conf.docroot_index))
+                pg = Page(home_page)
+                html = render_theme_template(conf.page_tpl, page=pg)
+                out = os.path.join(conf.target_path, conf.docroot_index)
+                u_write(out, html)
 
         # Static files
         stat_src = os.path.join(conf.theme_path, 'static/')
@@ -307,14 +314,15 @@ class PageController(object):
                 key = d.keys()[0]
                 new_d = d[key]
                 new_d['label'] = key
+                new_d['rel'] = 'internal'
                 if new_d.get('page'):
                     if not new_d['page'].endswith(conf.source_ext):
                         new_d['page'] = new_d['page'] + conf.source_ext
                     new_d['href'] = conf.web_prefix + '/' +\
                         new_d['page'].replace(conf.source_ext, conf.target_ext)
-                    new_d['rel'] = 'internal'
                 else:
-                    new_d['rel'] = 'external'
+                    if new_d.get('href') and '://' in new_d['href']:
+                        new_d['rel'] = 'external'
 
                 if new_d.get('children'):
                     new_d['children'] = get_clean_links(new_d['children'])
@@ -381,7 +389,7 @@ class PageController(object):
 
             # Search Index
             if search_index:
-                s_text = '%s %s'%(pg.conf.get('title','')*10, pg.source_text)
+                s_text = '%s %s'%((pg.conf.get('title','')+' ')*10, pg.source_text)
                 s_text = s_text.replace("'",'').lower()
                 s_text = re.sub('[^a-z0-9\-\ ]', ' ', s_text)
                 for word in s_text.split():
@@ -586,8 +594,9 @@ class Page(object):
 
         m = conf.page_conf_re.search(self.source_text)
         if not m:
-            conf.logger.warning('No page config specified') 
-            return
+            conf.logger.warning('No page config specified')
+            self._conf = {} 
+            return {}
         
         try:
             self._conf = yaml.load(m.group(1))

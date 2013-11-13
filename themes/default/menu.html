@@ -1,25 +1,3 @@
-{% macro link(l) %}
-    {% if l.children %}
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" 
-                data-toggle="dropdown">{{l.label}} <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-        {% for l2 in l.children %}
-            {{ link(l2) }}
-        {% endfor %}
-        </ul>
-        </li>
-    {% else %}
-        <li>
-        {% if l.href %}
-            <a href="{{l.href}}" 
-                {% if l.target %}target="{{l.target}}"{% endif %}>{{l.label}}</a>
-        {% else %}
-            <b>{{l.label}}</b>            
-        {% endif %}       
-        </li>
-    {% endif %}
-{%- endmacro %}
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
     <div class="navbar-header">
