@@ -594,8 +594,8 @@ class Page(object):
 
         m = conf.page_conf_re.search(self.source_text)
         if not m:
-            conf.logger.warning('No page config specified')
-            self._conf = {} 
+            conf.logger.warning('No page config specified for %s'%(self.source_fname))
+            self._conf = {'foo':True}
             return {}
         
         try:
@@ -666,8 +666,8 @@ class Page(object):
         if self._mtime:
             return self._mtime
 
-        if self.conf.get('modified'):
-            self._mtime = time.mktime(time.strptime(self.conf['modified'], conf.timestamp_format))
+        if self.conf.get('timestamp'):
+            self._mtime = time.mktime(time.strptime(self.conf['timestamp'], conf.timestamp_format))
             return self._mtime
             
         self._mtime = self.source_mtime

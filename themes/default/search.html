@@ -148,7 +148,7 @@ $(document).ready(function() {
 <div class="col-sm-9">
     <div id="taglist" style="display:none;">
     {% for t in ctrl.tags %}
-        <a class="label label-default" href="#" onclick="list_pages_by_tag('{{t|e}}'); return false;">{{t}}</a>
+        <a class="label label-default" href="#" onclick="list_pages_by_tag('{{t|e}}'); return false;">{{t}} <b class="glyphicon glyphicon-tag"></b></a>
     {% endfor %}
     </div>
     <h2 id="results">Results</h2>

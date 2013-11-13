@@ -1,8 +1,7 @@
 #!/usr/bin/env python
-from distutils.core import setup
+from setuptools import setup, find_packages
 import os
 import sys
-import os
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(__file__))
@@ -22,7 +21,7 @@ A pure-python, light-weight, static wiki, blog, website engine designed for spee
     package_data={'pykwiki':['data/*.zip']},
     url = 'http://pykwiki.nullism.com',
     license = 'MIT',
-    requires = ['markdown (>=2.3)', 'jinja2 (>=2.6)', 'pyyaml (>=3.0)'],
+    install_requires = ['markdown>=2.3', 'jinja2>=2.6', 'pyyaml>=3.0'],
     provides = ['pykwiki']
 )
 
