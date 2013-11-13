@@ -3,6 +3,7 @@
 {% block content %}
 <script>
 var idx = null;
+var page_data = null;
 var shown_ids = [];
 
 function clear_pages() { 
@@ -46,7 +47,7 @@ function list_page_by_id(id) {
         return false;
     }
     shown_ids.push(id);
-    var page = idx.info[file];
+    var page = page_data.info[file];
     var el_d = $('<div></div>');
     var el_h = $('<h2></h2>');
     var el_p = $('<p></p>');
@@ -88,9 +89,22 @@ function list_pages_by_query(search) {
     }
 }
 
+// Called after search index is loaded
 function start_callback(data) { 
-    $('#pages').html('Search index loaded');
     idx = data;
+    $.get('/{{conf.page_data_file}}',
+        function(data) { 
+            if(data) {
+                start_callbacki2(data);                
+            }
+        }
+    ,"json");
+}
+
+// Called after page info is loaded
+function start_callback2(data) { 
+    $('#pages').html('Search index loaded');
+    page_data = data;
     var q = get_param('q');
     if(q) { 
         list_pages_by_query(q);

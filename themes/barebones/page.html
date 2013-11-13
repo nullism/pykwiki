@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% block title %}{{page.title}}{% endblock %}
+{% block content %}
+<p>
+{% for t in page.tags %}
+    <a href="/{{conf.search_tpl}}?t={{t}}">{{t}}</a>
+{% endfor %}
+</p>
+{{page.target_text|safe}}
+{% endblock %}

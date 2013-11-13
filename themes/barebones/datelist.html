@@ -1,0 +1,11 @@
+<ul>
+{% for pd in ctrl.page_dates %}
+    <li>{{pd}}
+        <ul>
+    {% for p in ctrl.get_pages(filters=[['mdate_string','==',pd]], sort_key='title', direction='asc') %}
+        <li><a href="{{p.url}}">{{p.title}}</a></li>
+    {% endfor %}
+        </ul>
+    </li>
+{% endfor %}
+</ul>

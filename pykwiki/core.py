@@ -565,7 +565,7 @@ class Page(object):
             try:
                 conf.logger.info('Making directory: %s'%(full_dir))
                 os.makedirs(full_dir)
-            except(Exception),e:
+            except Exception as e:
                 raise Exception('Cannot create directory: %s'%(full_dir))
 
 
@@ -601,7 +601,7 @@ class Page(object):
         try:
             self._conf = yaml.load(m.group(1))
             self._source_text = self.source_text.replace(m.group(0), '')
-        except(Exception),e:
+        except Exception as e:
             conf.logger.exception('Invalid page configuration found!')
         
         return self._conf

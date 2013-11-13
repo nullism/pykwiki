@@ -8,7 +8,6 @@ import time
 pyk_dir = os.path.dirname(os.path.realpath(__file__))
 pyk_dir = os.path.join(pyk_dir, '../../')
 sys.path.append(pyk_dir)
-print pyk_dir
 import pykwiki.core
 
 logger = logging.getLogger(__name__)
