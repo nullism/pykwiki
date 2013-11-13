@@ -4,6 +4,7 @@ import sys
 import argparse
 import logging
 import time
+import zipfile
 
 pyk_dir = os.path.dirname(os.path.realpath(__file__))
 pyk_dir = os.path.join(pyk_dir, '../../')
@@ -32,6 +33,14 @@ def command_new(args):
     conf.save()
     
     # Unpack project zipfile
+    zip_path = os.path.join(os.path.split(pykwiki.core.__file__)[0], 
+        'data', 'default.zip')
+    if not os.path.exists(zip_path):
+        raise Exception('default.zip not found! [%s]'%(zip_path))
+
+    logger.info('Extracting default.zip to %s/'%(new_path))
+    zf = zipfile.ZipFile(zip_path, 'r')
+    zf.extractall(new_path)
     
     return True
 
