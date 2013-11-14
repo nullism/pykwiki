@@ -8,7 +8,7 @@ import zipfile
 
 pyk_dir = os.path.dirname(os.path.realpath(__file__))
 pyk_dir = os.path.join(pyk_dir, '../../')
-sys.path.append(pyk_dir)
+sys.path.insert(0,pyk_dir)
 import pykwiki.core
 
 logger = logging.getLogger(__name__)

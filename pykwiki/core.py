@@ -21,7 +21,8 @@ def render_theme_template(f, **kwargs):
     env = set_jinja_filters(env)
     tpl = env.get_template(f)
     return tpl.render(conf=conf, ctrl=ctrl,
-        topt=ctrl.theme_options, **kwargs)
+        topt=ctrl.theme_options, sopt=ctrl.social_options,
+        **kwargs)
 
 def render_text(text, **kwargs):
     env = set_jinja_filters(jinja2.Environment())
@@ -194,6 +195,7 @@ class PageController(object):
     _source_files = []
     _theme_menu = None
     _theme_options = None
+    _social_options = None
     index_data = {}
 
     def __init__(self):
@@ -276,6 +278,18 @@ class PageController(object):
             if os.path.exists(stat_dest):
                 shutil.rmtree(stat_dest)
             shutil.copytree(stat_src, stat_dest)
+
+    @property
+    def social_options(self):
+        if self._social_options:
+            return self._social_options
+        opt_path = os.path.join(conf.base_path, 'social.yaml')
+        if os.path.exists(opt_path):
+            data = u_read(opt_path)
+            self._social_options = yaml.load(data)
+            return self._theme_options
+
+        return {}
 
     @property
     def theme_options(self):
