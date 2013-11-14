@@ -126,6 +126,16 @@ if __name__ == "__main__":
     parser_cache.add_argument('-n', '--no-index', action='store_true',
         help='skip rebuilding to search index')
 
+    
+    # --------------------------------------------------------------------------
+    # Info subgroup
+    # --------------------------------------------------------------------------
+    parser_info = subparsers.add_parser('info', 
+        help='display PyKwiki information')
+    parser_info.add_argument('-v', '--version', action='store_true',
+        help='display PyKwiki version and exit')
+    parser_info.add_argument('-l', '--license', action='store_true',
+        help='display license information')
 
     
     args = parser.parse_args()
@@ -151,6 +161,20 @@ if __name__ == "__main__":
         command_cache(args)
         if not args.no_index:
             command_index(args)
+
+    # --------------------------------------------------------------------------
+    # Display info and exit
+    # --------------------------------------------------------------------------
+    elif args.command == 'info':
+        import pykwiki
+        if args.version:
+            print('PyKwiki version: %s'%(pykwiki.__version__))
+            sys.exit(0)
+        print('Installed in %s'%(pykwiki.__file__))
+        print('Version: %s'%(pykwiki.__version__))
+        if args.license:
+            print('License: %s'%(pykwiki.__license__))
+        sys.exit(0)
 
     taken = time.time() - stime
     logger.info('='*40)
