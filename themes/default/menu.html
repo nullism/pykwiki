@@ -19,7 +19,9 @@
             <ul class="dropdown-menu">
             {% for l2 in l.children %}
                 <li>
-                {% if l2.rel == 'external' %}
+                {% if not l2.href %}
+                    <p class="link_section navbar-text">{{l2.label}}</p>
+                {% elif l2.rel == 'external' %}
                     <a href="{{l2.href}}" target="{{l.get('target','_blank')}}">
                         {{l2.label}}
                         <span class="glyphicon glyphicon-new-window"></span>

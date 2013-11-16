@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block meta %}
     {% endblock %}
     <title>{% block title %}Stuff{% endblock %} | {{conf.site.title}}</title>
@@ -42,13 +43,10 @@
         margin-left: 10px;
     }
 
-    .carousel-indicators li { 
-        background-color: #bbb;
-        border-color: #aaa;
-    }
-    .carousel-indicators .active {
-        background-color: #ccc;
-        border-color: #bbb;
+    .link_section {
+        padding: 3px;
+        margin: 0px; 
+        font-weight: bold;
     }
 
     .toc { 

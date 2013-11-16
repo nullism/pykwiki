@@ -329,6 +329,9 @@ class PageController(object):
         def get_clean_links(dlist):
             ll = []
             for d in dlist:
+                if not isinstance(d, dict):
+                    ll.append({'label':d})
+                    continue
                 key = d.keys()[0]
                 new_d = d[key]
                 new_d['label'] = key
