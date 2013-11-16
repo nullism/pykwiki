@@ -51,14 +51,23 @@ def command_cache(args):
     plist = None
     if args.pages:
         plist = args.pages
+
     force = False
     if args.force:
-        os.utime(conf.link_path, None)
         force = True
 
-    ctrl.cache_pages(plist, force=force)
+    if not os.path.exists(conf.link_json_path) \
+            or (os.path.getmtime(conf.link_path) \
+            > os.path.getmtime(conf.link_json_path)):
+        force = True
+    logger.info('Caching source pages...')
+    num_cached = ctrl.cache_pages(plist, force=force)
     logger.info('='*40)
-    ctrl.cache_theme() 
+    if num_cached > 0:
+        ctrl.cache_theme() 
+    else: 
+        logger.info('No pages modified, not caching theme')
+
     logger.info('='*40)
     ctrl.cache_uploads()  
     return True

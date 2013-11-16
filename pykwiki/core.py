@@ -202,6 +202,7 @@ class PageController(object):
         pass
  
     def cache_pages(self, plist=None, force=False):
+        cached = 0;
         if not plist:
             plist = self.source_files
 
@@ -210,7 +211,10 @@ class PageController(object):
             if not force:
                 if pg.source_mtime <= pg.target_mtime:
                     continue
+            cached += 1
             pg.save()
+
+        return cached
 
     def cache_uploads(self):
         if not os.path.exists(conf.upload_path):
