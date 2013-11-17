@@ -139,7 +139,7 @@ class Config(object):
 
     @property
     def theme_path(self):
-        return os.path.join(self.base_path, self.theme_dir, self.theme)
+        return os.path.join(self.base_path, self.theme_dir, self.theme.lower())
 
     @property
     def source_path(self):
