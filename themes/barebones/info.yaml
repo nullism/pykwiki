@@ -1,8 +1,0 @@
-name: barebones
-description: The barebones theme is light weight and designed to be used
-    as a base theme for development. It does not include CSS, but should
-    validate as HTML5.
-version: 1.0
-author: Aaron Meier
-author_email: webgovernor@gmail.com
-license: MIT
