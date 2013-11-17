@@ -1,5 +1,5 @@
-#!/usr/bin/env python2
-import os
+#!/usr/bin/env python
+import os, glob
 import sys
 import argparse
 import logging
@@ -45,7 +45,9 @@ def install_theme(name):
     
 def theme_zip_files():
     data_dir = os.path.join(os.path.split(pykwiki.core.__file__)[0], 'data')
-    return []
+    pattern = os.path.join(data_dir, 'theme-*.zip')
+    theme_files = glob.glob(pattern)
+    return theme_files
 
 def command_theme(args):
     theme_zips = theme_zip_files()
@@ -55,7 +57,7 @@ def command_theme(args):
         if args.theme_name.lower() == 'all':
             logger.info('Installing all themes...')
             for tz in theme_zips:
-                name = tz.replace('theme-','').replace('.zip','')
+                name = os.path.basename(tz).replace('theme-','').replace('.zip','')
                 install_theme(name)
         else:
             install_theme(args.theme_name)
