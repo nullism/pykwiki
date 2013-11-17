@@ -18,6 +18,49 @@ logger.addHandler(logging.StreamHandler())
 conf = pykwiki.core.conf
 ctrl = pykwiki.core.ctrl
 
+def install_theme(name):
+    ''' Install a theme '''
+
+    target_path = os.path.join(conf.base_path, conf.theme_dir)
+
+    name = name.lower()
+
+    if not name.startswith('theme-'):
+        name = 'theme-%s'%(name)
+
+    if not name.endswith('.zip'):
+        name = '%s.zip'%(name)
+
+    zip_path = os.path.join(os.path.split(pykwiki.core.__file__)[0], 
+        'data', name)
+
+    if not os.path.exists(zip_path):
+        raise Exception('Cannot find theme file! [%s]'%(zip_path))
+
+    logger.info('Installing theme %s to %s/'%(name, target_path))
+    zf = zipfile.ZipFile(zip_path, 'r')
+    zf.extractall(target_path)
+
+    return True
+    
+def theme_zip_files():
+    data_dir = os.path.join(os.path.split(pykwiki.core.__file__)[0], 'data')
+    return []
+
+def command_theme(args):
+    theme_zips = theme_zip_files()
+    logger.info('='*40)
+
+    if args.theme_command == 'install':
+        if args.theme_name.lower() == 'all':
+            logger.info('Installing all themes...')
+            for tz in theme_zips:
+                name = tz.replace('theme-','').replace('.zip','')
+                install_theme(name)
+        else:
+            install_theme(args.theme_name)
+            
+
 def command_new(args):
     ''' Create a new project in args.base_path '''
 
@@ -34,14 +77,17 @@ def command_new(args):
     
     # Unpack project zipfile
     zip_path = os.path.join(os.path.split(pykwiki.core.__file__)[0], 
-        'data', 'default.zip')
+        'data', 'base.zip')
     if not os.path.exists(zip_path):
-        raise Exception('default.zip not found! [%s]'%(zip_path))
+        raise Exception('Cannot locate base zip! [%s]'%(zip_path))
 
-    logger.info('Extracting default.zip to %s/'%(new_path))
+    logger.info('Installing default files to %s/'%(new_path))
     zf = zipfile.ZipFile(zip_path, 'r')
     zf.extractall(new_path)
     
+    # Install default theme
+    install_theme('default')
+
     return True
 
 def command_cache(args):
@@ -146,7 +192,16 @@ if __name__ == "__main__":
     parser_info.add_argument('-l', '--license', action='store_true',
         help='display license information')
 
-    
+   
+    # --------------------------------------------------------------------------
+    # Theme subgroup 
+    # --------------------------------------------------------------------------
+    parser_theme = subparsers.add_parser('theme',
+        help='control built-in themes')
+    parser_theme.add_argument('theme_command', choices=['install', 'info'])
+    parser_theme.add_argument('theme_name', 
+        help='the name of the theme to operate on, or "all"')
+ 
     args = parser.parse_args()
 
     # --------------------------------------------------------------------------
@@ -184,6 +239,13 @@ if __name__ == "__main__":
         if args.license:
             print('License: %s'%(pykwiki.__license__))
         sys.exit(0)
+
+    # --------------------------------------------------------------------------
+    # Do stuff with themes
+    # --------------------------------------------------------------------------
+    elif args.command == 'theme':
+        load_config(args)
+        command_theme(args)
 
     taken = time.time() - stime
     logger.info('='*40)
