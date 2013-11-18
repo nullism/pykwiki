@@ -62,6 +62,7 @@ class Config(object):
     docroot_index = 'index.html'
     search_tpl = 'search.html'
     pagelist_tpl = 'pagelist.html'
+    e404_tpl = '404.html'
     menu_tpl = 'menu.html'
     source_ext = '.md'
     target_ext = '.html'
@@ -246,6 +247,11 @@ class PageController(object):
         ''' Cache specific theme files '''
 
         conf.logger.info('Caching theme files')
+
+        # Page 404
+        html = render_theme_template(conf.e404_tpl)
+        out = os.path.join(conf.target_path, conf.e404_tpl)
+        u_write(out, html)
 
         # Page Search
         html = render_theme_template(conf.search_tpl)
