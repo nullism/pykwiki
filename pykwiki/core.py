@@ -58,10 +58,18 @@ class Config(object):
         'author':'Example Author',
         'keywords':'example, pykwiki'
     }
+    pagelist = {
+        'per_page':2,
+        'post_type':'preview', #blurb, full, preview
+        'max_pages':5,
+        'order_field':'mtime',
+        'order_type':'descending',
+    }
     page_tpl = 'page.html'
     docroot_index = 'index.html'
     search_tpl = 'search.html'
     pagelist_tpl = 'pagelist.html'
+    posts_tpl = 'posts.html'
     e404_tpl = '404.html'
     menu_tpl = 'menu.html'
     source_ext = '.md'
@@ -94,6 +102,7 @@ class Config(object):
         'date_format',
         'timestamp_format',
         'source_ext',
+        'pagelist',
     ]
 
     def __init__(self):
@@ -243,6 +252,45 @@ class PageController(object):
         return True
          
 
+    def cache_pagelist(self):
+
+        order_field = conf.pagelist['order_field']
+        order_type = conf.pagelist['order_type']
+        max_pages = conf.pagelist['max_pages']
+        per_page = conf.pagelist['per_page']
+        post_type = conf.pagelist['post_type']
+        
+        pages = self.get_pages(sort_key=order_field, private=False, 
+            direction=order_type, filters=None, limit=(max_pages*per_page))
+   
+        post_count = len(pages)
+        if post_count > max_pages * per_page:
+            post_count = max_pages * per_page
+        page_count = post_count / per_page
+
+        for page_num in xrange(1, max_pages+1):
+            if len(pages) < 1:
+                break
+            this_pages = []
+            for i in range(per_page):
+                if len(pages) < 1:
+                    break
+                this_pages.append(pages.pop(0))
+
+            html = render_theme_template(conf.pagelist_tpl, 
+                this_page_num=page_num, pages=this_pages,
+                page_count=page_count, post_count=post_count, 
+                post_type=post_type)
+            out = os.path.join(conf.target_path, 'pagelist-%s.html'%(page_num))
+            u_write(out, html)
+
+        html = render_theme_template(conf.posts_tpl,
+            page_count=page_count, post_count=post_count, 
+            post_type=post_type)
+        out = os.path.join(conf.target_path, conf.posts_tpl)
+        u_write(out, html)
+
+
     def cache_theme(self):
         ''' Cache specific theme files '''
 
@@ -259,13 +307,14 @@ class PageController(object):
         u_write(out, html)
 
         # Page Listing 
-        html = render_theme_template(conf.pagelist_tpl)
-        out = os.path.join(conf.target_path, conf.pagelist_tpl)
-        u_write(out, html)
+        self.cache_pagelist()
+        #html = render_theme_template(conf.posts_tpl)
+        #out = os.path.join(conf.target_path, conf.posts_tpl)
+        #u_write(out, html)
 
         # Home page
         home_page = conf.home_page
-        if home_page in [conf.pagelist_tpl, conf.search_tpl]:
+        if home_page in [conf.posts_tpl, conf.search_tpl]:
             html = render_theme_template(home_page)
             out = os.path.join(conf.target_path, conf.docroot_index)
             u_write(out, html) 

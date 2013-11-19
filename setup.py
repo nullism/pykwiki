@@ -11,7 +11,8 @@ setup(name='pykwiki',
     version = __version__,
     description = 'A simple pure-python wiki engine.',
     long_description = '''
-A pure-python, light-weight, static wiki, blog, website engine designed for speed. 
+A pure-python, light-weight, static wiki, blog, and website engine designed to be
+fast to setup, secure, and to handle lots of web traffic.
     ''',
     author = 'Aaron Meier',
     author_email = 'webgovernor@gmail.com',
