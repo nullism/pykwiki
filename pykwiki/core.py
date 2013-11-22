@@ -9,6 +9,7 @@ import json
 import codecs
 import shutil
 import time
+import math
 
 def set_jinja_filters(env):
     import jinja_filters
@@ -266,7 +267,7 @@ class PostController(object):
         post_count = len(posts)
         if post_count > max_pages * per_page:
             post_count = max_pages * per_page
-        page_count = post_count / per_page
+        page_count = int(math.ceil(float(post_count) / float(per_page)))
 
         for page_num in xrange(1, max_pages+1):
             if len(posts) < 1:
