@@ -93,38 +93,45 @@ def command_new(args):
     return True
 
 def command_cache(args):
-    ''' Cache one or more pages '''
+    ''' Cache one or more posts '''
 
     logger.info('='*40)
     plist = None
-    if args.pages:
-        plist = args.pages
+    if args.posts:
+        plist = args.posts
 
     force = False
     if args.force:
         force = True
 
+    if args.quick:
+        logger.info('Doing quick caching (skipping theme and index)')
+        ctrl.cache_posts(plist, force=force)
+        return True
+
     if not os.path.exists(conf.link_json_path) \
             or (os.path.getmtime(conf.link_path) \
             > os.path.getmtime(conf.link_json_path)):
         force = True
-    logger.info('Caching source pages...')
-    num_cached = ctrl.cache_pages(plist, force=force)
+    logger.info('Caching source posts...')
+    num_cached = ctrl.cache_posts(plist, force=force)
     logger.info('='*40)
     if num_cached > 0:
         ctrl.cache_theme() 
     else: 
-        logger.info('No pages modified, not caching theme')
+        logger.info('No posts modified, not caching theme')
 
     logger.info('='*40)
-    ctrl.cache_uploads()  
+    ctrl.cache_uploads() 
+    logger.info('='*40)
+    command_index(args) 
     return True
 
 def command_index(args):
     ''' Rebuild the search index '''
 
     logger.info('='*40)
-    ctrl.index_pages()
+    ctrl.index_posts()
     return True
 
 def load_config(args):
@@ -175,13 +182,13 @@ if __name__ == "__main__":
     # Cache subgroup
     # --------------------------------------------------------------------------
     parser_cache = subparsers.add_parser('cache',
-        help='cache and index pages')
-    parser_cache.add_argument('-p', '--pages', nargs='+', type=str,
-        help='a list of source pages to cache, like page1.md page2.md ...')
+        help='cache and index posts')
+    parser_cache.add_argument('-p', '--posts', nargs='+', type=str,
+        help='a list of source posts to cache, like post1.md post2.md ...')
     parser_cache.add_argument('-f', '--force', action='store_true',
         help='force cache even if file has not been modified')
-    parser_cache.add_argument('-n', '--no-index', action='store_true',
-        help='skip rebuilding to search index')
+    parser_cache.add_argument('-q', '--quick', action='store_true',
+        help='Skip theme files, pagelist, and search index')
 
     
     # --------------------------------------------------------------------------
@@ -213,20 +220,19 @@ if __name__ == "__main__":
         command_new(args)
 
     # --------------------------------------------------------------------------
-    # Index pages
+    # Index posts
     # --------------------------------------------------------------------------
     elif args.command == 'index':
         load_config(args)
         command_index(args)
 
     # --------------------------------------------------------------------------
-    # Cache pages        
+    # Cache posts        
     # --------------------------------------------------------------------------
     elif args.command == 'cache':
         load_config(args)
         command_cache(args)
-        if not args.no_index:
-            command_index(args)
+
 
     # --------------------------------------------------------------------------
     # Display info and exit

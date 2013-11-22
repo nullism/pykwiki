@@ -1,5 +1,5 @@
 import markdown
-from pykwiki.core import conf, Page
+from pykwiki.core import conf
 import yaml
 import jinja2
 import re

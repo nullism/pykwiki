@@ -58,17 +58,17 @@ class Config(object):
         'author':'Example Author',
         'keywords':'example, pykwiki'
     }
-    pagelist = {
+    postlist = {
         'per_page':2,
         'post_type':'preview', #blurb, full, preview
         'max_pages':5,
         'order_field':'mtime',
         'order_type':'descending',
     }
-    page_tpl = 'page.html'
+    post_tpl = 'post.html'
     docroot_index = 'index.html'
     search_tpl = 'search.html'
-    pagelist_tpl = 'pagelist.html'
+    postlist_tpl = 'postlist.html'
     posts_tpl = 'posts.html'
     e404_tpl = '404.html'
     menu_tpl = 'menu.html'
@@ -79,14 +79,14 @@ class Config(object):
     timestamp_format = '%Y-%m-%d %H:%M'
     date_format = '%Y-%m-%d'
     index_file = 'idx.json'
-    page_data_file = 'pages.json'
+    post_data_file = 'posts.json'
     stop_words = ['the','and']
     markdown_exts = [
         'codehilite','toc',
         'pykwiki.ext.tpl',
-        'pykwiki.ext.page',
+        'pykwiki.ext.post',
     ]
-    page_conf_re = re.compile('\[\[(.*?)\]\]', re.DOTALL)
+    post_conf_re = re.compile('\[\[(.*?)\]\]', re.DOTALL)
     blurb_max = 50
     home_page = 'index'
 
@@ -102,7 +102,7 @@ class Config(object):
         'date_format',
         'timestamp_format',
         'source_ext',
-        'pagelist',
+        'postlist',
     ]
 
     def __init__(self):
@@ -199,9 +199,9 @@ class Config(object):
         
  
 
-class PageController(object):
+class PostController(object):
      
-    _pages = []
+    _posts = []
     _source_files = []
     _theme_menu = None
     _theme_options = None
@@ -211,13 +211,13 @@ class PageController(object):
     def __init__(self):
         pass
  
-    def cache_pages(self, plist=None, force=False):
+    def cache_posts(self, plist=None, force=False):
         cached = 0;
         if not plist:
             plist = self.source_files
 
         for pf in plist:
-            pg = Page(pf)
+            pg = Post(pf)
             if not force:
                 if pg.source_mtime <= pg.target_mtime:
                     continue
@@ -252,41 +252,41 @@ class PageController(object):
         return True
          
 
-    def cache_pagelist(self):
+    def cache_postlist(self):
 
-        order_field = conf.pagelist['order_field']
-        order_type = conf.pagelist['order_type']
-        max_pages = conf.pagelist['max_pages']
-        per_page = conf.pagelist['per_page']
-        post_type = conf.pagelist['post_type']
+        order_field = conf.postlist['order_field']
+        order_type = conf.postlist['order_type']
+        max_pages = conf.postlist['max_pages']
+        per_page = conf.postlist['per_page']
+        post_type = conf.postlist['post_type']
         
-        pages = self.get_pages(sort_key=order_field, private=False, 
+        posts = self.get_posts(sort_key=order_field, private=False, 
             direction=order_type, filters=None, limit=(max_pages*per_page))
    
-        post_count = len(pages)
+        post_count = len(posts)
         if post_count > max_pages * per_page:
             post_count = max_pages * per_page
         page_count = post_count / per_page
 
         for page_num in xrange(1, max_pages+1):
-            if len(pages) < 1:
+            if len(posts) < 1:
                 break
-            this_pages = []
+            this_posts = []
             for i in range(per_page):
-                if len(pages) < 1:
+                if len(posts) < 1:
                     break
-                this_pages.append(pages.pop(0))
+                this_posts.append(posts.pop(0))
 
-            html = render_theme_template(conf.pagelist_tpl, 
-                this_page_num=page_num, pages=this_pages,
+            html = render_theme_template(conf.postlist_tpl, 
+                this_page_num=page_num, posts=this_posts,
                 page_count=page_count, post_count=post_count, 
-                post_type=post_type)
-            out = os.path.join(conf.target_path, 'pagelist-%s.html'%(page_num))
+                post_type=post_type, per_page=per_page)
+            out = os.path.join(conf.target_path, 'postlist-%s.html'%(page_num))
             u_write(out, html)
 
         html = render_theme_template(conf.posts_tpl,
-            page_count=page_count, post_count=post_count, 
-            post_type=post_type)
+            post_count=post_count, page_count=page_count, 
+            post_type=post_type, per_page=per_page)
         out = os.path.join(conf.target_path, conf.posts_tpl)
         u_write(out, html)
 
@@ -296,23 +296,20 @@ class PageController(object):
 
         conf.logger.info('Caching theme files')
 
-        # Page 404
+        # Post 404
         html = render_theme_template(conf.e404_tpl)
         out = os.path.join(conf.target_path, conf.e404_tpl)
         u_write(out, html)
 
-        # Page Search
+        # Post Search
         html = render_theme_template(conf.search_tpl)
         out = os.path.join(conf.target_path, conf.search_tpl)
         u_write(out, html)
 
-        # Page Listing 
-        self.cache_pagelist()
-        #html = render_theme_template(conf.posts_tpl)
-        #out = os.path.join(conf.target_path, conf.posts_tpl)
-        #u_write(out, html)
+        # Post Listing 
+        self.cache_postlist()
 
-        # Home page
+        # Home post
         home_page = conf.home_page
         if home_page in [conf.posts_tpl, conf.search_tpl]:
             html = render_theme_template(home_page)
@@ -323,10 +320,10 @@ class PageController(object):
                 home_page = home_page + conf.source_ext 
             home_page_path = os.path.join(conf.source_path, home_page)
             if os.path.exists(home_page_path):
-                conf.logger.info('Writing %s as home page (%s)'\
+                conf.logger.info('Writing %s as home post (%s)'\
                     %(home_page, conf.docroot_index))
-                pg = Page(home_page)
-                html = render_theme_template(conf.page_tpl, page=pg)
+                pg = Post(home_page)
+                html = render_theme_template(conf.post_tpl, post=pg)
                 out = os.path.join(conf.target_path, conf.docroot_index)
                 u_write(out, html)
 
@@ -391,11 +388,11 @@ class PageController(object):
                 new_d = d[key]
                 new_d['label'] = key
                 new_d['rel'] = 'internal'
-                if new_d.get('page'):
-                    if not new_d['page'].endswith(conf.source_ext):
-                        new_d['page'] = new_d['page'] + conf.source_ext
+                if new_d.get('post'):
+                    if not new_d['post'].endswith(conf.source_ext):
+                        new_d['post'] = new_d['post'] + conf.source_ext
                     new_d['href'] = conf.web_prefix + '/' +\
-                        new_d['page'].replace(conf.source_ext, conf.target_ext)
+                        new_d['post'].replace(conf.source_ext, conf.target_ext)
                 else:
                     if new_d.get('href') and '://' in new_d['href']:
                         new_d['rel'] = 'external'
@@ -413,17 +410,17 @@ class PageController(object):
         return self._theme_menu
 
     @property
-    def page_info(self, plist=None):
+    def post_info(self, plist=None):
 
-        if self._page_info:
-            return self._page_info
+        if self._post_info:
+            return self._post_info
 
         if not plist:
             plist = self.source_files
         
         
 
-    def index_pages(self, plist=None, search_index=True):
+    def index_posts(self, plist=None, search_index=True):
     
         if not plist:
             plist = self.source_files
@@ -431,7 +428,7 @@ class PageController(object):
         if self.index_data:
             return
 
-        conf.logger.info('Indexing pages: %s'%(plist))
+        conf.logger.info('Indexing posts: %s'%(plist))
 
         data = {}
         tags = {}
@@ -439,7 +436,7 @@ class PageController(object):
         info = {}
         this_id = 1
         for pf in plist:
-            pg = Page(pf)
+            pg = Post(pf)
             if pg.conf.get('private'):
                 continue
             ids[this_id] = pg.target_fname
@@ -493,20 +490,20 @@ class PageController(object):
             'updated':int(time.time()),
         }
 
-        page_info = {
+        post_info = {
             'info':info,
             'ids':ids,
         }
             
-        page_info_path = os.path.join(conf.target_path, conf.page_data_file)
-        conf.logger.info('Writing page info to %s'%(page_info_path))
-        u_write(page_info_path, json.dumps(page_info))
+        post_info_path = os.path.join(conf.target_path, conf.post_data_file)
+        conf.logger.info('Writing post info to %s'%(post_info_path))
+        u_write(post_info_path, json.dumps(post_info))
         
         index_path = os.path.join(conf.target_path, conf.index_file)
         conf.logger.info('Writing search index to %s'%(index_path))
         u_write(index_path, json.dumps(self.index_data))
         
-    def get_pages(self, sort_key='mtime', private=False, direction='desc', 
+    def get_posts(self, sort_key='mtime', private=False, direction='desc', 
             filters=None, limit=0):
         direction = direction.lower()
         rev = False
@@ -516,7 +513,7 @@ class PageController(object):
         if not limit:
             limit = 10000
 
-        plist = self.pages
+        plist = self.posts
         if not private:
             plist = [p for p in plist if not p.conf.get('private')]
 
@@ -550,7 +547,7 @@ class PageController(object):
 
         return plist
 
-    def get_page_dates(self, private=False, direction='desc', limit=0):
+    def get_post_dates(self, private=False, direction='desc', limit=0):
         direction = direction.lower()
         rev = False
         if direction == 'desc' or direction == 'descending':
@@ -559,7 +556,7 @@ class PageController(object):
         if not limit:
             limit = 10000
 
-        plist = self.pages
+        plist = self.posts
 
         if not private:
             plist = [p for p in plist if not p.conf.get('private')]
@@ -572,24 +569,24 @@ class PageController(object):
         return dlist
 
     @property
-    def page_dates(self):
-        return self.get_page_dates(direction='desc')
+    def post_dates(self):
+        return self.get_post_dates(direction='desc')
 
     @property
-    def pages(self):
-        if self._pages:
-            return self._pages
+    def posts(self):
+        if self._posts:
+            return self._posts
         plist = self.source_files
-        pages = []
+        posts = []
         for pf in plist:
-            pages.append(Page(pf))
-        self._pages = pages
-        return self._pages
+            posts.append(Post(pf))
+        self._posts = posts
+        return self._posts
 
     @property
     def tags(self):
         tags = []
-        for p in self.pages:
+        for p in self.posts:
             for t in p.tags:
                 tags.append(t)
         return sorted(list(set(tags)))
@@ -610,9 +607,9 @@ class PageController(object):
 
         return self._source_files
 
-class Page(object):
-    ''' Page object (str:source_fname)
-        loads, saves, and caches pages '''    
+class Post(object):
+    ''' Post object (str:source_fname)
+        loads, saves, and caches posts '''    
 
     source_fname = None
     source_path = None
@@ -648,7 +645,7 @@ class Page(object):
         pc = self.conf
         tt = self.target_text
         conf.logger.info('Saving to: %s'%(self.target_path))        
-        html = render_theme_template(conf.page_tpl, page=self)        
+        html = render_theme_template(conf.post_tpl, post=self)        
         u_write(self.target_path, html)
 
 
@@ -668,9 +665,9 @@ class Page(object):
         if self._conf:
             return self._conf
 
-        m = conf.page_conf_re.search(self.source_text)
+        m = conf.post_conf_re.search(self.source_text)
         if not m:
-            conf.logger.warning('No page config specified for %s'%(self.source_fname))
+            conf.logger.warning('No post config specified for %s'%(self.source_fname))
             self._conf = {'foo':True}
             return {}
         
@@ -678,7 +675,7 @@ class Page(object):
             self._conf = yaml.load(m.group(1))
             self._source_text = self.source_text.replace(m.group(0), '')
         except Exception as e:
-            conf.logger.exception('Invalid page configuration found!')
+            conf.logger.exception('Invalid post configuration found!')
         
         return self._conf
 
@@ -843,4 +840,4 @@ class Page(object):
         return ''
 
 conf = Config()
-ctrl = PageController()
+ctrl = PostController()
