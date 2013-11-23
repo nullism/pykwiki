@@ -12,11 +12,14 @@ import time
 import math
 
 def set_jinja_filters(env):
+    ''' Used to add custom Jinja2 filters to the env '''
     import jinja_filters
     env.filters['idsafe'] = jinja_filters.idsafe
     return env
 
 def render_theme_template(f, **kwargs):
+    ''' Renders a theme template using a cascading FilySystemLoader
+        All theme templates include sopt, topt, ctrl, and conf '''
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(
         [conf.theme_path, conf.default_theme_path]))
     env = set_jinja_filters(env)
@@ -26,17 +29,20 @@ def render_theme_template(f, **kwargs):
         **kwargs)
 
 def render_text(text, **kwargs):
+    ''' Jinja-fies plain text '''
     env = set_jinja_filters(jinja2.Environment())
     tpl = env.from_string(text)
     return tpl.render(**kwargs)
     
 def u_read(fname):
+    ''' Unicode read '''
     fh = codecs.open(fname, encoding='utf-8')
     txt = fh.read()
     fh.close()
     return txt
 
 def u_write(fname, data):
+    ''' Unicode write '''
     fh = codecs.open(fname, encoding='utf-8', mode='w')
     fh.write(data)
     fh.close()
@@ -87,10 +93,13 @@ class Config(object):
         'pykwiki.ext.tpl',
         'pykwiki.ext.post',
     ]
+    # The regex to grab post data blocks
     post_conf_re = re.compile('\[\[(.*?)\]\]', re.DOTALL)
     blurb_max = 50
     home_page = 'index'
 
+    # These properties will be written to/read from 
+    # the config.yaml file. 
     config_text_properties = [
         'web_prefix',
         'home_page',
@@ -117,7 +126,7 @@ class Config(object):
             %(self.base_path, self.source_dir, self.target_dir)
 
     def check(self):
-
+        ''' Verify that the current configuration isn't broken '''
         if not self.base_path:
             raise Exception('conf.base_path not set!')
 
@@ -173,7 +182,9 @@ class Config(object):
         return os.path.join(self.base_path, self.target_dir)
 
     def save(self, cname='config.yaml'):
-        ''' Write the config to base_path.yaml '''
+        """ Write the config to base_path.yaml
+        @param cname [str] - The name of the config file
+        """
         self.logger.info('Saving configuration to: %s'%(cname))
         self.check()
         export = {}
@@ -185,6 +196,9 @@ class Config(object):
         fh.close()
         
     def load(self, cpath):
+        """ Load the config file into the object
+        @param cpath [str] - The full path to the config to read
+        """
         self.logger.info('Reading configuration from %s'%(cpath))
         if not os.path.exists(cpath):
             raise Exception('Config file: %s not found!'%(cpath))
@@ -213,6 +227,12 @@ class PostController(object):
         pass
  
     def cache_posts(self, plist=None, force=False):
+        """ Cache posts and return the number of changes 
+        @param plist [list] - A list of source filenames to cache
+        @param force [bool] - Cache regardless of file mtimes 
+        @returns [int] - Number of files changed 
+        """
+
         cached = 0;
         if not plist:
             plist = self.source_files
@@ -228,6 +248,10 @@ class PostController(object):
         return cached
 
     def cache_uploads(self):
+        """ Find file differences (mtime) and copy them to docroot/uploads 
+        @returns [bool] - True if successful, false otherwise 
+        """
+
         if not os.path.exists(conf.upload_path):
             conf.logger.warning('Upload directory not found')
             return False
@@ -254,7 +278,7 @@ class PostController(object):
          
 
     def cache_postlist(self):
-
+        
         order_field = conf.postlist['order_field']
         order_type = conf.postlist['order_type']
         max_pages = conf.postlist['max_pages']
@@ -293,7 +317,7 @@ class PostController(object):
 
 
     def cache_theme(self):
-        ''' Cache specific theme files '''
+        """ Cache specific theme files """
 
         conf.logger.info('Caching theme files')
 
@@ -422,7 +446,10 @@ class PostController(object):
         
 
     def index_posts(self, plist=None, search_index=True):
-    
+        """ Build a search index and post data JSON file
+        @param plist [list] - A list of source file names
+        @search_index [bool] - Whether or not to build a search index
+        """
         if not plist:
             plist = self.source_files
 
@@ -504,6 +531,7 @@ class PostController(object):
         conf.logger.info('Writing search index to %s'%(index_path))
         u_write(index_path, json.dumps(self.index_data))
         
+
     def get_posts(self, sort_key='mtime', private=False, direction='desc', 
             filters=None, limit=0):
         direction = direction.lower()
