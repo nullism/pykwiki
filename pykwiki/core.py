@@ -12,14 +12,16 @@ import time
 import math
 
 def set_jinja_filters(env):
-    ''' Used to add custom Jinja2 filters to the env '''
+    """ Used to add custom Jinja2 filters to the env """
     import jinja_filters
     env.filters['idsafe'] = jinja_filters.idsafe
     return env
 
 def render_theme_template(f, **kwargs):
-    ''' Renders a theme template using a cascading FilySystemLoader
-        All theme templates include sopt, topt, ctrl, and conf '''
+    """ Renders a theme template using a cascading FilySystemLoader
+    
+    All theme templates include sopt, topt, ctrl, and conf 
+    """
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(
         [conf.theme_path, conf.default_theme_path]))
     env = set_jinja_filters(env)
@@ -29,20 +31,27 @@ def render_theme_template(f, **kwargs):
         **kwargs)
 
 def render_text(text, **kwargs):
-    ''' Jinja-fies plain text '''
+    """ Jinja-fies plain text """
     env = set_jinja_filters(jinja2.Environment())
     tpl = env.from_string(text)
     return tpl.render(**kwargs)
     
 def u_read(fname):
-    ''' Unicode read '''
+    """ Unicode read 
+    
+    @param fname [str] - full path to the file to read
+    """
     fh = codecs.open(fname, encoding='utf-8')
     txt = fh.read()
     fh.close()
     return txt
 
 def u_write(fname, data):
-    ''' Unicode write '''
+    """ Unicode write 
+
+    @param fname [str] - full path to the file to write to
+    @param data [str] - data to write to fname
+    """
     fh = codecs.open(fname, encoding='utf-8', mode='w')
     fh.write(data)
     fh.close()
@@ -183,6 +192,7 @@ class Config(object):
 
     def save(self, cname='config.yaml'):
         """ Write the config to base_path.yaml
+
         @param cname [str] - The name of the config file
         """
         self.logger.info('Saving configuration to: %s'%(cname))
@@ -197,6 +207,7 @@ class Config(object):
         
     def load(self, cpath):
         """ Load the config file into the object
+
         @param cpath [str] - The full path to the config to read
         """
         self.logger.info('Reading configuration from %s'%(cpath))
@@ -228,6 +239,7 @@ class PostController(object):
  
     def cache_posts(self, plist=None, force=False):
         """ Cache posts and return the number of changes 
+
         @param plist [list] - A list of source filenames to cache
         @param force [bool] - Cache regardless of file mtimes 
         @returns [int] - Number of files changed 
@@ -249,6 +261,7 @@ class PostController(object):
 
     def cache_uploads(self):
         """ Find file differences (mtime) and copy them to docroot/uploads 
+
         @returns [bool] - True if successful, false otherwise 
         """
 
@@ -447,6 +460,7 @@ class PostController(object):
 
     def index_posts(self, plist=None, search_index=True):
         """ Build a search index and post data JSON file
+
         @param plist [list] - A list of source file names
         @search_index [bool] - Whether or not to build a search index
         """
@@ -637,8 +651,7 @@ class PostController(object):
         return self._source_files
 
 class Post(object):
-    ''' Post object (str:source_fname)
-        loads, saves, and caches posts '''    
+    """ Post object loads, saves, and caches posts """
 
     source_fname = None
     source_path = None
