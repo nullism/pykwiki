@@ -19,15 +19,21 @@ conf = pykwiki.core.conf
 ctrl = pykwiki.core.ctrl
 
 def install_theme(name):
-    ''' Install a theme '''
+    """ Install a theme from data/theme-NAME.zip 
+
+    @param name [str] - The name of the theme
+    @returns [bool] - True if theme was installed, exception otherwise
+    """
 
     target_path = os.path.join(conf.base_path, conf.theme_dir)
 
     name = name.lower()
 
+    # Add theme- to the theme name if not present
     if not name.startswith('theme-'):
         name = 'theme-%s'%(name)
 
+    # Add .zip to the theme name if not present
     if not name.endswith('.zip'):
         name = '%s.zip'%(name)
 
@@ -44,12 +50,14 @@ def install_theme(name):
     return True
     
 def theme_zip_files():
+    """ Return a list of all theme zip files """
     data_dir = os.path.join(os.path.split(pykwiki.core.__file__)[0], 'data')
     pattern = os.path.join(data_dir, 'theme-*.zip')
     theme_files = glob.glob(pattern)
     return theme_files
 
 def command_theme(args):
+    """ Handle the command line options for themes """
     theme_zips = theme_zip_files()
     logger.info('='*40)
 
@@ -64,11 +72,13 @@ def command_theme(args):
             
 
 def command_new(args):
-    ''' Create a new project in args.base_path '''
+    """ Create a new project in args.base_path """
 
     logger.info('='*40)
     path = args.base_path
     new_path = os.path.join(path, args.project_name)
+    
+    # Ensure that the project doesn't already exist
     if os.path.exists(new_path):
         raise Exception('Project path: %s already exists!'%(new_path))
 
@@ -93,7 +103,7 @@ def command_new(args):
     return True
 
 def command_cache(args):
-    ''' Cache one or more posts '''
+    """ Handle the command line options for cache """
 
     logger.info('='*40)
     plist = None
@@ -104,11 +114,13 @@ def command_cache(args):
     if args.force:
         force = True
 
+    # Skip intensive processing if -q is specified
     if args.quick:
         logger.info('Doing quick caching (skipping theme and index)')
         ctrl.cache_posts(plist, force=force)
         return True
 
+    # Force re-cache if links.yaml is updated
     if not os.path.exists(conf.link_json_path) \
             or (os.path.getmtime(conf.link_path) \
             > os.path.getmtime(conf.link_json_path)):
@@ -128,14 +140,14 @@ def command_cache(args):
     return True
 
 def command_index(args):
-    ''' Rebuild the search index '''
+    """ Rebuild the search index """
 
     logger.info('='*40)
     ctrl.index_posts()
     return True
 
 def load_config(args):
-    ''' Attempt to read config.yaml if present in args.base_path '''
+    """ Attempt to read config.yaml if present in args.base_path """
 
     if args.config_file:
         conf.load(args.config_file)
