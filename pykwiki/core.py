@@ -690,6 +690,18 @@ class Post(object):
         html = render_theme_template(conf.post_tpl, post=self)        
         u_write(self.target_path, html)
 
+    def get_section(self, name, raw=True):
+        """ Load a post section """
+
+        pat = re.compile(r'\{section:%s\}(.*?)\{endsection\}'%(name), re.DOTALL|re.M)
+        m = pat.search(self.source_text)
+        if not m:
+            return None
+        # By default, return raw text
+        if raw:
+            return m.group(1)
+        return markdown.markdown(m.group(1), 
+            extensions=conf.markdown_exts)
 
     @property
     def author(self):
