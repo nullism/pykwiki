@@ -135,7 +135,7 @@ class Config(object):
             %(self.base_path, self.source_dir, self.target_dir)
 
     def check(self):
-        ''' Verify that the current configuration isn't broken '''
+        """ Verify that the current configuration isn't broken """
         if not self.base_path:
             raise Exception('conf.base_path not set!')
 
@@ -548,11 +548,21 @@ class PostController(object):
 
     def get_posts(self, sort_key='mtime', private=False, direction='desc', 
             filters=None, limit=0):
+        """ Get a sorted and filtered list of posts
+         
+        @param sort_key [str] - The post property to sort on, default: mtime
+        @param private [bool] - Include private posts if true
+        @param direction [str] - Either ascending or descending
+        @param filters [list] - A multi-dimensional list of filters like
+            [ ['field', 'op', 'value'], ['mtime', '>', '1234567890']]
+        @param limit [int] - Maximum number of posts to return
+        """
         direction = direction.lower()
         rev = False
         if direction == 'desc' or direction == 'descending':
             rev = True
         
+        # Set the limit to something crazy, like 10K
         if not limit:
             limit = 10000
 
@@ -591,6 +601,12 @@ class PostController(object):
         return plist
 
     def get_post_dates(self, private=False, direction='desc', limit=0):
+        """ Return a list of post dates in mdate_string format
+        
+        @param private [bool] - Include private posts if True
+        @param direction [str] - Either ascending or descending
+        @param limit [int] - Maximum number of post dates to return
+        """
         direction = direction.lower()
         rev = False
         if direction == 'desc' or direction == 'descending':
