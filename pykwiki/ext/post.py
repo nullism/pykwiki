@@ -1,7 +1,7 @@
 import markdown
 from pykwiki.core import conf, Post
 
-POST_RE = r'(\[\[(.*?)\]\])' 
+POST_RE = r'(\[\[([a-zA-Z0-9]+.*?)\]\])' 
 SEC_START_RE = r'(\{section:(.*?)\})'
 SEC_END_RE = r'(\{endsection\})'
 
@@ -62,12 +62,12 @@ class PostPattern(markdown.inlinepatterns.Pattern):
         if action == 'section':
             if not extra:
                 return 'No section name given'
-            sec = pg.get_section(extra, raw=True) 
+            sec = pg.get_section(extra, raw=False) 
             if not sec:
                 return 'Cannot find section: %s'%(extra)
-            md = markdown.Markdown().parser
             el = markdown.util.etree.Element("div")
-            md.parseChunk(el, sec)
+            markdown.Markdown().parser.parseChunk(el, sec)
+            #print "="*80, "\n", sec, "\n", "="*80
             return el
 
         return 'Invalid action: %s'%(action)

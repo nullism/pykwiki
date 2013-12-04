@@ -103,7 +103,7 @@ class Config(object):
         'pykwiki.ext.post',
     ]
     # The regex to grab post data blocks
-    post_conf_re = re.compile('\[\[(.*?)\]\]', re.DOTALL)
+    post_conf_re = re.compile('^\[\[(.*?)\]\]', re.DOTALL)
     blurb_max = 50
     home_page = 'index'
 
