@@ -69,6 +69,13 @@ def command_theme(args):
                 install_theme(name)
         else:
             install_theme(args.theme_name)
+        return
+
+    if args.theme_command == 'info':
+        logger.info('Available themes...')
+        for tz in theme_zips:
+            name = os.path.basename(tz).replace('theme-','').replace('.zip','')
+            logger.info('Theme: %s, location: %s'%(name, tz))
             
 
 def command_new(args):
