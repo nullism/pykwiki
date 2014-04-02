@@ -861,6 +861,10 @@ class Post(object):
     @property
     def source_mtime(self):
         return os.path.getmtime(self.source_path)
+
+    @property
+    def nowrap(self):
+        return self.conf.get('nowrap');
  
     @property
     def blurb(self):
