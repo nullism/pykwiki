@@ -72,7 +72,8 @@ class Config(object):
         'title':'Example Site',
         'description':'Example Site Description',
         'author':'Example Author',
-        'keywords':'example, pykwiki'
+        'keywords':'example, pykwiki',
+        'base_url':''        
     }
     postlist = {
         'per_page':2,
@@ -88,6 +89,8 @@ class Config(object):
     posts_tpl = 'posts.html'
     e404_tpl = '404.html'
     menu_tpl = 'menu.html'
+    rss_tpl = 'rss.xml'
+    rss_max_entries = 20
     source_ext = '.md'
     target_ext = '.html'
     template_ext = '.tpl'
@@ -122,6 +125,7 @@ class Config(object):
         'timestamp_format',
         'source_ext',
         'postlist',
+        'rss_max_entries',
     ]
 
     def __init__(self):
@@ -373,6 +377,24 @@ class PostController(object):
                 shutil.rmtree(stat_dest)
             shutil.copytree(stat_src, stat_dest)
 
+
+    def cache_rss_feed(self):
+
+        """ Builds an RSS feed for the posts """
+
+
+        conf.logger.info('Caching RSS feed...')
+        rss_tpl = os.path.join(conf.theme_path, conf.rss_tpl)
+        if not os.path.exists(rss_tpl):
+            conf.logger.warning('No rss template found in theme')
+            return False
+        
+        posts = self.get_posts(limit=conf.rss_max_entries)
+        xml = render_theme_template(conf.rss_tpl, posts=posts)
+        outf = os.path.join(conf.target_path, conf.rss_tpl)
+        u_write(outf, xml)
+
+
     @property
     def social_options(self):
         if self._social_options:
@@ -519,6 +541,7 @@ class PostController(object):
                             data[word][this_id] = 1
                     else:
                         data[word] = {this_id: 1}
+
 
             this_id += 1
 
@@ -764,7 +787,12 @@ class Post(object):
 
     @property
     def url(self):
-        return '%s/%s'%(conf.web_prefix, self.target_fname)
+        url = ''
+        if conf.site.get('base_url'):
+            url = '%s'%(conf.site['base_url'])
+        if conf.web_prefix:
+            url = '%s/%s'%(url, conf.web_prefix)
+        return '%s/%s'%(url, self.target_fname)
 
     @property
     def source_text(self):
@@ -823,6 +851,13 @@ class Post(object):
     @property
     def mtimestamp(self):
         return time.strftime(conf.timestamp_format, self.mtime_tuple)
+
+    @property
+    def mtimestamp_rfc822(self):
+
+        """ Gets RSS/Email Compatible, RFC 822 based, date """
+
+        return time.strftime('%a, %d %b %Y %H:%M:%S %Z', self.mtime_tuple)
 
     @property
     def mtime_string(self):

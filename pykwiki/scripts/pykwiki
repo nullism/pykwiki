@@ -143,6 +143,7 @@ def command_cache(args):
     logger.info('='*40)
     ctrl.cache_uploads() 
     logger.info('='*40)
+    ctrl.cache_rss_feed()
     command_index(args) 
     return True
 
