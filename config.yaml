@@ -10,7 +10,7 @@ site:
 theme: default
 web_prefix: ''
 base_path: /home/nullism/github/pykwiki/
-markdown_exts: ['codehilite','toc', 'pykwiki.ext.tpl', 'pykwiki.ext.post']
+markdown_exts: ['codehilite','toc', 'pykwiki.ext.tpl', 'pykwiki.ext.post', 'pykwiki.ext.uml']
 date_format: "%B %d, %Y"
 time_format: "%H:%I"
 source_ext: '.md'

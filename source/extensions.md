@@ -69,6 +69,7 @@ Then to include that section in another page:
 
 ### pykwiki.ext.tpl
 
+
 This extension allows for templates to be included in your source files. See [[templates]] for examples.
 
 The basic usage is:
@@ -106,4 +107,37 @@ Then PyKwiki will render `project.tpl` with the data from `{tpl:project}` into t
         <li>url: <a href="http://widgets.com">http://widgets.com</a></li>
     </ul>
 
+### pykwiki.ext.uml
+
+<span class="text text-muted">New in version <strong>1.0.8</strong></span>
+
+This extension is powered by [Plant UML](http://plantuml.com) and 
+requires [python-plantuml](https://github.com/dougn/python-plantuml)
+to be installed. 
+
+#### Installation
+
+    sudo pip install plantuml
+
+Then add `pykwiki.ext.uml` to your `config.yaml` `extensions` section.
+
+**Example**
+
+    :::text
+    {uml}
+    Alice -> Bob: Connection
+    Bob -> Marge: Another connection
+    {enduml}
+
+The above produces the following HTML by default.
+
+    :::html
+    <img src="http://www.plantuml.com/plantuml/img/utBCoKnELT2rKt3AJx9ISCxFoqjDBidCp-C2ya72leb5wQbM2evv-IKPgKKAoGW50000"/>
+
+**Live example**
+
+{uml}
+Alice -> Bob: Connection
+Bob -> Marge: Another connection
+{enduml}
 
