@@ -127,6 +127,7 @@ Then add `pykwiki.ext.uml` to your `config.yaml` `extensions` section.
     {uml}
     Alice -> Bob: Connection
     Bob -> Marge: Another connection
+    note left: This is just a note
     {enduml}
 
 The above produces the following HTML by default.
@@ -139,5 +140,6 @@ The above produces the following HTML by default.
 {uml}
 Alice -> Bob: Connection
 Bob -> Marge: Another connection
+note left: This is just a note
 {enduml}
 

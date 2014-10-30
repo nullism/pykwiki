@@ -47,7 +47,6 @@ class UMLExtension(markdown.Extension):
 
 def makeExtension(**configs):
     PLANT_UML_CONFIGS = configs
-    print "CONFIGS = %s"%(PLANT_UML_CONFIGS)
     return UMLExtension(**configs)
 
 if __name__ == "__main__":
