@@ -17,7 +17,7 @@ class UMLPreprocessor(markdown.preprocessors.Preprocessor):
         try:
             import plantuml
         except:
-            print "Error! You must install python plantuml to use this extension"
+            print("WARNING: Plantuml not installed for this python version: ext.uml disabled.")
             return lines
     
         

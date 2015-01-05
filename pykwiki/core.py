@@ -13,7 +13,7 @@ import math
 
 def set_jinja_filters(env):
     """ Used to add custom Jinja2 filters to the env """
-    import jinja_filters
+    import pykwiki.jinja_filters as jinja_filters
     env.filters['idsafe'] = jinja_filters.idsafe
     return env
 
@@ -310,7 +310,7 @@ class PostController(object):
             post_count = max_pages * per_page
         page_count = int(math.ceil(float(post_count) / float(per_page)))
 
-        for page_num in xrange(1, max_pages+1):
+        for page_num in range(1, max_pages+1):
             if len(posts) < 1:
                 break
             this_posts = []
@@ -517,7 +517,7 @@ class PostController(object):
 
             # Tags
             for tag in pg.conf.get('tags',[]):
-                if tags.has_key(tag):
+                if tag in tags:
                     if this_id in tags[tag]:
                         continue
                     tags[tag].append(this_id)
@@ -534,8 +534,8 @@ class PostController(object):
                         continue
                     if word in conf.stop_words:
                         continue
-                    if data.has_key(word):
-                        if data[word].has_key(this_id):
+                    if word in data:
+                        if this_id in data[word]:
                             data[word][this_id] += 1
                         else:
                             data[word][this_id] = 1
