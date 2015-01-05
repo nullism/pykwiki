@@ -444,7 +444,7 @@ class PostController(object):
                 if not isinstance(d, dict):
                     ll.append({'label':d})
                     continue
-                key = d.keys()[0]
+                key = list(d.keys())[0]
                 new_d = d[key]
                 new_d['label'] = key
                 new_d['rel'] = 'internal'
