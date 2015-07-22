@@ -30,7 +30,7 @@ The `links.yaml` file specifies how PyKwiki should generate a menu for your site
         post: home
         title: Visit the home page
     - GitHub:
-        href: https://github.com/webgovernor/pykwiki
+        href: https://github.com/nullism/pykwiki
         title: Checkout the source code!
         target: _blank
     - About:

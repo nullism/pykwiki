@@ -11,9 +11,9 @@ There are a few different ways to download PyKwiki
 
 Get the latest and greatest version on Github.
 
-<a href="https://github.com/webgovernor/pykwiki/archive/master.zip" class="btn btn-lg btn-success">Github <b class="glyphicon glyphicon-download"></b></a>
+<a href="https://github.com/nullism/pykwiki/archive/master.zip" class="btn btn-lg btn-success">Github <b class="glyphicon glyphicon-download"></b></a>
 
-* Or clone it directly with `git clone https://github.com/webgovernor/pykwiki.git`
+* Or clone it directly with `git clone https://github.com/nullism/pykwiki.git`
 
 Install using `sudo ./setup.py install`
 
