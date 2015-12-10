@@ -10,7 +10,6 @@ import shutil
 
 import pykwiki.core
 pyk_dir = os.path.dirname(os.path.realpath(pykwiki.core.__file__))
-pyk_dir = os.path.realpath(os.path.join(pyk_dir, '../'))
 
 conf = pykwiki.core.conf
 logger = conf.logger
