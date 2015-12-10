@@ -10,10 +10,11 @@ import codecs
 import shutil
 import time
 import math
+import scss
 
 def set_jinja_filters(env):
     """ Used to add custom Jinja2 filters to the env """
-    import pykwiki.jinja_filters as jinja_filters
+    import pykwiki2.jinja_filters as jinja_filters
     env.filters['idsafe'] = jinja_filters.idsafe
     return env
 
@@ -64,15 +65,18 @@ class Config(object):
     upload_dir = 'uploads'
     target_dir = 'docroot'
     link_file = 'links.yaml'
+    style_file = 'style.scss'
     link_json_file = 'links.json'
     theme_dir = 'themes'
-    theme = 'default'
+    style_dir = 'styles'
+    theme = None
+    style = 'default'
     logger = None
     site = {
         'title':'Example Site',
         'description':'Example Site Description',
         'author':'Example Author',
-        'keywords':'example, pykwiki',
+        'keywords':'example, pykwiki2',
         'base_url':''        
     }
     postlist = {
@@ -100,15 +104,18 @@ class Config(object):
     index_file = 'idx.json'
     post_data_file = 'posts.json'
     stop_words = ['the','and']
+    upload_exts = ['.gif','.jpg','.jpeg','.png','.tiff','.pdf']
     markdown_exts = [
         'codehilite','toc',
-        'pykwiki.ext.tpl',
-        'pykwiki.ext.post',
+        'pykwiki2.ext.tpl',
+        'pykwiki2.ext.post',
     ]
     # The regex to grab post data blocks
     post_conf_re = re.compile('^\[\[(.*?)\]\]', re.DOTALL)
+    post_toc_re = re.compile('^\s{0,3}\[TOC\]', re.MULTILINE)
     blurb_max = 50
     home_page = 'index'
+    version = None
 
     # These properties will be written to/read from 
     # the config.yaml file. 
@@ -126,11 +133,14 @@ class Config(object):
         'source_ext',
         'postlist',
         'rss_max_entries',
+        'style',
+        'upload_exts',
+        'version',
     ]
 
     def __init__(self):
-        self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.DEBUG)
+        if not self.logger:
+            self.logger = logging.getLogger("pykwiki")
         if not self.logger.handlers:
             self.logger.addHandler(logging.StreamHandler())
 
@@ -158,9 +168,17 @@ class Config(object):
         if self.web_prefix.endswith('/'):
             raise Exception('conf.web_prefix cannot end with "/"')
 
+        if not self.version:
+            raise Exception('conf.version does not exist')
+
+        if self.version < 2 or self.version >= 3:
+            raise Exception('conf.version is incorrect')
+
     @property
     def default_theme_path(self):
-        return os.path.join(self.base_path, self.theme_dir, 'default')
+        #return os.path.join(self.base_path, self.theme_dir, 'pykwiki2')
+        self_dir = os.path.split(os.path.abspath(__file__))[0]
+        return os.path.join(self_dir, 'data', 'default_theme')
 
     @property
     def link_path(self):
@@ -172,23 +190,49 @@ class Config(object):
 
     @property
     def theme_path(self):
-        return os.path.join(self.base_path, self.theme_dir, self.theme.lower())
+        if self.theme:
+            return os.path.join(self.base_path, self.theme_dir, self.theme.lower())
+        return self.default_theme_path
+
+    @property
+    def style_head(self):
+        hd_path = os.path.join(self.style_path, 'head.html')
+        if os.path.exists(hd_path):
+            with open(hd_path, 'r') as fh:
+                return fh.read()
+        return "<!-- no style head.html found -->"
+
+    @property
+    def style_post(self):
+        path = os.path.join(self.style_path, 'post.html')
+        if os.path.exists(path):
+            with open(path, 'r') as fh:
+                return fh.read()
+        return "<!-- no style post.html found -->"
+
+    @property
+    def style_footer(self):
+        ft_path = os.path.join(self.style_path, 'footer.html')
+        if os.path.exists(ft_path):
+            with open(ft_path, 'r') as fh:
+                return fh.read()
+        return "<!-- no style footer.html found -->"
+
+    @property
+    def style_path(self):
+        return os.path.join(self.base_path, self.style_dir, self.style.lower())
+
+    @property
+    def style_web_path(self):
+        return self.web_prefix + "/" + os.path.join('static', self.style.lower())
+
+    @property
+    def style_file_path(self):
+        return os.path.join(self.style_path, self.style_file)
 
     @property
     def source_path(self):
         return os.path.join(self.base_path, self.source_dir)
-
-    @property
-    def upload_path(self):
-        return os.path.join(self.source_path, self.upload_dir)
-
-    @property
-    def upload_target_path(self):
-        return os.path.join(self.target_path, self.upload_dir)
-    
-    @property
-    def upload_web_path(self):
-        return self.web_prefix + '/' + self.upload_dir
 
     @property
     def target_path(self):
@@ -214,7 +258,7 @@ class Config(object):
 
         @param cpath [str] - The full path to the config to read
         """
-        self.logger.info('Reading configuration from %s'%(cpath))
+        self.logger.debug('Reading configuration from %s...'%(cpath))
         if not os.path.exists(cpath):
             raise Exception('Config file: %s not found!'%(cpath))
         
@@ -225,7 +269,7 @@ class Config(object):
         for k in data:
             if k in self.config_text_properties:
                 setattr(self, k, data[k])
-        self.check()
+        #self.check()
         
  
 
@@ -264,22 +308,21 @@ class PostController(object):
         return cached
 
     def cache_uploads(self):
-        """ Find file differences (mtime) and copy them to docroot/uploads 
+        """ Find file differences (mtime) and copy them to docroot 
 
         @returns [bool] - True if successful, false otherwise 
         """
 
-        if not os.path.exists(conf.upload_path):
-            conf.logger.warning('Upload directory not found')
-            return False
-        if not os.path.exists(conf.upload_target_path):
-            os.makedirs(conf.upload_target_path)
 
-        conf.logger.info('Caching uploads...')
-        for root, dirs, files in os.walk(conf.upload_path):
+        conf.logger.info('Caching uploads')
+        cnt = 0
+        for root, dirs, files in os.walk(conf.source_path):
             for f in files:
+                fnoe, ext = os.path.splitext(f)
+                if ext not in conf.upload_exts:
+                    continue
                 src_path = os.path.join(root, f)
-                tgt_path = src_path.replace(conf.upload_path, conf.upload_target_path)
+                tgt_path = src_path.replace(conf.source_path, conf.target_path)
                 if os.path.exists(tgt_path):
                     src_mt = os.path.getmtime(src_path)
                     tgt_mt = os.path.getmtime(tgt_path)
@@ -290,7 +333,9 @@ class PostController(object):
                     os.makedirs(tgt_dir)
                 conf.logger.debug('Copying %s to %s'%(src_path, tgt_path))
                 shutil.copy(src_path, tgt_path)
+                cnt += 1
 
+        conf.logger.info('Copied %s new uploads'%(cnt))
         return True
          
 
@@ -336,7 +381,8 @@ class PostController(object):
     def cache_theme(self):
         """ Cache specific theme files """
 
-        conf.logger.info('Caching theme files')
+        conf.logger.info("Caching theme files")
+        conf.logger.debug('Using theme files from %s'%(conf.theme_path))
 
         # Post 404
         html = render_theme_template(conf.e404_tpl)
@@ -372,18 +418,27 @@ class PostController(object):
         # Static files
         stat_src = os.path.join(conf.theme_path, 'static/')
         stat_dest = os.path.join(conf.target_path, 'static/')
+        style_src = os.path.join(conf.style_path, 'static')
+        style_dest = os.path.join(conf.target_path, 'static', 'style')
         if os.path.exists(stat_src):
             if os.path.exists(stat_dest):
                 shutil.rmtree(stat_dest)
             shutil.copytree(stat_src, stat_dest)
+            if os.path.exists(style_src):
+                shutil.copytree(style_src, style_dest)
 
+        # Cache scss
+        conf.logger.debug("Compiling scss to static/styles/style.css")
+        style_data = scss.Compiler().compile(conf.style_file_path)
+        with open(os.path.join(style_dest, 'style.css'), 'w') as fh:
+            fh.write(style_data)
+            
 
     def cache_rss_feed(self):
 
         """ Builds an RSS feed for the posts """
 
-
-        conf.logger.info('Caching RSS feed...')
+        conf.logger.info('Caching RSS feed')
         rss_tpl = os.path.join(conf.theme_path, conf.rss_tpl)
         if not os.path.exists(rss_tpl):
             conf.logger.warning('No rss template found in theme')
@@ -406,6 +461,7 @@ class PostController(object):
             return self._theme_options
 
         return {}
+
 
     @property
     def theme_options(self):
@@ -492,7 +548,8 @@ class PostController(object):
         if self.index_data:
             return
 
-        conf.logger.info('Indexing posts: %s'%(plist))
+        conf.logger.info("Building search index")
+        conf.logger.debug('Indexing posts: %s'%(plist))
 
         data = {}
         tags = {}
@@ -561,11 +618,11 @@ class PostController(object):
         }
             
         post_info_path = os.path.join(conf.target_path, conf.post_data_file)
-        conf.logger.info('Writing post info to %s'%(post_info_path))
+        conf.logger.debug('Writing post info to %s'%(post_info_path))
         u_write(post_info_path, json.dumps(post_info))
         
         index_path = os.path.join(conf.target_path, conf.index_file)
-        conf.logger.info('Writing search index to %s'%(index_path))
+        conf.logger.debug('Writing search index to %s'%(index_path))
         u_write(index_path, json.dumps(self.index_data))
         
 
@@ -696,6 +753,7 @@ class Post(object):
     source_path = None
     target_fname = None
     target_path = None
+    toc = None
     _source_text = None
     _target_text = None
     _conf = {}
@@ -706,6 +764,7 @@ class Post(object):
     _keywords = None
     _title = None
     _mtime = None
+    _has_toc = None
 
     def __init__(self, source_fname):
         conf.check()
@@ -725,7 +784,7 @@ class Post(object):
 
         pc = self.conf
         tt = self.target_text
-        conf.logger.info('Saving to: %s'%(self.target_path))        
+        conf.logger.debug('Saving to: %s'%(self.target_path))        
         html = render_theme_template(conf.post_tpl, post=self)        
         u_write(self.target_path, html)
 
@@ -772,6 +831,7 @@ class Post(object):
         
         return self._conf
 
+
     @property
     def source_path(self):
         return os.path.join(conf.source_path, self.source_fname)
@@ -801,10 +861,20 @@ class Post(object):
 
         if not os.path.exists(self.source_path):
             raise Exception('Cannot locate file: %s'%(self.source_path))
-            
+
         self._source_text = u_read(self.source_path)
+
+        # Check for table of contents, and extract for theme
+        tocm = conf.post_toc_re.search(self._source_text)
+        if tocm:
+            self._has_toc = True
+            self._source_text = conf.post_toc_re.sub('', self._source_text)
+            md = markdown.Markdown(extensions=conf.markdown_exts)
+            md.convert(self.source_text)
+            self.toc = md.toc
+
         return self._source_text
-   
+
     @property
     def tags(self):
         if self._tags:
@@ -826,10 +896,12 @@ class Post(object):
     def target_text(self):
         if self._target_text:
             return self._target_text
-        conf.logger.info('Caching: %s'%(self.source_fname))
-        html = markdown.markdown(self.source_text, 
-            extensions=conf.markdown_exts)
-        self._target_text = html   
+        conf.logger.debug('Caching: %s'%(self.source_fname))
+        md = markdown.Markdown(extensions=conf.markdown_exts)
+        html = md.convert(self.source_text)
+        #self._toc = md.toc
+        #conf.logger.info("Got TOC:%s"%(self._toc))
+        self._target_text = html
         return self._target_text
 
     @property
