@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <title>Search | PyKwiki</title>
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/static/codehilite/manni.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style type="text/css">
+    html, body { height: 100%; }
+
+    h1:target, h2:target, h3:target { 
+        background-color: #dfd;
+    }
+
+    #wrap {
+        min-height: 100%;
+        height: auto;
+        /* Negative indent footer by its height */
+        margin: 0 auto -60px;
+        /* Pad bottom by footer height */
+        padding: 0 0 60px;
+    }
+
+    #footer {
+        height: 60px;
+        padding-top: 20px;
+        background: #eee;
+    }
+    #footer .social-div { 
+        float: left;
+        margin-left: 10px;
+    }
+
+    .link_section {
+        padding: 3px;
+        margin: 0px; 
+        font-weight: bold;
+    }
+
+    .toc { 
+        float: right;
+        border: 2px solid #efefef;
+        background: #f5f5f5;
+        padding: 5px;
+        border-radius: 3px;
+        color: #999;
+    }
+    .toc ul, .toc li, .toc ul li { 
+        margin-left: 10px;
+        padding-left: 0px;
+    }
+
+    .htmltruncate-lg, .htmltruncate-md, .htmltruncate-sm { 
+        overflow: hidden;
+        position: relative;
+        border-bottom: 2px dashed #eee;
+        margin-bottom: 5px;
+        min-height: 60px;
+    }
+    .htmltruncate-bottom { 
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        background: none;
+        background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, #fff 100%);
+        z-index: 100;
+        height: 60px;
+    }
+    .htmltruncate-lg {
+        max-height: 500px;
+    }
+    .htmltruncate-md { 
+        max-height: 300px;
+    }
+    .htmltruncate-sm { 
+        max-height: 150px;
+    }
+    </style> 
+    <script>
+    // Globals
+    var has_gaq = false;
+    </script>
+</head>
+<body>
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+    <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" 
+                data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Home</a>
+    </div>
+    <div class="navbar-collapse collapse" style="max-height: none;">
+    <ul class="nav navbar-nav">
+    
+        
+            <li>
+            
+                <a href="/features.html" target="_self">Features</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/getting-started.html" target="_self">Getting Started</a>
+            
+            </li>
+        
+    
+        
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+                data-toggle="dropdown">Documentation <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Authoring</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/authoring.html" target="_self">Authoring Pages</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/markdown.html" target="_self">Markdown Format</a>
+                
+                </li>
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Configuration</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/config.yaml.html" target="_self">config.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/links.yaml.html" target="_self">links.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/webserver.html" target="_self">Webserver</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/extensions.html" target="_self">Extensions</a>
+                
+                </li>
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Themes</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/themes.html" target="_self">Available Themes</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/creating-themes.html" target="_self">Creating Themes</a>
+                
+                </li>
+            
+            </ul>
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/support.html" target="_self">Support</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/download.html" target="_self">Download</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/faqs.html" target="_self">FAQs</a>
+            
+            </li>
+        
+    
+    </ul>
+
+    <form class="navbar-form navbar-right" role="search" 
+        method="get"
+        action="/search.html">
+      <div class="form-group">
+        <input type="text" name="q" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-primary" style="display: none;"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+    </div>
+    </div>
+</div>
+<div id="wrap">
+<div class="container" style="padding-top: 60px;">
+
+<script>
+var idx = null;
+var post_data = null;
+var shown_ids = [];
+var post_tpl = null;
+
+function clear_posts() { 
+    shown_ids = [];
+    $('#posts').html('');
+}    
+
+function no_results() { 
+    $('#posts').html('<p>No results</p>');
+}
+
+function sort_by_frequency(arr) {
+    var frequency = {};
+
+    arr.forEach(function(value) { frequency[value] = 0; });
+    var uniques = arr.filter(function(value) {
+        return ++frequency[value] == 1;
+    });
+    return uniques.sort(function(a, b) {
+        return frequency[b] - frequency[a];
+    });
+}
+
+function get_param(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return decodeURIComponent(pair[1]);}
+    }
+    return false;
+}
+
+function list_post_by_id(id) {
+    id = id.toString();
+    if(shown_ids.indexOf(id) != -1) { 
+        return false;
+    }
+    var file = idx.ids[id]; 
+    if(!file) { 
+        return false;
+    }
+    shown_ids.push(id);
+    var post = post_data.info[file];
+    html = post_tpl({'post':post});
+    $('#posts').append(html);
+}
+
+function list_posts_by_tag(tag) { 
+    clear_posts();
+    for(var i=0; i<idx.tags[tag].length; i++) { 
+        list_post_by_id(idx.tags[tag][i]);
+    }
+    $('#results').html('Results for tag "'+tag+'"');
+}
+
+function list_posts_by_query(search) {
+    clear_posts(); 
+    search = search.toLowerCase();
+    search = search.replace(/\'/,'');
+    search = search.replace(/[^a-z0-9\-]/g, ' ');
+    var parts = search.split(' ');
+    var to_show = [];
+    for(var i=0; i<parts.length; i++) { 
+        var ids = idx.index[parts[i]];
+        if(ids) {
+            for(var y=0; y<ids.length; y++) {
+                to_show.push(ids[y]);
+            }
+        }
+    }
+    to_show = sort_by_frequency(to_show);
+    for(var i=0; i<to_show.length; i++) { 
+        list_post_by_id(to_show[i]);
+    }
+    if(to_show.length < 1) { 
+        no_results();
+    }
+    $('#results').html('Results for query "'+search+'"');
+}
+
+function index_cb(data) { 
+    idx = data;
+    $.get('/posts.json',
+        function(data) { 
+            if(data) {
+                post_data_cb(data);                
+            }
+        }
+    ,"json");
+}
+function post_data_cb(data) { 
+    $('#posts').html('Search index loaded');
+    $('#taglist').show('fast');
+    post_data = data;
+    post_tpl = Mustache.compile($('#search_result_tpl').html());
+    var q = get_param('q');
+    if(q) { 
+        list_posts_by_query(q);
+        return;
+    }
+    var t = get_param('t');
+    if(t) { 
+        list_posts_by_tag(t);
+    }
+}
+
+
+$(document).ready(function() { 
+    // Get the search index file
+    $.get('/idx.json',
+        function(data) { 
+            if(data) {
+                index_cb(data);                
+            }
+        }
+    ,"json");
+});
+</script>
+<div class="col-sm-3">
+
+    <div class="input-group">
+        <input type="text" id="search_text" class="form-control" 
+            onkeydown="if (event.keyCode == 13) { $('#search_button').click(); return false; }"
+            placeholder="Search" 
+        />
+        <span class="input-group-btn">
+        <button class="btn btn-primary"
+            id="search_button"
+            onclick="list_posts_by_query($('#search_text').val())">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+        </span>
+    </div>
+    <br />
+
+    <div class="panel-group" id="date_accordion">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#date_accordion" href="#collapse_December_10__2015">
+          December 10, 2015
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_December_10__2015" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul>
+        
+            <li><a href="http://pykwiki.nullism.com/api.html">API</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/about-search.html">About Search</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/authoring.html">Authoring Posts</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/examples/codehilite.html">Code-Hilite Examples</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/creating-themes.html">Creating Themes</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/download.html">Download</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/extensions.html">Extensions</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/comparison.html">Feature Comparison</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/faqs.html">Frequently Asked Questions</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/getting-started.html">Getting Started</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/templates.html">Helper Templates</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/markdown.html">Markdown Basics</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/command-line.html">PyKwiki Command Line</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/release-notes.html">Release Notes</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/remote-editing-tutorial.html">Remote Editing Tutorial</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/speed.html">Speed</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/support.html">Support</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/testing.html">Testing</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/themes.html">Themes</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/webserver.html">Webserver</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/home.html">Welcome!</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/config.yaml.html">config.yaml</a></li>
+        
+            <li><a href="http://pykwiki.nullism.com/links.yaml.html">links.yaml</a></li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#date_accordion" href="#collapse_October_12__2013">
+          October 12, 2013
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_October_12__2013" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul>
+        
+            <li><a href="http://pykwiki.nullism.com/features.html">Features</a></li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+</div>
+
+<div class="col-sm-9">
+    <div id="taglist" style="display:none;">
+    
+        <a class="label label-default" href="#" onclick="list_posts_by_tag('authoring'); return false;">authoring <b class="glyphicon glyphicon-tag"></b></a>
+    
+        <a class="label label-default" href="#" onclick="list_posts_by_tag('compare'); return false;">compare <b class="glyphicon glyphicon-tag"></b></a>
+    
+        <a class="label label-default" href="#" onclick="list_posts_by_tag('configuration'); return false;">configuration <b class="glyphicon glyphicon-tag"></b></a>
+    
+        <a class="label label-default" href="#" onclick="list_posts_by_tag('editing'); return false;">editing <b class="glyphicon glyphicon-tag"></b></a>
+    
+        <a class="label label-default" href="#" onclick="list_posts_by_tag('examples'); return false;">examples <b class="glyphicon glyphicon-tag"></b></a>
+    
+        <a class="label label-default" href="#" onclick="list_posts_by_tag('features'); return false;">features <b class="glyphicon glyphicon-tag"></b></a>
+    
+        <a class="label label-default" href="#" onclick="list_posts_by_tag('gallery'); return false;">gallery <b class="glyphicon glyphicon-tag"></b></a>
+    
+        <a class="label label-default" href="#" onclick="list_posts_by_tag('help'); return false;">help <b class="glyphicon glyphicon-tag"></b></a>
+    
+        <a class="label label-default" href="#" onclick="list_posts_by_tag('release notes'); return false;">release notes <b class="glyphicon glyphicon-tag"></b></a>
+    
+        <a class="label label-default" href="#" onclick="list_posts_by_tag('setup'); return false;">setup <b class="glyphicon glyphicon-tag"></b></a>
+    
+        <a class="label label-default" href="#" onclick="list_posts_by_tag('support'); return false;">support <b class="glyphicon glyphicon-tag"></b></a>
+    
+        <a class="label label-default" href="#" onclick="list_posts_by_tag('tutorials'); return false;">tutorials <b class="glyphicon glyphicon-tag"></b></a>
+    
+        <a class="label label-default" href="#" onclick="list_posts_by_tag('usage'); return false;">usage <b class="glyphicon glyphicon-tag"></b></a>
+    
+    </div>
+
+    <h2 id="results">Results</h2>
+    <div id="posts">
+
+        <div class="progress progress-striped active">
+          <div class="progress-bar"  role="progressbar" 
+                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+          </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script id="post_tpl" type="text/template">
+<h2><a href="{{post.url}}">{{post.title}}</a> 
+    <span class="text-muted pull-right">{{post.mdate_string}}</span>
+</h2>
+<p>{{post.blurb}} &mdash; <small class="text-muted">{{post.author}}</small></p>
+</script>
+
+<script id="search_result_tpl" type="text/template">
+<h3><a href="{{post.url}}">{{post.title}}</a> 
+    <span class="text-muted pull-right">{{post.mdate_string}}</span>
+</h3>
+<p>{{post.blurb}} &mdash; <small class="text-muted">{{post.author}}</small></p>
+</script>
+
+
+
+</div>
+</div><!-- End #wrap -->
+<div id="footer">
+    <div class="container">
+    
+        <div class="social-div">
+        <p class="text-muted credit">&copy; 2013, PyKwiki
+        &mdash; powered by <a href="http://pykwiki.nullism.com">PyKwiki</a>
+        </p>
+        </div>
+
+        
+
+        
+
+        
+
+
+        <div class="clearfix"></div>
+    </div>
+
+    
+
+</div>
+
+<script src="/static/bootstrap3/js/bootstrap.min.js"></script>
+<script src="/static/mustachejs/mustache.js"></script>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="/static/respond.min.js"></script>
+<![endif]-->   
+
+</body>
+</html>

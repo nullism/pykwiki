@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+<meta name="description" content="PyKwiki is a static file wiki suitable for blogs, wikis, or almost any type of documentation">
+<meta name="keywords" content="authoring,editing">
+
+    <title>Authoring Posts | PyKwiki</title>
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/static/codehilite/manni.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style type="text/css">
+    html, body { height: 100%; }
+
+    h1:target, h2:target, h3:target { 
+        background-color: #dfd;
+    }
+
+    #wrap {
+        min-height: 100%;
+        height: auto;
+        /* Negative indent footer by its height */
+        margin: 0 auto -60px;
+        /* Pad bottom by footer height */
+        padding: 0 0 60px;
+    }
+
+    #footer {
+        height: 60px;
+        padding-top: 20px;
+        background: #eee;
+    }
+    #footer .social-div { 
+        float: left;
+        margin-left: 10px;
+    }
+
+    .link_section {
+        padding: 3px;
+        margin: 0px; 
+        font-weight: bold;
+    }
+
+    .toc { 
+        float: right;
+        border: 2px solid #efefef;
+        background: #f5f5f5;
+        padding: 5px;
+        border-radius: 3px;
+        color: #999;
+    }
+    .toc ul, .toc li, .toc ul li { 
+        margin-left: 10px;
+        padding-left: 0px;
+    }
+
+    .htmltruncate-lg, .htmltruncate-md, .htmltruncate-sm { 
+        overflow: hidden;
+        position: relative;
+        border-bottom: 2px dashed #eee;
+        margin-bottom: 5px;
+        min-height: 60px;
+    }
+    .htmltruncate-bottom { 
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        background: none;
+        background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, #fff 100%);
+        z-index: 100;
+        height: 60px;
+    }
+    .htmltruncate-lg {
+        max-height: 500px;
+    }
+    .htmltruncate-md { 
+        max-height: 300px;
+    }
+    .htmltruncate-sm { 
+        max-height: 150px;
+    }
+    </style> 
+    <script>
+    // Globals
+    var has_gaq = false;
+    </script>
+</head>
+<body>
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+    <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" 
+                data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Home</a>
+    </div>
+    <div class="navbar-collapse collapse" style="max-height: none;">
+    <ul class="nav navbar-nav">
+    
+        
+            <li>
+            
+                <a href="/features.html" target="_self">Features</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/getting-started.html" target="_self">Getting Started</a>
+            
+            </li>
+        
+    
+        
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+                data-toggle="dropdown">Documentation <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Authoring</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/authoring.html" target="_self">Authoring Pages</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/markdown.html" target="_self">Markdown Format</a>
+                
+                </li>
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Configuration</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/config.yaml.html" target="_self">config.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/links.yaml.html" target="_self">links.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/webserver.html" target="_self">Webserver</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/extensions.html" target="_self">Extensions</a>
+                
+                </li>
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Themes</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/themes.html" target="_self">Available Themes</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/creating-themes.html" target="_self">Creating Themes</a>
+                
+                </li>
+            
+            </ul>
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/support.html" target="_self">Support</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/download.html" target="_self">Download</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/faqs.html" target="_self">FAQs</a>
+            
+            </li>
+        
+    
+    </ul>
+
+    <form class="navbar-form navbar-right" role="search" 
+        method="get"
+        action="/search.html">
+      <div class="form-group">
+        <input type="text" name="q" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-primary" style="display: none;"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+    </div>
+    </div>
+</div>
+<div id="wrap">
+<div class="container" style="padding-top: 60px;">
+
+<p>
+
+    <a class="label label-default"
+        href="/search.html?t=authoring">authoring <b class="glyphicon glyphicon-tag"></b></a>
+
+    <a class="label label-default"
+        href="/search.html?t=editing">editing <b class="glyphicon glyphicon-tag"></b></a>
+
+</p>
+<div class="toc">
+<ul>
+<li><a href="#overview">Overview</a><ul>
+<li><a href="#things-to-know">Things to know</a></li>
+<li><a href="#remote-editing">Remote editing</a></li>
+</ul>
+</li>
+<li><a href="#creating-posts">Creating posts</a><ul>
+<li><a href="#a-simple-example">A simple example</a><ul>
+<li><a href="#1-open-the-new-post">1. Open the new post</a></li>
+<li><a href="#2-add-content-to-the-post">2. Add content to the post</a></li>
+<li><a href="#3-optionally-add-a-link-for-a-menu-entry">3. (optionally) Add a link for a menu entry</a></li>
+<li><a href="#4-cache-the-post">4. Cache the post</a></li>
+</ul>
+</li>
+<li><a href="#post-data-block">Post data block</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="overview">Overview</h1>
+<p>Adding posts to your PyKwiki consists of two main pieces.</p>
+<ol>
+<li>Some way to get your content to a server.</li>
+<li>Some way to run <code>pykwiki cache</code> to cache your content.</li>
+</ol>
+<h2 id="things-to-know">Things to know</h2>
+<p>Technical knowledge: </p>
+<ol>
+<li>A basic understanding of <a href="/markdown.html">Markdown</a>.</li>
+<li>A basic understanding of the <a href="http://www.yaml.org/spec/1.2/spec.html#Introduction">YAML</a> data format. </li>
+</ol>
+<p>PyKwiki knowledge:</p>
+<ol>
+<li>New posts must be somewhere in the <code>source</code> directory.</li>
+<li>New posts must have the <code>.md</code> extension unless a different extension has been specified in <a href="/config.yaml.html">config.yaml</a> (the <code>source_ext</code> property).</li>
+<li>Post content must be in the <code>Markdown</code> format.</li>
+<li>For best cross-platform perfomance, post names should not have any spaces.</li>
+<li>Post file names should not conflict with the "special" theme files: <code>search</code> or <code>posts</code>.</li>
+</ol>
+<h2 id="remote-editing">Remote editing</h2>
+<p>If you don't have access to the server, or if you prefer 
+to use your own text editor to edit files, then you can
+sync files between your computer and the server.</p>
+<p>The server needs some way to cache your files. One way 
+to do this is to have your server administrator setup 
+a <code>cron</code> job. </p>
+<p>See: <a href="/remote-editing-tutorial.html">Remote Editing Tutorial</a></p>
+<h1 id="creating-posts">Creating posts</h1>
+<h2 id="a-simple-example">A simple example</h2>
+<h3 id="1-open-the-new-post">1. Open the new post</h3>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd</span> /path/to/myproject/source
+<span class="nv">$ </span>nano my-new-post.md
+</pre></div>
+
+
+<h3 id="2-add-content-to-the-post">2. Add content to the post</h3>
+<p>Put the following in as your page content, and save the post</p>
+<div class="codehilite"><pre>[[
+title: My New Post
+]]
+
+# Here is a new post!
+
+* It&#39;s easy
+* It&#39;s fun
+* It&#39;s fast
+</pre></div>
+
+
+<p>The double brackets <code>[[</code> and  <code>]]</code> indicate the post data block. Here you can specify 
+various information about your pages. <a href="#post-data-block">Learn more</a> about the post data block.</p>
+<p><small>Note: Post properties in this block must be either valid <code>YAML</code> or valid <code>JSON</code>.</small></p>
+<h3 id="3-optionally-add-a-link-for-a-menu-entry">3. (optionally) Add a link for a menu entry</h3>
+<p>PyKwiki parses the <code>links.yaml</code> file to generate the site menu. Once 
+you understand the format of <code>links.yaml</code>, adding links is very quick and easy.</p>
+<ul>
+<li>Learn more: <a href="/links.yaml.html">links.yaml</a></li>
+</ul>
+<h3 id="4-cache-the-post">4. Cache the post</h3>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd</span> /path/to/myproject
+<span class="nv">$ </span>pykwiki cache
+</pre></div>
+
+
+<h2 id="post-data-block">Post data block</h2>
+<p>The post data block is entirely optional, but it adds a lot of functionality
+to PyKwiki. The minimal recommended fields are <code>title</code> and <code>tags</code>.</p>
+<p>This block should appear at the top of a post, and must be enclosed in <code>[[</code> and <code>]]</code>.  </p>
+<div class="codehilite"><pre><span class="c1"># The post title will show in search results, as well as </span>
+<span class="c1">#   in the title bar of the browser.</span>
+<span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My Post Title</span>
+<span class="c1"># The post author is displayed by most themes.</span>
+<span class="c1">#   Can be a comma separated list of multiple authors.</span>
+<span class="l-Scalar-Plain">author</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Harry Potter</span>
+<span class="c1"># Post tags are essentially categories. </span>
+<span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">A</span><span class="p-Indicator">,</span> <span class="nv">YAML</span><span class="p-Indicator">,</span> <span class="nv">List</span><span class="p-Indicator">,</span> <span class="nv">Of</span><span class="p-Indicator">,</span> <span class="nv">Tags</span><span class="p-Indicator">]</span>
+<span class="c1"># A page description is mostly useful for search engines</span>
+<span class="c1">#   but it will be used as the page blurb if none is found</span>
+<span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">A simple description of my page,</span>
+    <span class="l-Scalar-Plain">this information is usually used by themes to make</span> 
+    <span class="l-Scalar-Plain">your site more search engine friendly. If no blurb</span>
+    <span class="l-Scalar-Plain">is specified, this will be used as the page blurb.</span>
+<span class="c1"># The page blurb can be set to &quot;auto&quot;, which allows</span>
+<span class="c1">#   PyKwiki to generate one based on the first 50 words</span>
+<span class="c1">#   in the body of a page.</span>
+<span class="l-Scalar-Plain">blurb</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">This is my post blurb. It will be used as the short</span> 
+    <span class="l-Scalar-Plain">description in search results. If I want this to be</span> 
+    <span class="l-Scalar-Plain">autogenerated, I should set its value to &quot;auto&quot;</span>
+    <span class="l-Scalar-Plain">for example</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">blurb</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">auto</span>
+<span class="c1"># Post keywords are used by SEO</span>
+<span class="l-Scalar-Plain">keywords</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">This is, a string, of comma separated words</span>
+<span class="c1"># The timestamp of the page. It MUST match the </span>
+<span class="c1">#   `timestamp_format` specified in config.yaml</span>
+<span class="l-Scalar-Plain">timestamp</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2013-11-01 21:45</span>
+<span class="c1"># Pages that are flagged as private are basically unpublished.</span>
+<span class="c1">#   They are not searchable and can only be reached by a direct link.</span>
+<span class="l-Scalar-Plain">private</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+<span class="c1"># The nowrap option is used by some themes to prevent wrapping</span>
+<span class="c1">#   the post content in a &quot;container&quot;</span>
+<span class="l-Scalar-Plain">nowrap</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+</pre></div>
+
+</div>
+</div><!-- End #wrap -->
+<div id="footer">
+    <div class="container">
+    
+        <div class="social-div">
+        <p class="text-muted credit">&copy; 2013, PyKwiki
+        &mdash; powered by <a href="http://pykwiki.nullism.com">PyKwiki</a>
+        </p>
+        </div>
+
+        
+
+        
+
+        
+
+
+        <div class="clearfix"></div>
+    </div>
+
+    
+
+</div>
+
+<script src="/static/bootstrap3/js/bootstrap.min.js"></script>
+<script src="/static/mustachejs/mustache.js"></script>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="/static/respond.min.js"></script>
+<![endif]-->   
+
+</body>
+</html>

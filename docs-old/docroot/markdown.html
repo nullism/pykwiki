@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+<meta name="description" content="PyKwiki is a static file wiki suitable for blogs, wikis, or almost any type of documentation">
+<meta name="keywords" content="authoring">
+
+    <title>Markdown Basics | PyKwiki</title>
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/static/codehilite/manni.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style type="text/css">
+    html, body { height: 100%; }
+
+    h1:target, h2:target, h3:target { 
+        background-color: #dfd;
+    }
+
+    #wrap {
+        min-height: 100%;
+        height: auto;
+        /* Negative indent footer by its height */
+        margin: 0 auto -60px;
+        /* Pad bottom by footer height */
+        padding: 0 0 60px;
+    }
+
+    #footer {
+        height: 60px;
+        padding-top: 20px;
+        background: #eee;
+    }
+    #footer .social-div { 
+        float: left;
+        margin-left: 10px;
+    }
+
+    .link_section {
+        padding: 3px;
+        margin: 0px; 
+        font-weight: bold;
+    }
+
+    .toc { 
+        float: right;
+        border: 2px solid #efefef;
+        background: #f5f5f5;
+        padding: 5px;
+        border-radius: 3px;
+        color: #999;
+    }
+    .toc ul, .toc li, .toc ul li { 
+        margin-left: 10px;
+        padding-left: 0px;
+    }
+
+    .htmltruncate-lg, .htmltruncate-md, .htmltruncate-sm { 
+        overflow: hidden;
+        position: relative;
+        border-bottom: 2px dashed #eee;
+        margin-bottom: 5px;
+        min-height: 60px;
+    }
+    .htmltruncate-bottom { 
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        background: none;
+        background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, #fff 100%);
+        z-index: 100;
+        height: 60px;
+    }
+    .htmltruncate-lg {
+        max-height: 500px;
+    }
+    .htmltruncate-md { 
+        max-height: 300px;
+    }
+    .htmltruncate-sm { 
+        max-height: 150px;
+    }
+    </style> 
+    <script>
+    // Globals
+    var has_gaq = false;
+    </script>
+</head>
+<body>
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+    <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" 
+                data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Home</a>
+    </div>
+    <div class="navbar-collapse collapse" style="max-height: none;">
+    <ul class="nav navbar-nav">
+    
+        
+            <li>
+            
+                <a href="/features.html" target="_self">Features</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/getting-started.html" target="_self">Getting Started</a>
+            
+            </li>
+        
+    
+        
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+                data-toggle="dropdown">Documentation <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Authoring</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/authoring.html" target="_self">Authoring Pages</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/markdown.html" target="_self">Markdown Format</a>
+                
+                </li>
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Configuration</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/config.yaml.html" target="_self">config.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/links.yaml.html" target="_self">links.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/webserver.html" target="_self">Webserver</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/extensions.html" target="_self">Extensions</a>
+                
+                </li>
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Themes</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/themes.html" target="_self">Available Themes</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/creating-themes.html" target="_self">Creating Themes</a>
+                
+                </li>
+            
+            </ul>
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/support.html" target="_self">Support</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/download.html" target="_self">Download</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/faqs.html" target="_self">FAQs</a>
+            
+            </li>
+        
+    
+    </ul>
+
+    <form class="navbar-form navbar-right" role="search" 
+        method="get"
+        action="/search.html">
+      <div class="form-group">
+        <input type="text" name="q" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-primary" style="display: none;"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+    </div>
+    </div>
+</div>
+<div id="wrap">
+<div class="container" style="padding-top: 60px;">
+
+<p>
+
+    <a class="label label-default"
+        href="/search.html?t=authoring">authoring <b class="glyphicon glyphicon-tag"></b></a>
+
+</p>
+<h1 id="markdown">Markdown</h1>
+<p>Markdown is a popular text format for editing files. It is often used to produce well formatted web content. It is used extensively by GitHub, Reddit, Stack Overflow, and many others. </p>
+<p>One of the easiest ways to become familiar with Markdown is to <a href="https://stackedit.io">give it a try</a>!</p>
+<h2 id="text-formatting">Text formatting</h2>
+<h3 id="bold-italics-lists">Bold, italics, lists</h3>
+<div class="codehilite"><pre>*This is italic*
+
+**This is bold**
+
+This sentence has **bold**, *italics*, and ***bold-italics***
+
+* This is a list item
+* So is this
+    * And this is a sublist item
+
+Numbered lists are easy
+
+1. First item
+2. Second item
+    1. Sub second item
+3. Third item
+</pre></div>
+
+
+<p>The above Markdown produces the following HTML</p>
+<div class="codehilite"><pre><span class="nt">&lt;p&gt;&lt;em&gt;</span>This is italic<span class="nt">&lt;/em&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;&lt;strong&gt;</span>This is bold<span class="nt">&lt;/strong&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>This sentence has <span class="nt">&lt;strong&gt;</span>bold<span class="nt">&lt;/strong&gt;</span>, <span class="nt">&lt;em&gt;</span>italics<span class="nt">&lt;/em&gt;</span>, and <span class="nt">&lt;strong&gt;&lt;em&gt;</span>bold-italics<span class="nt">&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;</span>This is a list item<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>So is this
+        <span class="nt">&lt;ul&gt;&lt;li&gt;</span>And this is a sublist item<span class="nt">&lt;/li&gt;&lt;/ul&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>Numbered lists are easy<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;ol&gt;</span>
+    <span class="nt">&lt;li&gt;</span>First item<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>Second item
+        <span class="nt">&lt;ol&gt;&lt;li&gt;</span>Sub second item<span class="nt">&lt;/li&gt;&lt;/ol&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>Third item<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ol&gt;</span>
+</pre></div>
+
+
+<h3 id="headings">Headings</h3>
+<p>If you enter the following in your Markdown (<code>.md</code>) files:</p>
+<div class="codehilite"><pre>&lt;h1&gt;An HTML h1 heading&lt;/h1&gt;
+
+# An h1 heading
+
+Also an h1 heading
+==================
+
+## An h2 heading
+
+Also an h2 heading
+------------------
+
+### An h3 heading
+
+#### An h4 heading
+</pre></div>
+
+
+<p>You would see the following HTML on your page:</p>
+<div class="codehilite"><pre><span class="nt">&lt;h1&gt;</span>An HTML h1 heading<span class="nt">&lt;/h1&gt;</span>
+
+<span class="nt">&lt;h1&gt;</span>An h1 heading<span class="nt">&lt;/h1&gt;</span>
+
+<span class="nt">&lt;h1&gt;</span>Also an h1 heading<span class="nt">&lt;/h1&gt;</span>
+
+<span class="nt">&lt;h2&gt;</span>An h2 heading<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;h2&gt;</span>Also an h2 heading<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;h3&gt;</span>An h3 heading<span class="nt">&lt;/h3&gt;</span>
+
+<span class="nt">&lt;h4&gt;</span>An h4 heading<span class="nt">&lt;/h4&gt;</span>
+</pre></div>
+
+</div>
+</div><!-- End #wrap -->
+<div id="footer">
+    <div class="container">
+    
+        <div class="social-div">
+        <p class="text-muted credit">&copy; 2013, PyKwiki
+        &mdash; powered by <a href="http://pykwiki.nullism.com">PyKwiki</a>
+        </p>
+        </div>
+
+        
+
+        
+
+        
+
+
+        <div class="clearfix"></div>
+    </div>
+
+    
+
+</div>
+
+<script src="/static/bootstrap3/js/bootstrap.min.js"></script>
+<script src="/static/mustachejs/mustache.js"></script>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="/static/respond.min.js"></script>
+<![endif]-->   
+
+</body>
+</html>

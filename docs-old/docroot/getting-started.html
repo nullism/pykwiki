@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+<meta name="description" content="PyKwiki is a static file wiki suitable for blogs, wikis, or almost any type of documentation">
+<meta name="keywords" content="setup">
+
+    <title>Getting Started | PyKwiki</title>
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/static/codehilite/manni.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style type="text/css">
+    html, body { height: 100%; }
+
+    h1:target, h2:target, h3:target { 
+        background-color: #dfd;
+    }
+
+    #wrap {
+        min-height: 100%;
+        height: auto;
+        /* Negative indent footer by its height */
+        margin: 0 auto -60px;
+        /* Pad bottom by footer height */
+        padding: 0 0 60px;
+    }
+
+    #footer {
+        height: 60px;
+        padding-top: 20px;
+        background: #eee;
+    }
+    #footer .social-div { 
+        float: left;
+        margin-left: 10px;
+    }
+
+    .link_section {
+        padding: 3px;
+        margin: 0px; 
+        font-weight: bold;
+    }
+
+    .toc { 
+        float: right;
+        border: 2px solid #efefef;
+        background: #f5f5f5;
+        padding: 5px;
+        border-radius: 3px;
+        color: #999;
+    }
+    .toc ul, .toc li, .toc ul li { 
+        margin-left: 10px;
+        padding-left: 0px;
+    }
+
+    .htmltruncate-lg, .htmltruncate-md, .htmltruncate-sm { 
+        overflow: hidden;
+        position: relative;
+        border-bottom: 2px dashed #eee;
+        margin-bottom: 5px;
+        min-height: 60px;
+    }
+    .htmltruncate-bottom { 
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        background: none;
+        background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, #fff 100%);
+        z-index: 100;
+        height: 60px;
+    }
+    .htmltruncate-lg {
+        max-height: 500px;
+    }
+    .htmltruncate-md { 
+        max-height: 300px;
+    }
+    .htmltruncate-sm { 
+        max-height: 150px;
+    }
+    </style> 
+    <script>
+    // Globals
+    var has_gaq = false;
+    </script>
+</head>
+<body>
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+    <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" 
+                data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Home</a>
+    </div>
+    <div class="navbar-collapse collapse" style="max-height: none;">
+    <ul class="nav navbar-nav">
+    
+        
+            <li>
+            
+                <a href="/features.html" target="_self">Features</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/getting-started.html" target="_self">Getting Started</a>
+            
+            </li>
+        
+    
+        
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+                data-toggle="dropdown">Documentation <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Authoring</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/authoring.html" target="_self">Authoring Pages</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/markdown.html" target="_self">Markdown Format</a>
+                
+                </li>
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Configuration</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/config.yaml.html" target="_self">config.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/links.yaml.html" target="_self">links.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/webserver.html" target="_self">Webserver</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/extensions.html" target="_self">Extensions</a>
+                
+                </li>
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Themes</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/themes.html" target="_self">Available Themes</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/creating-themes.html" target="_self">Creating Themes</a>
+                
+                </li>
+            
+            </ul>
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/support.html" target="_self">Support</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/download.html" target="_self">Download</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/faqs.html" target="_self">FAQs</a>
+            
+            </li>
+        
+    
+    </ul>
+
+    <form class="navbar-form navbar-right" role="search" 
+        method="get"
+        action="/search.html">
+      <div class="form-group">
+        <input type="text" name="q" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-primary" style="display: none;"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+    </div>
+    </div>
+</div>
+<div id="wrap">
+<div class="container" style="padding-top: 60px;">
+
+<p>
+
+    <a class="label label-default"
+        href="/search.html?t=setup">setup <b class="glyphicon glyphicon-tag"></b></a>
+
+</p>
+<div class="toc">
+<ul>
+<li><a href="#getting-started">Getting Started</a><ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#install-pykwiki">Install PyKwiki</a></li>
+<li><a href="#create-a-new-project">Create a new project</a></li>
+<li><a href="#serve-the-default-content">Serve the default content</a></li>
+<li><a href="#configuration">Configuration</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="getting-started">Getting Started</h1>
+<p>This guide outlines the minimal steps to get PyKwiki serving static files.</p>
+<h2 id="requirements">Requirements</h2>
+<p>PyKwiki does not require anything outside of Python, but it does require the following Python packages:</p>
+<ul>
+<li><code>jinja2</code> (&gt;=2.6) - Jinja2 is used to compile themes into .html.<ul>
+<li>Install with <code>sudo pip install jinja2</code></li>
+</ul>
+</li>
+<li><code>markdown</code> (&gt;=2.3) - MarkDown is the syntax used for PyKwiki.<ul>
+<li>Install with <code>sudo pip install markdown</code></li>
+</ul>
+</li>
+<li><code>pyyaml</code> (&gt;=3.0) - Configuration files use YAML<ul>
+<li>Install with <code>sudo pip install pyyaml</code></li>
+</ul>
+</li>
+</ul>
+<p>The above packages should be auto-installed when PyKwiki is installed.</p>
+<h2 id="install-pykwiki">Install PyKwiki</h2>
+<p>You can download the setup.py directly, or simply run:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">I</span> <span class="n">pykwiki</span><span class="o">==</span><span class="mf">1.1.6</span>
+</pre></div>
+
+
+<h2 id="create-a-new-project">Create a new project</h2>
+<p>The <code>pykwiki new &lt;Name&gt;</code> command creates a project directory in the current
+working directory. The project directory will be named <code>&lt;Name&gt;</code>. </p>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd</span> ~
+<span class="nv">$ </span>mkdir pykwiki_projects
+<span class="nv">$ </span><span class="nb">cd </span>pykwiki_projects
+<span class="nv">$ </span>pykwiki new MySite
+...
+</pre></div>
+
+
+<h2 id="serve-the-default-content">Serve the default content</h2>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd </span>MySite/
+<span class="nv">$ </span>pykwiki cache -f
+...
+<span class="nv">$ </span><span class="nb">cd </span>docroot
+<span class="nv">$ </span>python -m SimpleHTTPServer 5000
+</pre></div>
+
+
+<p>Now you can navigate to <a href="http://localhost:5000">http://localhost:5000</a> to see that PyKwiki is working.</p>
+<h2 id="configuration">Configuration</h2>
+<p>PyKwiki is now ready for final tweaks.</p>
+<ul>
+<li><a href="/authoring.html">Authoring Posts</a> - About writing and publishing posts.</li>
+</ul>
+<p>Configuration:</p>
+<ul>
+<li><a href="/config.yaml.html">config.yaml</a> - Main configuration file.</li>
+<li><a href="/links.yaml.html">links.yaml</a> - Menu hierarchy configuration file.</li>
+</ul>
+
+</div>
+</div><!-- End #wrap -->
+<div id="footer">
+    <div class="container">
+    
+        <div class="social-div">
+        <p class="text-muted credit">&copy; 2013, PyKwiki
+        &mdash; powered by <a href="http://pykwiki.nullism.com">PyKwiki</a>
+        </p>
+        </div>
+
+        
+
+        
+
+        
+
+
+        <div class="clearfix"></div>
+    </div>
+
+    
+
+</div>
+
+<script src="/static/bootstrap3/js/bootstrap.min.js"></script>
+<script src="/static/mustachejs/mustache.js"></script>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="/static/respond.min.js"></script>
+<![endif]-->   
+
+</body>
+</html>

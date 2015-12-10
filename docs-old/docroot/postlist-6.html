@@ -1,0 +1,414 @@
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(5); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(7); return false;">&raquo;</a></li>
+  
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/testing.html">Testing</a> 
+        <span class="pull-right text-muted">December 10, 2015</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <p>
+<div>
+<p><h2 id="how-do-i-specify-the-date-of-the-post">How do I specify the date of the post?</h2>
+<p>In the <a href="/authoring.html#post-data-block">post configuration section</a>, set the <code>timestamp</code> key.
+It must match the format from <a href="/config.yaml.html">config.yaml</a> - <code>timestamp_format</code>. </p>
+<p><strong>Example</strong></p>
+<div class="codehilite"><pre>[[
+title: My Post
+tags: [stuff, moar stuff]
+timestamp: 2013-11-13 21:14
+]]
+</pre></div></p>
+<p><p>See: <a href="/authoring.html#post-data-block">Post Data Block</a> for more information.</p></p>
+</div>
+</p>
+<div class="codehilite"><pre><span class="nv">$ </span>sudo pip install pykwiki
+...
+<span class="nv">$ </span>pykwiki new MyProject
+...
+<span class="nv">$ </span><span class="nb">cd </span>MyProject
+<span class="nv">$ </span>pykwiki cache
+<span class="nv">$ </span><span class="nb">cd </span>docroot
+<span class="nv">$ </span>python -m SimpleHTTPServer 5000
+Serving HTTP on 0.0.0.0 port 5000 ...
+</pre></div>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/testing.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/creating-themes.html">Creating Themes</a> 
+        <span class="pull-right text-muted">December 10, 2015</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#creating-themes">Creating themes</a><ul>
+<li><a href="#theme-directory-structure">Theme Directory Structure</a></li>
+<li><a href="#infoyaml">info.yaml</a></li>
+<li><a href="#optionsyaml">options.yaml</a></li>
+<li><a href="#menuhtml">menu.html</a></li>
+<li><a href="#posthtml">post.html</a></li>
+<li><a href="#postlisthtml">postlist.html</a><ul>
+<li><a href="#variables-passed-to-postlisthtml">Variables passed to postlist.html</a></li>
+</ul>
+</li>
+<li><a href="#postshtml">posts.html</a><ul>
+<li><a href="#variables-passed-to-postshtml">Variables passed to posts.html</a></li>
+</ul>
+</li>
+<li><a href="#searchhtml">search.html</a></li>
+<li><a href="#static">static/</a></li>
+</ul>
+</li>
+<li><a href="#bundling-for-distribution">Bundling for distribution</a></li>
+</ul>
+</div>
+<div class="alert alert-warning">
+    <p><b>Warning:</b> This documentation is only compatible with <b>version 1.0.1</b> and newer.</p>
+</div>
+
+<h1 id="creating-themes">Creating themes</h1>
+<p>PyKwiki themes are designed to be easy to create. </p>
+<p>Visit <a href="/api.html">API</a> to see a list of advanced functions and properties available to themes.</p>
+<h2 id="theme-directory-structure">Theme Directory Structure</h2>
+<div class="codehilite"><pre>ThemeName/
+    info.yaml
+    options.yaml
+    menu.html
+    post.html
+    postlist.html
+    posts.html
+    search.html
+    static/
+</pre></div>
+
+
+<ul>
+<li><code>info.yaml</code> - Includes information about the theme, such as author, version, and description.</li>
+<li><code>menu.html</code> - Renders the site menu.</li>
+<li><code>post.html</code> - Rendered for each page in <code>source</code>.</li>
+<li><code>postlist.html</code> - Displays a list of posts as configured by <code>conf.postlist</code>.</li>
+<li><code>posts.html</code> - Paginates <code>postlist-N.html</code></li>
+<li><code>search.html</code> - The search post.</li>
+<li><code>static/</code> - All files in this directory will be copied to <code>docroot/static/</code>. </li>
+</ul>
+<h2 id="infoyaml">info.yaml</h2>
+<p>This file provide PyKwiki with some basic knowledge. </p>
+<div class="codehilite"><pre><span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Some Theme</span>
+<span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">This is a special theme</span>
+<span class="l-Scalar-Plain">author</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Your Name</span>
+<span class="l-Scalar-Plain">author_email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">youremail</span>
+<span class="l-Scalar-Plain">license</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">MIT, GPL, BSD, etc.</span>
+<span class="l-Scalar-Plain">version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1.0</span>
+</pre></div>
+
+
+<h2 id="optionsyaml">options.yaml</h2>
+<p>This <em>optional</em> file contains data used by your theme. It is a dictionary passed in to all of your theme templates as <code>topt</code>. </p>
+<p>Example <code>options.yaml</code> content:</p>
+<div class="codehilite"><pre><span class="c1"># Invert the bootstrap navbar?</span>
+<span class="l-Scalar-Plain">invert_navbar</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+<span class="c1"># Custom copyright footer</span>
+<span class="l-Scalar-Plain">copyright_footer</span><span class="p-Indicator">:</span> <span class="nl">&amp;copy</span><span class="l-Scalar-Plain">; 2013 My Name</span>
+<span class="c1"># Body background color</span>
+<span class="l-Scalar-Plain">background_color</span><span class="p-Indicator">:</span> <span class="c1">#fff;</span>
+</pre></div>
+
+
+<p>In the theme you might access these with:</p>
+<div class="codehilite"><pre><span class="x">&lt;body style=&quot;background: </span><span class="cp">{{</span><span class="nv">topt.background_color</span><span class="cp">}}</span><span class="x">&quot;&gt;</span>
+<span class="x">&lt;div id=&quot;navbar navbar-</span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">topt.invert_navbar</span> <span class="cp">%}</span><span class="x">inverted</span><span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span><span class="x">default</span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x">&quot;&gt;</span>
+<span class="x">...    </span>
+<span class="x">&lt;div id=&quot;footer&quot;&gt;</span>
+<span class="cp">{{</span><span class="nv">topt.copyright_footer</span><span class="o">|</span><span class="nf">default</span><span class="o">(</span><span class="s1">&#39;&amp;copy; Nobody&#39;</span><span class="o">)</span><span class="cp">}}</span><span class="x"> - Powered by PyKwiki</span>
+<span class="x">&lt;/div&gt;</span>
+<span class="x">...</span>
+</pre></div>
+
+
+<h2 id="menuhtml">menu.html</h2>
+<p>This renders the PyKwiki theme. The <code>links</code> variable is made available when this template is rendered.</p>
+<p>Here's an example link file that nests a single level deep. The following example uses a Jinja2 macro to make an infinitely nesting list.</p>
+<div class="codehilite"><pre><span class="cp">{%</span> <span class="k">macro</span> <span class="nv">make_links</span><span class="o">(</span><span class="nv">ls</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;ul&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">link</span> <span class="k">in</span> <span class="nv">ls</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">link.href</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;a href=&quot;</span><span class="cp">{{</span><span class="nv">link.href</span><span class="cp">}}</span><span class="x">&quot; target=&quot;</span><span class="cp">{{</span><span class="nv">link.target</span><span class="o">|</span><span class="nf">default</span><span class="o">(</span><span class="s1">&#39;_self&#39;</span><span class="o">)</span><span class="cp">}}</span><span class="x">&quot;&gt;</span><span class="cp">{{</span><span class="nv">link.label</span><span class="cp">}}</span><span class="x">&lt;/a&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;b&gt;</span><span class="cp">{{</span><span class="nv">link.label</span><span class="cp">}}</span><span class="x">&lt;/b&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="x">    </span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">link.children</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        </span><span class="cp">{{</span> <span class="nv">make_links</span><span class="o">(</span><span class="nv">link.children</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;/li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;/ul&gt;</span>
+<span class="cp">{%</span>- <span class="k">endmacro</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{{</span> <span class="nv">make_links</span><span class="o">(</span><span class="nv">links</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+
+
+<p>The <code>links</code> list is a list of <code>link</code> objects. The properties of a <code>link</code> object are as follows.</p>
+<ul>
+<li><code>label</code> - The human readable link label.</li>
+<li><code>target</code> - <em>Optional</em>. Specifies the value that should go in <code>target</code>, like <code>_self</code> or <code>_blank</code>.</li>
+<li><code>href</code> - <em>Optional</em>. The url of the post. It may be an internal relative path to a page, or it may include <code>http</code>. </li>
+<li><code>rel</code> - PyKwiki populates this with one of <code>external</code> or <code>internal</code>. </li>
+<li><code>children</code> - <em>Optional</em>. A list of links that follow the current link.</li>
+</ul>
+<h2 id="posthtml">post.html</h2>
+<p>This is the template rendered for each source page you have. This template has access to the <code>conf</code>, <code>ctrl</code> and <a href="/api.html#post-object">post</a> objects.</p>
+<p>An example <code>post.html</code> template:</p>
+<div class="codehilite"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;layout.html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}{{</span><span class="nv">post.title</span><span class="cp">}}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">tag</span> <span class="k">in</span> <span class="nv">post.tags</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;a href=&quot;</span><span class="cp">{{</span><span class="nv">conf.web_prefix</span><span class="cp">}}</span><span class="x">/</span><span class="cp">{{</span><span class="nv">conf.search_tpl</span><span class="cp">}}</span><span class="x">?t=</span><span class="cp">{{</span><span class="nv">tag</span><span class="cp">}}</span><span class="x">&quot;&gt;</span><span class="cp">{{</span><span class="nv">tag</span><span class="cp">}}</span><span class="x">&lt;/a&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span><span class="nv">post.target_text</span><span class="o">|</span><span class="nf">safe</span><span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+
+
+<h2 id="postlisthtml">postlist.html</h2>
+<p>This page simply renders a list of pages, passed into the template as <code>posts</code>. Each member of <code>posts</code> is a <a href="/api.html#post-object">post</a> object instance. </p>
+<p>This is rendered multiple times. </p>
+<p>The post list should support the three posts types from <a href="/config.yaml.html">config.yaml</a>. These are <code>full</code>, <code>preview</code>, and <code>blurb</code>. </p>
+<ul>
+<li><code>full</code> - Show the entire post.</li>
+<li><code>preview</code> - Only a portion of the post. (For example, in a max-height, overflow hidden div).</li>
+<li><code>blurb</code> - Only show the <code>post.blurb</code> text.</li>
+</ul>
+<h3 id="variables-passed-to-postlisthtml">Variables passed to postlist.html</h3>
+<ul>
+<li><code>posts</code> - A list of <a href="/api.html#post-object">post</a> object instances.</li>
+<li><code>page_count</code> - The number of postlist pages to be made.</li>
+<li><code>post_count</code> - The total number of posts.</li>
+<li><code>post_type</code> - One of <code>preview</code>, <code>full</code>, <code>blurb</code>.</li>
+<li><code>this_page_num</code> - The page number being rendered.</li>
+<li><code>per_page</code> - The number of posts per page.</li>
+</ul>
+<p>An example <code>postlist.html</code> template:</p>
+<div class="codehilite"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">post</span> <span class="k">in</span> <span class="nv">posts</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;div&gt;</span>
+<span class="x">    &lt;h2&gt;</span>
+<span class="x">        &lt;a href=&quot;</span><span class="cp">{{</span><span class="nv">post.url</span><span class="cp">}}</span><span class="x">&quot;&gt;</span><span class="cp">{{</span><span class="nv">post.title</span><span class="cp">}}</span><span class="x">&lt;/a&gt;</span>
+<span class="x">        &lt;span class=&quot;pull-right text-muted&quot;&gt;</span><span class="cp">{{</span><span class="nv">post.mdate_string</span><span class="cp">}}</span><span class="x">&lt;/span&gt;</span>
+<span class="x">    &lt;/h2&gt;</span>
+<span class="x">    &lt;div&gt;</span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">post_type</span> <span class="o">==</span> <span class="s1">&#39;full&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">            </span><span class="cp">{{</span><span class="nv">post.target_text</span><span class="cp">}}</span><span class="x"></span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">elif</span> <span class="nv">post_type</span> <span class="o">==</span> <span class="s1">&#39;preview&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">            &lt;div class=&quot;htmltruncate-md&quot;&gt;</span>
+<span class="x">                </span><span class="cp">{{</span><span class="nv">post.target_text</span><span class="cp">}}</span><span class="x"></span>
+<span class="x">                &lt;div class=&quot;htmltruncate-bottom&quot;&gt;&lt;/div&gt;</span>
+<span class="x">            &lt;/div&gt;</span>
+<span class="x">            &lt;a href=&quot;</span><span class="cp">{{</span><span class="nv">post.url</span><span class="cp">}}</span><span class="x">&quot;&gt;...&lt;/a&gt;</span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">            </span><span class="cp">{{</span><span class="nv">post.blurb</span><span class="cp">}}</span><span class="x"></span>
+<span class="x">            &lt;a href=&quot;</span><span class="cp">{{</span><span class="nv">post.url</span><span class="cp">}}</span><span class="x">&quot;&gt;Read more&lt;/a&gt;</span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+
+
+<h2 id="postshtml">posts.html</h2>
+<p>The posts template is used when displaying lists of pages as posts. It should use Ajax or iframes to load the generated <code>postlist-N.html</code> files. </p>
+<p>Example <code>posts.html</code> template:</p>
+<div class="codehilite"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;layout.html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span><span class="x">Recent</span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;script&gt;</span>
+<span class="x">var this_page = 1; </span>
+<span class="x">function load_postlist_cb(data) { </span>
+<span class="x">    $(&#39;#postlist_wrap&#39;).html(data);</span>
+<span class="x">    $(&#39;.toc&#39;).hide();</span>
+<span class="x">}</span>
+
+<span class="x">function load_postlist(page_num) { </span>
+<span class="x">    if((page_num &gt; </span><span class="cp">{{</span><span class="nv">page_count</span><span class="cp">}}</span><span class="x">)||(page_num &lt; 1)) { </span>
+<span class="x">        alert(&#39;That page does not exist&#39;);</span>
+<span class="x">    }</span>
+<span class="x">    $.get(&#39;</span><span class="cp">{{</span><span class="nv">conf.web_prefix</span><span class="cp">}}</span><span class="x">/postlist-&#39;+page_num+&#39;.html&#39;,</span>
+<span class="x">        load_postlist_cb,</span>
+<span class="x">        &quot;html&quot;);</span>
+<span class="x">    this_page = page_num;</span>
+<span class="x">}</span>
+
+<span class="x">$(document).ready(function() { </span>
+<span class="x">    load_postlist(1);</span>
+<span class="x">});</span>
+
+<span class="x">&lt;/script&gt;</span>
+
+<span class="x">&lt;button onclick=&quot;load_postlist(this_page-1);&quot;&gt;Previous&lt;/button&gt;</span>
+<span class="x">&lt;button onclick=&quot;load_postlist(this_page+1);&quot;&gt;Next&lt;/button&gt;</span>
+
+<span class="x">&lt;div id=&quot;postlist_wrap&quot;&gt;&lt;/div&gt;</span>
+
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+
+
+<h3 id="variables-passed-to-postshtml">Variables passed to posts.html</h3>
+<ul>
+<li><code>page_count</code> - The number of postlist pages to be made.</li>
+<li><code>post_count</code> - The total number of posts.</li>
+<li><code>per_page</code> - The number of posts per page.</li>
+</ul>
+<h2 id="searchhtml">search.html</h2>
+<p>This template is used for performing client site searches. The JSON index file (<code>conf.index_file</code>) contains information about search terms. The JSON post data file (<code>conf.post_data_file</code>) contains
+information about posts, such as tags and blurbs. For more information about these files and their format, see <a href="/about-search.html">About Search</a>. </p>
+<div class="alert alert-info">This file is considered to be the most complicated part of theme creation. It is recommended that a theme author takes a look at one of the existing `search.html` templates to fully understand how it works.</div>
+
+<h2 id="static">static/</h2>
+<p>Every file in the static directory is copied to <code>docroot/static/</code>. </p>
+<p>Themes typically include JavaScript and CSS from this directory, example:</p>
+<div class="codehilite"><pre><span class="x">...</span>
+<span class="x">&lt;script src=&quot;</span><span class="cp">{{</span><span class="nv">conf.web_prefix</span><span class="cp">}}</span><span class="x">/static/somejavascript.js&quot;&gt;&lt;/script&gt;</span>
+<span class="x">&lt;link rel=&quot;stylesheet&quot; href=&quot;</span><span class="cp">{{</span><span class="nv">conf.web_prefix</span><span class="cp">}}</span><span class="x">/static/css/style1.css&quot; /&gt;</span>
+<span class="x">...</span>
+</pre></div>
+
+
+<h1 id="bundling-for-distribution">Bundling for distribution</h1>
+<p>The top-level directory in the theme zip file should be the name of your theme. It should be structured so it can be installed with the following commands:</p>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd </span>themes/
+<span class="nv">$ </span>unzip theme-yourtheme.zip
+</pre></div>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/creating-themes.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(5); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(7); return false;">&raquo;</a></li>
+  
+</ul>
+

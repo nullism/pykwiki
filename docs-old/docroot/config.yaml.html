@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+<meta name="description" content="PyKwiki is a static file wiki suitable for blogs, wikis, or almost any type of documentation">
+<meta name="keywords" content="configuration">
+
+    <title>config.yaml | PyKwiki</title>
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/static/codehilite/manni.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style type="text/css">
+    html, body { height: 100%; }
+
+    h1:target, h2:target, h3:target { 
+        background-color: #dfd;
+    }
+
+    #wrap {
+        min-height: 100%;
+        height: auto;
+        /* Negative indent footer by its height */
+        margin: 0 auto -60px;
+        /* Pad bottom by footer height */
+        padding: 0 0 60px;
+    }
+
+    #footer {
+        height: 60px;
+        padding-top: 20px;
+        background: #eee;
+    }
+    #footer .social-div { 
+        float: left;
+        margin-left: 10px;
+    }
+
+    .link_section {
+        padding: 3px;
+        margin: 0px; 
+        font-weight: bold;
+    }
+
+    .toc { 
+        float: right;
+        border: 2px solid #efefef;
+        background: #f5f5f5;
+        padding: 5px;
+        border-radius: 3px;
+        color: #999;
+    }
+    .toc ul, .toc li, .toc ul li { 
+        margin-left: 10px;
+        padding-left: 0px;
+    }
+
+    .htmltruncate-lg, .htmltruncate-md, .htmltruncate-sm { 
+        overflow: hidden;
+        position: relative;
+        border-bottom: 2px dashed #eee;
+        margin-bottom: 5px;
+        min-height: 60px;
+    }
+    .htmltruncate-bottom { 
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        background: none;
+        background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, #fff 100%);
+        z-index: 100;
+        height: 60px;
+    }
+    .htmltruncate-lg {
+        max-height: 500px;
+    }
+    .htmltruncate-md { 
+        max-height: 300px;
+    }
+    .htmltruncate-sm { 
+        max-height: 150px;
+    }
+    </style> 
+    <script>
+    // Globals
+    var has_gaq = false;
+    </script>
+</head>
+<body>
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+    <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" 
+                data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Home</a>
+    </div>
+    <div class="navbar-collapse collapse" style="max-height: none;">
+    <ul class="nav navbar-nav">
+    
+        
+            <li>
+            
+                <a href="/features.html" target="_self">Features</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/getting-started.html" target="_self">Getting Started</a>
+            
+            </li>
+        
+    
+        
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+                data-toggle="dropdown">Documentation <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Authoring</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/authoring.html" target="_self">Authoring Pages</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/markdown.html" target="_self">Markdown Format</a>
+                
+                </li>
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Configuration</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/config.yaml.html" target="_self">config.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/links.yaml.html" target="_self">links.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/webserver.html" target="_self">Webserver</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/extensions.html" target="_self">Extensions</a>
+                
+                </li>
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Themes</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/themes.html" target="_self">Available Themes</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/creating-themes.html" target="_self">Creating Themes</a>
+                
+                </li>
+            
+            </ul>
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/support.html" target="_self">Support</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/download.html" target="_self">Download</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/faqs.html" target="_self">FAQs</a>
+            
+            </li>
+        
+    
+    </ul>
+
+    <form class="navbar-form navbar-right" role="search" 
+        method="get"
+        action="/search.html">
+      <div class="form-group">
+        <input type="text" name="q" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-primary" style="display: none;"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+    </div>
+    </div>
+</div>
+<div id="wrap">
+<div class="container" style="padding-top: 60px;">
+
+<p>
+
+    <a class="label label-default"
+        href="/search.html?t=configuration">configuration <b class="glyphicon glyphicon-tag"></b></a>
+
+</p>
+<div class="alert alert-warning">
+    <p><b>Warning:</b> This documentation is only compatible with <b>version 1.0</b> and newer.</p>
+</div>
+
+<h1 id="configyaml">config.yaml</h1>
+<p>Below is a typical <code>config.yaml</code> file</p>
+<div class="codehilite"><pre><span class="c1"># Maximum number of words to use in a blurb</span>
+<span class="l-Scalar-Plain">blurb_max</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
+<span class="c1"># The default home page to be written as docroot/index.html</span>
+<span class="l-Scalar-Plain">home_page</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">home.md</span>
+<span class="l-Scalar-Plain">site</span><span class="p-Indicator">:</span>
+    <span class="c1"># The site title, used in &lt;title&gt;</span>
+    <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My PyKwiki Project</span>
+    <span class="c1"># Author for use in meta name=author</span>
+    <span class="l-Scalar-Plain">author</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Example Author</span>
+    <span class="c1"># Description for use in meta name=description</span>
+    <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="s">&quot;Example</span><span class="nv"> </span><span class="s">Site</span><span class="nv"> </span><span class="s">Description</span>
+        <span class="s">goes</span><span class="nv"> </span><span class="s">here&quot;</span>
+    <span class="c1"># Keywords for use in meta name=keywords</span>
+    <span class="l-Scalar-Plain">keywords</span><span class="p-Indicator">:</span> <span class="s">&quot;example,</span><span class="nv"> </span><span class="s">pykwiki&quot;</span>
+    <span class="c1"># (new in v1.0.5) Base URL is used by RSS feeds, no web_prefix</span>
+    <span class="l-Scalar-Plain">base_url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://www.example.com</span> 
+<span class="c1"># Theme is a subdirectory of themes/</span>
+<span class="l-Scalar-Plain">theme</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+<span class="c1"># Web prefix, must not end with &quot;/&quot;</span>
+<span class="l-Scalar-Plain">web_prefix</span><span class="p-Indicator">:</span> <span class="s">&#39;&#39;</span>
+<span class="c1"># The project&#39;s directory</span>
+<span class="l-Scalar-Plain">base_path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/home/HarryPotter/MyPyKwikiProject/</span>
+<span class="c1"># The date format used by posts</span>
+<span class="l-Scalar-Plain">date_format</span><span class="p-Indicator">:</span> <span class="s">&#39;%B</span><span class="nv"> </span><span class="s">%d,</span><span class="nv"> </span><span class="s">%Y&#39;</span>
+<span class="c1"># The time format used by posts</span>
+<span class="l-Scalar-Plain">time_format</span><span class="p-Indicator">:</span> <span class="s">&#39;%H:%M:%S&#39;</span>
+<span class="c1"># The timestamp format used by posts, this must match</span>
+<span class="c1">#   the format found in the post data block, if specified</span>
+<span class="l-Scalar-Plain">timestamp_format</span><span class="p-Indicator">:</span> <span class="s">&#39;%Y-%m-%d</span><span class="nv"> </span><span class="s">%H:%M&#39;</span>
+<span class="c1"># Post list section</span>
+<span class="l-Scalar-Plain">postlist</span><span class="p-Indicator">:</span>
+    <span class="c1"># How many posts to show per page</span>
+    <span class="l-Scalar-Plain">per_page</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+    <span class="c1"># Maximum number of pages to render</span>
+    <span class="l-Scalar-Plain">max_pages</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">20</span>
+    <span class="c1"># What type of post data to display (blurb, preview, full)</span>
+    <span class="l-Scalar-Plain">post_type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">preview</span>
+    <span class="c1"># What field to order posts by (mtime, title)</span>
+    <span class="l-Scalar-Plain">order_field</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mtime</span>
+    <span class="c1"># What direction to order posts (descending, ascending)</span>
+    <span class="l-Scalar-Plain">order_type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">descending</span>
+</pre></div>
+
+
+<h2 id="parts">Parts</h2>
+<ul>
+<li><code>blurb_max</code> - specifies how many words of a post should be shown.</li>
+<li><code>home_page</code> - Tells PyKwiki to look for this post in the <code>source</code> 
+    directory, and if found, save it to <code>index.html</code> in the <code>docroot</code>
+    directory.</li>
+<li><code>web_prefix</code> - This should be an empty string if not specified.
+    Themes prepend this value to all site links. This is usefull for
+    serving multiple PyKwiki projects from the same docroot directory.</li>
+<li><code>base_path</code> - This is the full path to your PyKwiki Project's directory.</li>
+<li><code>site</code> - Generate site settings<ul>
+<li><code>title</code> - The human readable site title. Most themes will
+    populate the html <code>&lt;title&gt;</code> attribute with this value.</li>
+<li><code>author</code> - Most themes put this value in <code>&lt;meta name=author&gt;</code></li>
+<li><code>description</code> - Most themes use this value in <code>&lt;meta name=description&gt;</code></li>
+<li><code>keywords</code> - This is a string of keywords that some themes use in <code>&lt;meta name=keywords&gt;</code></li>
+<li><code>base_url</code> - This is the base url of your site without a trailing slash or web prefix.</li>
+</ul>
+</li>
+<li><code>date_format</code> - This describes how the date will appear when themes lookup a post's date. It uses <a href="http://docs.python.org/2/library/time.html#time.strftime">strftime</a> formatting.</li>
+<li><code>time_format</code> - This describes how the time will appear when themes lookup a post's time. It uses <a href="http://docs.python.org/2/library/time.html#time.strftime">strftime</a> formatting.</li>
+<li><code>timestamp_format</code> - This describes how the date and time will appear when themes lookup a post's timestamp.It also uses <a href="http://docs.python.org/2/library/time.html#time.strftime">strftime</a> formatting. <ul>
+<li><strong>This format must match the format in the <a href="/authoring.html#post-data-block">post data block</a></strong>.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div><!-- End #wrap -->
+<div id="footer">
+    <div class="container">
+    
+        <div class="social-div">
+        <p class="text-muted credit">&copy; 2013, PyKwiki
+        &mdash; powered by <a href="http://pykwiki.nullism.com">PyKwiki</a>
+        </p>
+        </div>
+
+        
+
+        
+
+        
+
+
+        <div class="clearfix"></div>
+    </div>
+
+    
+
+</div>
+
+<script src="/static/bootstrap3/js/bootstrap.min.js"></script>
+<script src="/static/mustachejs/mustache.js"></script>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="/static/respond.min.js"></script>
+<![endif]-->   
+
+</body>
+</html>

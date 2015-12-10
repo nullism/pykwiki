@@ -1,0 +1,23 @@
+<div class="date-wrap" id="date_accordion">
+{% for pd in ctrl.get_post_dates(limit=20) %}
+<div class="date-group">
+    <div class="date-title">
+      <h4>
+        <a href="#" onclick="$('#collapse_{{pd|idsafe}}').toggle(); return false;">
+          {{pd}}
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_{{pd|idsafe}}" class="date-list">
+        <ul>
+        {% for p in ctrl.get_posts(filters=[['mdate_string','==',pd]], sort_key='title', direction='asc') %}
+            <li><a href="{{p.url}}">{{p.title}}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endfor %}
+</div>
+
+
+

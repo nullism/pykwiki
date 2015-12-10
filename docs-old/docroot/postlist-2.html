@@ -1,0 +1,240 @@
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(1); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(3); return false;">&raquo;</a></li>
+  
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/config.yaml.html">config.yaml</a> 
+        <span class="pull-right text-muted">December 10, 2015</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="alert alert-warning">
+    <p><b>Warning:</b> This documentation is only compatible with <b>version 1.0</b> and newer.</p>
+</div>
+
+<h1 id="configyaml">config.yaml</h1>
+<p>Below is a typical <code>config.yaml</code> file</p>
+<div class="codehilite"><pre><span class="c1"># Maximum number of words to use in a blurb</span>
+<span class="l-Scalar-Plain">blurb_max</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
+<span class="c1"># The default home page to be written as docroot/index.html</span>
+<span class="l-Scalar-Plain">home_page</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">home.md</span>
+<span class="l-Scalar-Plain">site</span><span class="p-Indicator">:</span>
+    <span class="c1"># The site title, used in &lt;title&gt;</span>
+    <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My PyKwiki Project</span>
+    <span class="c1"># Author for use in meta name=author</span>
+    <span class="l-Scalar-Plain">author</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Example Author</span>
+    <span class="c1"># Description for use in meta name=description</span>
+    <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="s">&quot;Example</span><span class="nv"> </span><span class="s">Site</span><span class="nv"> </span><span class="s">Description</span>
+        <span class="s">goes</span><span class="nv"> </span><span class="s">here&quot;</span>
+    <span class="c1"># Keywords for use in meta name=keywords</span>
+    <span class="l-Scalar-Plain">keywords</span><span class="p-Indicator">:</span> <span class="s">&quot;example,</span><span class="nv"> </span><span class="s">pykwiki&quot;</span>
+    <span class="c1"># (new in v1.0.5) Base URL is used by RSS feeds, no web_prefix</span>
+    <span class="l-Scalar-Plain">base_url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://www.example.com</span> 
+<span class="c1"># Theme is a subdirectory of themes/</span>
+<span class="l-Scalar-Plain">theme</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+<span class="c1"># Web prefix, must not end with &quot;/&quot;</span>
+<span class="l-Scalar-Plain">web_prefix</span><span class="p-Indicator">:</span> <span class="s">&#39;&#39;</span>
+<span class="c1"># The project&#39;s directory</span>
+<span class="l-Scalar-Plain">base_path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/home/HarryPotter/MyPyKwikiProject/</span>
+<span class="c1"># The date format used by posts</span>
+<span class="l-Scalar-Plain">date_format</span><span class="p-Indicator">:</span> <span class="s">&#39;%B</span><span class="nv"> </span><span class="s">%d,</span><span class="nv"> </span><span class="s">%Y&#39;</span>
+<span class="c1"># The time format used by posts</span>
+<span class="l-Scalar-Plain">time_format</span><span class="p-Indicator">:</span> <span class="s">&#39;%H:%M:%S&#39;</span>
+<span class="c1"># The timestamp format used by posts, this must match</span>
+<span class="c1">#   the format found in the post data block, if specified</span>
+<span class="l-Scalar-Plain">timestamp_format</span><span class="p-Indicator">:</span> <span class="s">&#39;%Y-%m-%d</span><span class="nv"> </span><span class="s">%H:%M&#39;</span>
+<span class="c1"># Post list section</span>
+<span class="l-Scalar-Plain">postlist</span><span class="p-Indicator">:</span>
+    <span class="c1"># How many posts to show per page</span>
+    <span class="l-Scalar-Plain">per_page</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+    <span class="c1"># Maximum number of pages to render</span>
+    <span class="l-Scalar-Plain">max_pages</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">20</span>
+    <span class="c1"># What type of post data to display (blurb, preview, full)</span>
+    <span class="l-Scalar-Plain">post_type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">preview</span>
+    <span class="c1"># What field to order posts by (mtime, title)</span>
+    <span class="l-Scalar-Plain">order_field</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mtime</span>
+    <span class="c1"># What direction to order posts (descending, ascending)</span>
+    <span class="l-Scalar-Plain">order_type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">descending</span>
+</pre></div>
+
+
+<h2 id="parts">Parts</h2>
+<ul>
+<li><code>blurb_max</code> - specifies how many words of a post should be shown.</li>
+<li><code>home_page</code> - Tells PyKwiki to look for this post in the <code>source</code> 
+    directory, and if found, save it to <code>index.html</code> in the <code>docroot</code>
+    directory.</li>
+<li><code>web_prefix</code> - This should be an empty string if not specified.
+    Themes prepend this value to all site links. This is usefull for
+    serving multiple PyKwiki projects from the same docroot directory.</li>
+<li><code>base_path</code> - This is the full path to your PyKwiki Project's directory.</li>
+<li><code>site</code> - Generate site settings<ul>
+<li><code>title</code> - The human readable site title. Most themes will
+    populate the html <code>&lt;title&gt;</code> attribute with this value.</li>
+<li><code>author</code> - Most themes put this value in <code>&lt;meta name=author&gt;</code></li>
+<li><code>description</code> - Most themes use this value in <code>&lt;meta name=description&gt;</code></li>
+<li><code>keywords</code> - This is a string of keywords that some themes use in <code>&lt;meta name=keywords&gt;</code></li>
+<li><code>base_url</code> - This is the base url of your site without a trailing slash or web prefix.</li>
+</ul>
+</li>
+<li><code>date_format</code> - This describes how the date will appear when themes lookup a post's date. It uses <a href="http://docs.python.org/2/library/time.html#time.strftime">strftime</a> formatting.</li>
+<li><code>time_format</code> - This describes how the time will appear when themes lookup a post's time. It uses <a href="http://docs.python.org/2/library/time.html#time.strftime">strftime</a> formatting.</li>
+<li><code>timestamp_format</code> - This describes how the date and time will appear when themes lookup a post's timestamp.It also uses <a href="http://docs.python.org/2/library/time.html#time.strftime">strftime</a> formatting. <ul>
+<li><strong>This format must match the format in the <a href="/authoring.html#post-data-block">post data block</a></strong>.</li>
+</ul>
+</li>
+</ul>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/config.yaml.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/download.html">Download</a> 
+        <span class="pull-right text-muted">December 10, 2015</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <h1 id="download-pykwiki">Download PyKwiki</h1>
+<p>There are a few different ways to download PyKwiki</p>
+<h2 id="on-github">On Github</h2>
+<p>Get the latest and greatest version on Github.</p>
+<p><a href="https://github.com/nullism/pykwiki/archive/master.zip" class="btn btn-lg btn-success">Github <b class="glyphicon glyphicon-download"></b></a></p>
+<ul>
+<li>Or clone it directly with <code>git clone https://github.com/nullism/pykwiki.git</code></li>
+</ul>
+<p>Install using <code>sudo ./setup.py install</code></p>
+<h2 id="from-pypi">From PyPI</h2>
+<p>Get the latest stable version from the Python Package Index.</p>
+<p><a href="http://badge.fury.io/py/pykwiki"><img src="https://badge.fury.io/py/pykwiki@2x.png" alt="PyPI version" height="28"></a></p>
+<ul>
+<li>Or install it directly with <code>sudo pip install -I pykwiki==1.1.6</code></li>
+</ul>
+<p>Install using <code>sudo ./setup.py install</code> or <code>sudo pip install -I pykwiki==1.1.6</code>.</p>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/download.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(1); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(3); return false;">&raquo;</a></li>
+  
+</ul>
+

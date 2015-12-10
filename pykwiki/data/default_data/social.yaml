@@ -1,0 +1,15 @@
+# Used for Star / Watch buttons
+github_username: null
+github_repo: null
+
+
+# Twitter name (twitter.com/Name)
+twitter_name: null
+
+# For facebook "like"
+facebook_appid: null
+facebook_href: null
+
+# Google analytics
+google_analytics_id: null # the tracking id
+google_analytics_domain: null # the domain to track

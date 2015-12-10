@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+    <title>{{conf.site.title}}</title>
+    <link>{{conf.site.base_url}}/{{conf.web_prefix}}</link>
+    <description>{{conf.site.description}}</description>
+    {% for post in posts %}
+    <item>
+        <title>{{post.title}}</title>
+        <link>{{post.url}}</link>
+        <pubDate>{{post.mtimestamp_rfc822}}</pubDate>
+        <description>{{post.blurb}}</description>
+    </item>    
+    {% endfor %}
+</channel>
+</rss>

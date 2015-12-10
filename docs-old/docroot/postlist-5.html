@@ -1,0 +1,374 @@
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(4); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(6); return false;">&raquo;</a></li>
+  
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/api.html">API</a> 
+        <span class="pull-right text-muted">December 10, 2015</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#application-programming-interface">Application Programming Interface</a><ul>
+<li><a href="#conf-object">conf Object</a><ul>
+<li><a href="#properties">Properties</a></li>
+</ul>
+</li>
+<li><a href="#ctrl-object">ctrl Object</a><ul>
+<li><a href="#functions">Functions</a></li>
+</ul>
+</li>
+<li><a href="#post-object">post Object</a><ul>
+<li><a href="#properties_1">Properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="alert alert-warning">
+    <p><b>Warning:</b> This documentation is only compatible with <b>version 1.0</b> and newer.</p>
+</div>
+
+<h1 id="application-programming-interface">Application Programming Interface</h1>
+<h2 id="conf-object">conf Object</h2>
+<p>The conf object is made available to all theme templates.</p>
+<h3 id="properties">Properties</h3>
+<p><strong>config.yaml</strong></p>
+<p>Any property in <code>config.yaml</code> is available to this object. </p>
+<p><strong>Useful properties for themes</strong></p>
+<ul>
+<li><code>web_prefix</code> - When a theme makes calls to local resources, it should join the path to the resource
+    with this property. <code>$.get('{{conf.web_prefix}}/idx.json')</code> for example.</li>
+<li><code>search_tpl</code> - The search template. Default is "search.html". </li>
+</ul>
+<h2 id="ctrl-object">ctrl Object</h2>
+<p>The <code>ctrl</code> object contains information about all PyKwiki posts on a site. It has several useful 
+methods for generating lists of posts and calendars. </p>
+<h3 id="functions">Functions</h3>
+<ul>
+<li><code>get_posts()</code><ul>
+<li><code>sort_key='mtime'</code> - The post object property to sort the returned posts by.</li>
+<li><code>direction='descending'</code> - The sort order. <code>descending</code> or <code>ascending</code>.</li>
+<li><code>limit=None</code> - The maximum number of posts to return. <code>0</code> or <code>None</code> is unlimited.</li>
+<li><code>filters=None</code> - A nested list of filters and operators. Example:<ul>
+<li><code>[['mtime','&gt;',1234567890], ['title','!=','Foo']]</code> will filter on posts that do not have the title of "Foo" <em>and</em> have a date greater than the epoch of "1234567890".</li>
+</ul>
+</li>
+<li><code>private=False</code> - Bool that indicates whether or not the results should include posts marked as private. Default is false. </li>
+</ul>
+</li>
+</ul>
+<h2 id="post-object">post Object</h2>
+<p>The post object contains all information about a specific post. It is made available to the
+<code>post.html</code> template as <code>post</code>.  </p>
+<h3 id="properties_1">Properties</h3>
+<p><strong>General information</strong></p>
+<ul>
+<li><code>title</code> - The post's title from the <a href="/authoring.html#post-data-block">post data block</a>.</li>
+<li><code>blurb</code> - The blurb or description of the post. This will be auto generated on access if no blurb or description was specified in the <a href="/authoring.html#post-data-block">post data block</a>.</li>
+<li><code>author</code> - The author of the post if specified, else returns the site's author.</li>
+<li><code>description</code> - The post's description; used in <code>&lt;meta name="description"&gt;</code>.</li>
+<li><code>keywords</code> - A string of keywords; used in <code>&lt;meta name="keywords"&gt;</code>.</li>
+<li><code>tags</code> - A list of tags for the post. </li>
+<li><code>url</code> - The relative url to access the post. Includes <code>web_prefix</code> if specified.</li>
+<li><code>source_path</code> - The full file system path to the source post.</li>
+<li><code>target_path</code> - The full file system path to the rendered (docroot) post.</li>
+</ul>
+<p><strong>Content</strong></p>
+<ul>
+<li><code>source_text</code> - The raw markdown of the post.</li>
+<li><code>target_text</code> - The rendered HTML of the post.</li>
+</ul>
+<p><strong>Date and time</strong></p>
+<ul>
+<li><code>mtime</code> - Epoch of the post's <code>timestamp</code> if specified, else it's the modified date.</li>
+<li><code>mtime_string</code> - String of the post's time, formatted by <code>conf.time_format</code>.</li>
+<li><code>mdate_string</code> - String of the post's date, formatted by <code>conf.date_format</code>.</li>
+<li><code>mtimestamp</code> - String of the post's timestamp, formatted by <code>conf.timestamp_format</code>.</li>
+<li><code>mtime_tuple</code> - A <code>time.localtime()</code> time struct.</li>
+<li><code>mtime_hour</code> - The (24) hour of the post timestamp.</li>
+<li><code>mtime_minute</code> - The minute of the post timestamp.</li>
+<li><code>mdate_day</code> - The day of the month of the post timestamp.</li>
+<li><code>mdate_month</code> - The month of the post timestamp.</li>
+<li><code>mdate_year</code> - The four digit year of the post timestamp.</li>
+</ul>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/api.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/comparison.html">Feature Comparison</a> 
+        <span class="pull-right text-muted">December 10, 2015</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <h1 id="compare-pykwiki-wordpress-drupal-and-mediawiki">Compare PyKwiki, WordPress, Drupal, and MediaWiki</h1>
+<table class="table">
+
+    <thead>
+    <tr>
+
+        <th></th>
+
+        <th>PyKwiki</th>
+
+        <th>WordPress</th>
+
+        <th>Drupal</th>
+
+        <th>MediaWiki</th>
+
+    </tr>
+    </thead>
+
+<tbody>
+
+    <tr>
+
+        <td><b>Authoring</b></td>
+
+        <td>Markdown file-based</td>
+
+        <td>WYSIWYG</td>
+
+        <td>WYSIWYG</td>
+
+        <td>MediaWiki web editor</td>
+
+    </tr>
+
+    <tr>
+
+        <td><b>Hosting</b></td>
+
+        <td>Static files</td>
+
+        <td>PHP and MySQL required</td>
+
+        <td>PHP and MySQL required</td>
+
+        <td>PHP and MySQL required</td>
+
+    </tr>
+
+    <tr>
+
+        <td><b>Security</b></td>
+
+        <td>As secure as the web host</td>
+
+        <td>Requires patching</td>
+
+        <td>Requires patching</td>
+
+        <td>Requires patching</td>
+
+    </tr>
+
+    <tr>
+
+        <td><b>Search</b></td>
+
+        <td>Simple weighted</td>
+
+        <td>Simple weighted</td>
+
+        <td>Weighted or natual language<sup>1</sup></td>
+
+        <td>Natural language</td>
+
+    </tr>
+
+    <tr>
+
+        <td><b>Cross-post inclusion</b></td>
+
+        <td>Built-in</td>
+
+        <td>No</td>
+
+        <td>Available via plugins</td>
+
+        <td>Built-in</td>
+
+    </tr>
+
+    <tr>
+
+        <td><b>Post Templates</b></td>
+
+        <td>Built-in</td>
+
+        <td>Available via plugins</td>
+
+        <td>Available via plugins</td>
+
+        <td>Built-in</td>
+
+    </tr>
+
+    <tr>
+
+        <td><b>Revert changes</b></td>
+
+        <td>Via repository, such as Git</td>
+
+        <td>Requires plugins</td>
+
+        <td>Requires plugins</td>
+
+        <td>Built-in</td>
+
+    </tr>
+
+    <tr>
+
+        <td><b>Portable</b></td>
+
+        <td>Yes, anything with Markdown</td>
+
+        <td>No</td>
+
+        <td>Not by default<sup>1</sup></td>
+
+        <td>No, unless target supports MediaWiki syntax</td>
+
+    </tr>
+
+</tbody>
+</table>
+
+<ol>
+<li>Supported with additional plugins</li>
+<li>Supported with protocol specific plugins, but not all protocols and methods are supported, ie: authoring from a git repository.</li>
+</ol>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/comparison.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(4); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(6); return false;">&raquo;</a></li>
+  
+</ul>
+

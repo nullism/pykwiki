@@ -1,0 +1,92 @@
+<div class="top-menu"i>
+<div class="container">
+  <div class="top-menu-mob">
+    <a class="top-menu-link" href="#" onclick="toggleMobMenu();"><span class="fontawesome-reorder"></span></a>
+  </div>
+  <div class="top-menu-full mob-hidden">
+    {% for l in links %}
+    <div class="top-menu-item">
+      {% if l.children %}
+        <a href="#" class="top-menu-parent" id="menuparent_{{loop.index}}" 
+            onclick="return menuClick({{loop.index}})">{{l.label}} <span class="fontawesome-caret-down"></span></a>
+        <div class="submenu" id="submenu_{{loop.index}}">
+        <div class="submenu-wrap">
+          {% for l2 in l.children %}
+            {% if not l2.href %}
+              {% if l2.children %}
+                <div class="submenu-section">
+                  <span class="submenu-item">{{l2.label}}</span><br>
+                  {% for l3 in l2.children %}
+                    <a href="{{l3.href}}" class="submenu-link">{{l3.label}}</a>
+                  {% endfor %}    
+                </div>
+              {% else %}
+                <b class="submenu-item">{{l2.label}}</b><br>
+              {% endif %}
+            {% else %}
+              <a href="{{l2.href}}" class="submenu-link">{{l2.label}}</a>
+            {% endif %}
+          {% endfor %}
+        </div>
+        </div>
+      {% else %}
+        <a href="{{l.href}}" class="top-menu-link">{{l.label}}</a>
+      {% endif %}
+    </div>
+  {% endfor %}
+    <div class="top-menu-item-right">
+      <form method="get" action="{{conf.web_prefix}}/{{conf.search_tpl}}">
+        <input type="text" name="q" class="input-text top-menu-search-field" placeholder="Search">
+      </form>
+    </div>
+  </div>
+</div>
+    <div class="clear"></div>
+</div><!-- end top-menu -->
+
+<script>
+function menuClick(i) 
+{
+    if($("#submenu_"+i).is(":visible"))
+    {
+        $("#submenu_"+i).hide();
+        $("#menuparent_"+i).removeClass('active');
+    }
+    else 
+    {
+        hideAllSubmenus();
+        $("#submenu_"+i).show();
+        $("#menuparent_"+i).addClass('active');
+    }
+    return false;
+}
+
+function hideAllSubmenus() {
+    $('.submenu').hide();
+    $('.top-menu-parent').removeClass('active');
+}
+
+var showMobMenu = false;
+function toggleMobMenu() {
+    if(showMobMenu) {
+        $(".top-menu-full").addClass('mob-hidden');
+    } else { 
+        $(".top-menu-full").removeClass('mob-hidden');
+    }
+    showMobMenu = !showMobMenu;
+    return false;
+}
+</script>
+
+<script>
+$(document).ready(function() { 
+    $('.submenu').hide();
+});
+
+$(document).click(function(e) {
+    var tgt = $(e.target);
+    if(!tgt.is('.top-menu-parent') && !tgt.is('.fontawesome-caret-down')) {
+        hideAllSubmenus();
+    }
+});
+</script>

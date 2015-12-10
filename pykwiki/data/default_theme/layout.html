@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block meta %}
+    {% endblock %}
+    <title>{% block title %}Stuff{% endblock %} | {{conf.site.title}}</title>
+    <link rel="stylesheet" href="{{conf.web_prefix}}/static/codehilite/monokai.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+    <script src="{{conf.web_prefix}}/static/mustachejs/mustache.js"></script>
+    <link rel="stylesheet" href="{{conf.web_prefix}}/static/style/style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{conf.web_prefix}}/static/style/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{conf.web_prefix}}/static/style/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{conf.web_prefix}}/static/style/favicon-16x16.png"> 
+    <style type="text/css">
+    @import url("{{conf.web_prefix}}/static/fonts/fontawesome.css");
+    /* fontawesome */
+    [class*="fontawesome-"]:before {
+      font-family: 'FontAwesome', sans-serif;
+    }
+    </style> 
+    <script>
+    // Globals
+    var has_gaq = false;
+    </script>
+    {{conf.style_head}}
+</head>
+<body>
+
+{% if sopt.google_analytics_id %}
+<!--// Google analytics //-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '{{sopt.google_analytics_id}}', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!--// END Google analytics //-->
+{% endif %}
+<div id="content" class="container">
+{{ ctrl.theme_menu }}
+{% block content %}
+{% endblock %}
+</div><!-- End #content -->
+{% include 'footer.html' %}
+</body>
+</html>

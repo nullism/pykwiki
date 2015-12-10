@@ -1,0 +1,8 @@
+name: "Default"
+version: 0.9
+description: "The default sleek style for PyKwiki 2"
+long_description: A green style with a collapsing 
+    table of contents. Mobile friendly.
+author_name: "Aaron Meier"
+author_email: "webgovernor@gmail.com"
+author_website: http://nullism.com
