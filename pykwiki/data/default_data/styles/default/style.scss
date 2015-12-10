@@ -5,7 +5,6 @@ Default Style
 
 @import 'settings';
 
-
 html, body { 
     height: 100%; margin: 0; padding: 0; 
     font-size: 1.0em;
@@ -19,6 +18,8 @@ h1, h2, h3 {
     color: $heading-color;
     margin-top: -$menu-height;
     padding-top: $menu-height;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 h1:target, h2:target, h3:target {
@@ -37,7 +38,7 @@ code {
     color: $code-color;
     border: 1px solid darken($code-bg-color, 5);
     border-radius: 5px;
-    padding: 2px;
+    padding: 1px; margin: 2px;
     font-family: $code-font; 
 } 
 [class*="fontawesome-"]:before { 
@@ -52,6 +53,7 @@ code {
     color: $code-color;
     font-family: $code-font;
     padding: 10px;
+    overflow-x: auto;
 }
 .container {
     max-width: $container-max-width;
@@ -155,7 +157,9 @@ code {
 }
 
 .post-author-block {
-    background: darken($body-bg-color, 5);
+    background: darken($body-bg-color, 2);
+    color: lighten($text-color, 35);
+    font-size: 0.9em;
 }
 
 .post-date { 
@@ -177,6 +181,7 @@ code {
     line-height: $menu-height;
     min-width: 100px;
     display: block;
+    padding-left: 5px; padding-right: 5px;
 }
 .top-menu a:hover, .top-menu-link:hover, .top-menu-parent:hover {
     color: $primary-link-hover-color;

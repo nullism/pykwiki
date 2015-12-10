@@ -75,7 +75,8 @@ def command_style(args):
             raise Exception("Cannot locate style destination (%s)"%(styles_dest))
         if args.style_name == 'all':
             for style_dir in get_style_paths():
-                style_dest = os.path.join(styles_dest, args.style_name)
+                style_name = os.path.basename(style_dir)
+                style_dest = os.path.join(styles_dest, style_name)
                 install_style(style_dir, style_dest, args.force)
             return
 

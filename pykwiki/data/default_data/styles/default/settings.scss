@@ -12,11 +12,11 @@ $code-bg-color: #333;
 $code-color: #fff;
 
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Droid+Sans+Mono|Droid+Serif);
-$primary-font: "Droid Serif";
-$heading-font: "Droid Serif";
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans+Mono|Bitter|Oxygen);
+$primary-font: "Oxygen", sans-serif;
+$heading-font: "Bitter", serif;
 $code-font: "Droid Sans Mono";
-$menu-font: "Droid Serif";
+$menu-font: "Oxygen", serif;
 
 // Sizing
 $container-max-width: 1100px;
