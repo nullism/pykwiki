@@ -1,0 +1,228 @@
+<ul class="pagination">
+  
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(2); return false;">&raquo;</a></li>
+  
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/download.html">Download</a> 
+        <span class="pull-right text-muted">December 10, 2015</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <h1 id="download-pykwiki">Download PyKwiki</h1>
+<p>There are a few different ways to download PyKwiki</p>
+<h2 id="on-github">On Github</h2>
+<p>Get the latest and greatest version on Github.</p>
+<p><a href="https://github.com/nullism/pykwiki/archive/master.zip" class="btn btn-lg btn-success">Github <b class="glyphicon glyphicon-download"></b></a></p>
+<ul>
+<li>Or clone it directly with <code>git clone https://github.com/nullism/pykwiki.git</code></li>
+</ul>
+<p>Install using <code>sudo ./setup.py install</code></p>
+<h2 id="from-pypi">From PyPI</h2>
+<p>Get the latest stable version from the Python Package Index.</p>
+<p><a href="http://badge.fury.io/py/pykwiki"><img src="https://badge.fury.io/py/pykwiki@2x.png" alt="PyPI version" height="28"></a></p>
+<ul>
+<li>Or install it directly with <code>sudo pip install -I pykwiki==1.1.6</code></li>
+</ul>
+<p>Install using <code>sudo ./setup.py install</code> or <code>sudo pip install -I pykwiki==1.1.6</code>.</p>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/download.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/getting-started.html">Getting Started</a> 
+        <span class="pull-right text-muted">December 10, 2015</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#getting-started">Getting Started</a><ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#install-pykwiki">Install PyKwiki</a></li>
+<li><a href="#create-a-new-project">Create a new project</a></li>
+<li><a href="#serve-the-default-content">Serve the default content</a></li>
+<li><a href="#configuration">Configuration</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="getting-started">Getting Started</h1>
+<p>This guide outlines the minimal steps to get PyKwiki serving static files.</p>
+<h2 id="requirements">Requirements</h2>
+<p>PyKwiki does not require anything outside of Python, but it does require the following Python packages:</p>
+<ul>
+<li><code>jinja2</code> (&gt;=2.6) - Jinja2 is used to compile themes into .html.<ul>
+<li>Install with <code>sudo pip install jinja2</code></li>
+</ul>
+</li>
+<li><code>markdown</code> (&gt;=2.3) - MarkDown is the syntax used for PyKwiki.<ul>
+<li>Install with <code>sudo pip install markdown</code></li>
+</ul>
+</li>
+<li><code>pyyaml</code> (&gt;=3.0) - Configuration files use YAML<ul>
+<li>Install with <code>sudo pip install pyyaml</code></li>
+</ul>
+</li>
+</ul>
+<p>The above packages should be auto-installed when PyKwiki is installed.</p>
+<h2 id="install-pykwiki">Install PyKwiki</h2>
+<p>You can download the setup.py directly, or simply run:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">I</span> <span class="n">pykwiki</span><span class="o">==</span><span class="mf">1.1.6</span>
+</pre></div>
+
+
+<h2 id="create-a-new-project">Create a new project</h2>
+<p>The <code>pykwiki new &lt;Name&gt;</code> command creates a project directory in the current
+working directory. The project directory will be named <code>&lt;Name&gt;</code>. </p>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd</span> ~
+<span class="nv">$ </span>mkdir pykwiki_projects
+<span class="nv">$ </span><span class="nb">cd </span>pykwiki_projects
+<span class="nv">$ </span>pykwiki new MySite
+...
+</pre></div>
+
+
+<h2 id="serve-the-default-content">Serve the default content</h2>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd </span>MySite/
+<span class="nv">$ </span>pykwiki cache -f
+...
+<span class="nv">$ </span><span class="nb">cd </span>docroot
+<span class="nv">$ </span>python -m SimpleHTTPServer 5000
+</pre></div>
+
+
+<p>Now you can navigate to <a href="http://localhost:5000">http://localhost:5000</a> to see that PyKwiki is working.</p>
+<h2 id="configuration">Configuration</h2>
+<p>PyKwiki is now ready for final tweaks.</p>
+<ul>
+<li><a href="/authoring.html">Authoring Posts</a> - About writing and publishing posts.</li>
+</ul>
+<p>Configuration:</p>
+<ul>
+<li><a href="/config.yaml.html">config.yaml</a> - Main configuration file.</li>
+<li><a href="/links.yaml.html">links.yaml</a> - Menu hierarchy configuration file.</li>
+</ul>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/getting-started.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+
+<ul class="pagination">
+  
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(2); return false;">&raquo;</a></li>
+  
+</ul>
+

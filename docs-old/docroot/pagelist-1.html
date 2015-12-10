@@ -1,0 +1,275 @@
+<ul class="pagination">
+  
+  
+    <li class="active">
+        <a href="#" onclick="load_pagelist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(9); return false;">9</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_pagelist(2); return false;">&raquo;</a></li>
+  
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="/faqs.html">Frequently Asked Questions</a> 
+        <span class="pull-right text-muted">November 19, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#frequently-asked-questions">Frequently Asked Questions</a></li>
+<li><a href="#about-authoring">About authoring</a><ul>
+<li><a href="#how-do-i-specify-the-date-of-the-page">How do I specify the date of the page?</a></li>
+<li><a href="#how-do-i-set-a-list-of-posts-as-my-homepage">How do I set a list of posts as my homepage?</a></li>
+</ul>
+</li>
+<li><a href="#about-theming">About theming</a><ul>
+<li><a href="#what-theme-templates-are-required">What theme templates are required?</a></li>
+</ul>
+</li>
+<li><a href="#about-configuring">About configuring</a><ul>
+<li><a href="#what-does-a-project-directory-look-like">What does a project directory look like?</a></li>
+<li><a href="#what-webservers-work-with-pykwiki">What webservers work with PyKwiki?</a></li>
+<li><a href="#what-versions-of-python-work-with-pykwiki">What versions of Python work with PyKwiki?</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="frequently-asked-questions">Frequently Asked Questions</h1>
+<h1 id="about-authoring">About authoring</h1>
+<h2 id="how-do-i-specify-the-date-of-the-page">How do I specify the date of the page?</h2>
+<p>In the page configuration section, set the <code>timestamp</code> key.
+It must match the format from <code>config.yaml</code> - <code>timestamp_format</code>. </p>
+<p><strong>Example</strong></p>
+<div class="codehilite"><pre>[[
+title: My Page
+tags: [stuff, moar stuff]
+timestamp: 2013-11-13 21:14
+]]
+</pre></div>
+
+
+<p>See: <a href="/authoring.html#page-data-block">Page Data Block</a> for more information.</p>
+<h2 id="how-do-i-set-a-list-of-posts-as-my-homepage">How do I set a list of posts as my homepage?</h2>
+<p>To set your home page to the <code>/posts.html</code> url, change <code>config.yaml</code> -&gt; <code>home_page</code> to the following:</p>
+<div class="codehilite"><pre><span class="nn">...</span>
+<span class="l-Scalar-Plain">home_page</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">posts.html</span>
+<span class="nn">...</span>
+</pre></div>
+
+
+<h1 id="about-theming">About theming</h1>
+<h2 id="what-theme-templates-are-required">What theme templates are required?</h2>
+<p>The required templates and files for a theme can be found under
+<a href="/creating-themes.html#theme-directory-structure">theme directory structure</a>
+on the <a href="/creating-themes.html">Creating Themes</a> page.</p>
+<h1 id="about-configuring">About configuring</h1>
+<h2 id="what-does-a-project-directory-look-like">What does a project directory look like?</h2>
+<p>You should checkout <a href="/getting-started.html">Getting Started</a>, but it basically looks like this:</p>
+<div class="codehilite"><pre><span class="n">MyProject</span><span class="o">/</span>
+    <span class="n">links</span><span class="o">.</span><span class="n">yaml</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
+    <span class="n">source</span><span class="o">/</span>
+    <span class="n">docroot</span><span class="o">/</span>
+    <span class="n">themes</span><span class="o">/</span>
+</pre></div>
+
+
+<h2 id="what-webservers-work-with-pykwiki">What webservers work with PyKwiki?</h2>
+<p>Any webserver that serves static files should work with PyKwiki.
+Two popular choices include Apache2 and Nginx.</p>
+<h2 id="what-versions-of-python-work-with-pykwiki">What versions of Python work with PyKwiki?</h2>
+<p>PyKwiki officially works with the following versions: </p>
+<ul>
+<li>Python == 2.7</li>
+<li>Python &gt;= 3.3</li>
+</ul>
+<p>Python 3.2 is <strong>not</strong> supported because the Jinja2 2.6 package
+does not support Python 3.2. Because PyKwiki requires Jinja2, 
+there is no way around this. </p>
+<p><strong>Python 3.2 will not work</strong></p>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="/faqs.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="/api.html">API</a> 
+        <span class="pull-right text-muted">November 19, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#application-programming-interface">Application Programming Interface</a><ul>
+<li><a href="#conf-object">conf Object</a><ul>
+<li><a href="#properties">Properties</a></li>
+</ul>
+</li>
+<li><a href="#ctrl-object">ctrl Object</a><ul>
+<li><a href="#functions">Functions</a></li>
+</ul>
+</li>
+<li><a href="#page-object">page Object</a><ul>
+<li><a href="#properties_1">Properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="application-programming-interface">Application Programming Interface</h1>
+<h2 id="conf-object">conf Object</h2>
+<p>The conf object is made available to all theme templates.</p>
+<h3 id="properties">Properties</h3>
+<p><strong>config.yaml</strong></p>
+<p>Any property in <code>config.yaml</code> is available to this object. </p>
+<p><strong>Useful properties for themes</strong></p>
+<ul>
+<li><code>web_prefix</code> - When a theme makes calls to local resources, it should join the path to the resource
+    with this property. <code>$.get('{{conf.web_prefix}}/idx.json')</code> for example.</li>
+<li><code>search_tpl</code> - The search template. Default is "search.html". </li>
+</ul>
+<h2 id="ctrl-object">ctrl Object</h2>
+<p>The <code>ctrl</code> object contains information about all PyKwiki pages on a site. It has several useful 
+methods for generating lists of pages and calendars. </p>
+<h3 id="functions">Functions</h3>
+<ul>
+<li><code>get_pages()</code><ul>
+<li><code>sort_key='mtime'</code> - The page object property to sort the returned pages by.</li>
+<li><code>direction='descending'</code> - The sort order. <code>descending</code> or <code>ascending</code>.</li>
+<li><code>limit=None</code> - The maximum number of pages to return. <code>0</code> or <code>None</code> is unlimited.</li>
+<li><code>filters=None</code> - A nested list of filters and operators. Example:<ul>
+<li><code>[['mtime','&gt;',1234567890], ['title','!=','Foo']]</code> will filter on pages that do not have the title of "Foo" <em>and</em> have a date greater than the epoch of "1234567890".</li>
+</ul>
+</li>
+<li><code>private=False</code> - Bool that indicates whether or not the results should include pages marked as private. Default is false. </li>
+</ul>
+</li>
+</ul>
+<h2 id="page-object">page Object</h2>
+<p>The page object contains all information about a specific page. It is made available to the
+<code>page.html</code> template as <code>page</code>.  </p>
+<h3 id="properties_1">Properties</h3>
+<p><strong>General information</strong></p>
+<ul>
+<li><code>title</code> - The page's title from the <a href="/authoring.html#page-data-block">page data block</a>.</li>
+<li><code>blurb</code> - The blurb or description of the page. This will be auto generated on access if no blurb or description was specified in the <a href="/authoring.html#page-data-block">page data block</a>.</li>
+<li><code>author</code> - The author of the page if specified, else returns the site's author.</li>
+<li><code>description</code> - The page's description; used in <code>&lt;meta name="description"&gt;</code>.</li>
+<li><code>keywords</code> - A string of keywords; used in <code>&lt;meta name="keywords"&gt;</code>.</li>
+<li><code>tags</code> - A list of tags for the page. </li>
+<li><code>url</code> - The relative url to access the page. Includes <code>web_prefix</code> if specified.</li>
+<li><code>source_path</code> - The full file system path to the source page.</li>
+<li><code>target_path</code> - The full file system path to the rendered (docroot) page.</li>
+</ul>
+<p><strong>Content</strong></p>
+<ul>
+<li><code>source_text</code> - The raw markdown of the page.</li>
+<li><code>target_text</code> - The rendered HTML of the page.</li>
+</ul>
+<p><strong>Date and time</strong></p>
+<ul>
+<li><code>mtime</code> - Epoch of the page's <code>timestamp</code> if specified, else it's the modified date.</li>
+<li><code>mtime_string</code> - String of the page's time, formatted by <code>conf.time_format</code>.</li>
+<li><code>mdate_string</code> - String of the page's date, formatted by <code>conf.date_format</code>.</li>
+<li><code>mtimestamp</code> - String of the page's timestamp, formatted by <code>conf.timestamp_format</code>.</li>
+<li><code>mtime_tuple</code> - A <code>time.localtime()</code> time struct.</li>
+<li><code>mtime_hour</code> - The (24) hour of the page timestamp.</li>
+<li><code>mtime_minute</code> - The minute of the page timestamp.</li>
+<li><code>mdate_day</code> - The day of the month of the page timestamp.</li>
+<li><code>mdate_month</code> - The month of the page timestamp.</li>
+<li><code>mdate_year</code> - The four digit year of the page timestamp.</li>
+</ul>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="/api.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+
+<ul class="pagination">
+  
+  
+    <li class="active">
+        <a href="#" onclick="load_pagelist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(9); return false;">9</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_pagelist(2); return false;">&raquo;</a></li>
+  
+</ul>
+

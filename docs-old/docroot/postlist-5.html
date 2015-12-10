@@ -1,0 +1,447 @@
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(4); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(6); return false;">&raquo;</a></li>
+  
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/templates.html">Helper Templates</a> 
+        <span class="pull-right text-muted">August 13, 2014</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#helper-templates">Helper Templates</a><ul>
+<li><a href="#simple-tables">Simple Tables</a><ul>
+<li><a href="#template">Template</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#example">Example</a></li>
+</ul>
+</li>
+<li><a href="#responsive-bootstrap-thumbnails">Responsive Bootstrap Thumbnails</a><ul>
+<li><a href="#template_1">Template</a></li>
+<li><a href="#usage_1">Usage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="helper-templates">Helper Templates</h1>
+<p>This page contains a collection of templates that may be considered useful. </p>
+<h2 id="simple-tables">Simple Tables</h2>
+<p>This template is a quick way to add simple tables without writing HTML. 
+It takes two arguments: </p>
+<ul>
+<li><code>headers</code> - An <em>optional</em> YAML list specifying <code>&lt;th&gt;</code> elements - column headers.</li>
+<li><code>rows</code> - A nested YAML list of rows and columns.</li>
+</ul>
+<h3 id="template">Template</h3>
+<div class="codehilite"><pre><span class="nt">&lt;table</span> <span class="na">class=</span><span class="s">&quot;table&quot;</span><span class="nt">&gt;</span>
+{% if headers %}
+    <span class="nt">&lt;thead&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+    {% for head in headers %}
+        <span class="nt">&lt;th&gt;</span>{{head}}<span class="nt">&lt;/th&gt;</span>
+    {% endfor %}
+    <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/thead&gt;</span>
+{% endif %}
+<span class="nt">&lt;tbody&gt;</span>
+{% for row in rows %}
+    <span class="nt">&lt;tr&gt;</span>
+    {% for col in row %}
+        <span class="nt">&lt;td&gt;</span>{{col}}<span class="nt">&lt;/td&gt;</span>
+    {% endfor %}
+    <span class="nt">&lt;/tr&gt;</span>
+{% endfor %}
+<span class="nt">&lt;/tbody&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</pre></div>
+
+
+<h3 id="usage">Usage</h3>
+<p>Assuming you've saved this template as <code>source/table.tpl</code>:</p>
+<div class="codehilite"><pre>{tpl:table}
+headers:
+- Column One
+- Column Two
+- Column Three
+rows: 
+-
+    - Row 1, Col 1
+    - Row 1, Col 2
+    - Row 1, Col 3
+-
+    - Row 2, Col 1
+    - Row 2, Col 2
+    - Row 2, Col 3
+-
+    - &#39;&#39;
+    - Row 3, Col 2
+    - &#39;&#39;
+{endtpl}
+</pre></div>
+
+
+<p>Alternatively, you can use <em>nested brackets</em> for YAML lists, like so:</p>
+<div class="codehilite"><pre>{tpl:table}
+headers: [Column One, Column Two, Column Three]
+rows: [
+    [ &quot;Row 1, Col 1&quot;, &quot;Row 1, Col 2&quot;, &quot;Row 1, Col 3&quot;],
+    [ &quot;Row 2, Col 1&quot;, &quot;Row 2, Col 2&quot;, &quot;Row 2, Col 3&quot;],
+    [ &quot;&quot;, &quot;Row 3, Col 2&quot;, &quot;&quot;]
+]
+{endtpl}
+</pre></div>
+
+
+<h3 id="example">Example</h3>
+<table class="table">
+
+    <thead>
+    <tr>
+
+        <th>Column One</th>
+
+        <th>Column Two</th>
+
+        <th>Column Three</th>
+
+    </tr>
+    </thead>
+
+<tbody>
+
+    <tr>
+
+        <td>Row 1, Col 1</td>
+
+        <td>Row 1, Col 2</td>
+
+        <td>Row 1, Col 3</td>
+
+    </tr>
+
+    <tr>
+
+        <td>Row 2, Col 1</td>
+
+        <td>Row 2, Col 2</td>
+
+        <td>Row 2, Col 3</td>
+
+    </tr>
+
+    <tr>
+
+        <td></td>
+
+        <td>Row 3, Col 2</td>
+
+        <td></td>
+
+    </tr>
+
+</tbody>
+</table>
+
+<h2 id="responsive-bootstrap-thumbnails">Responsive Bootstrap Thumbnails</h2>
+<p>This simple template is designed to be used with "Bootstrap 3" enabled themes, and accepts the following arguments:</p>
+<ul>
+<li><code>image</code> - The web path to the image file</li>
+<li><code>caption</code> - An optional text caption to display</li>
+<li><code>width</code> - Optionally alter the thumbnail width, default 90%.<ul>
+<li>Uses CSS widths, such as <code>200px</code> or <code>50%</code>. </li>
+</ul>
+</li>
+</ul>
+<h3 id="template_1">Template</h3>
+<div class="codehilite"><pre><span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;text-align: center; margin-top: 10px; margin-bottom: 10px;&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thumbnail&quot;</span> <span class="na">style=</span><span class="s">&quot;margin: auto; </span>
+<span class="s">            width: {{width|default(&#39;90%&#39;)}}; </span>
+<span class="s">            background: #f5f5f5; </span>
+<span class="s">            text- align: center;&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/uploads/{{image}}&quot;</span> <span class="na">target=</span><span class="s">&quot;_blank&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;/uploads/{{image}}&quot;</span> <span class="na">class=</span><span class="s">&quot;img-responsive&quot;</span> 
+                <span class="na">style=</span><span class="s">&quot;margin: auto;&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/a&gt;</span>
+        {% if caption %}
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;caption&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">&quot;text-muted&quot;</span><span class="nt">&gt;</span>{{caption}}<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        {% endif %}
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+
+<h3 id="usage_1">Usage</h3>
+<p>Assuming the above template was saved as <code>source/thumb.tpl</code>, usage would be:</p>
+<div class="codehilite"><pre>Here&#39;s an image:
+
+{tpl:thumb}
+image: someimage.png
+caption: This is my image!
+width: 300px
+{endtpl}
+</pre></div>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/templates.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/authoring.html">Authoring Posts</a> 
+        <span class="pull-right text-muted">April 02, 2014</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#overview">Overview</a><ul>
+<li><a href="#things-to-know">Things to know</a></li>
+<li><a href="#remote-editing">Remote editing</a></li>
+</ul>
+</li>
+<li><a href="#creating-posts">Creating posts</a><ul>
+<li><a href="#a-simple-example">A simple example</a><ul>
+<li><a href="#1-open-the-new-post">1. Open the new post</a></li>
+<li><a href="#2-add-content-to-the-post">2. Add content to the post</a></li>
+<li><a href="#3-optionally-add-a-link-for-a-menu-entry">3. (optionally) Add a link for a menu entry</a></li>
+<li><a href="#4-cache-the-post">4. Cache the post</a></li>
+</ul>
+</li>
+<li><a href="#post-data-block">Post data block</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="overview">Overview</h1>
+<p>Adding posts to your PyKwiki consists of two main pieces.</p>
+<ol>
+<li>Some way to get your content to a server.</li>
+<li>Some way to run <code>pykwiki cache</code> to cache your content.</li>
+</ol>
+<h2 id="things-to-know">Things to know</h2>
+<p>Technical knowledge: </p>
+<ol>
+<li>A basic understanding of <a href="/markdown.html">Markdown</a>.</li>
+<li>A basic understanding of the <a href="http://www.yaml.org/spec/1.2/spec.html#Introduction">YAML</a> data format. </li>
+</ol>
+<p>PyKwiki knowledge:</p>
+<ol>
+<li>New posts must be somewhere in the <code>source</code> directory.</li>
+<li>New posts must have the <code>.md</code> extension unless a different extension has been specified in <a href="/config.yaml.html">config.yaml</a> (the <code>source_ext</code> property).</li>
+<li>Post content must be in the <code>Markdown</code> format.</li>
+<li>For best cross-platform perfomance, post names should not have any spaces.</li>
+<li>Post file names should not conflict with the "special" theme files: <code>search</code> or <code>posts</code>.</li>
+</ol>
+<h2 id="remote-editing">Remote editing</h2>
+<p>If you don't have access to the server, or if you prefer 
+to use your own text editor to edit files, then you can
+sync files between your computer and the server.</p>
+<p>The server needs some way to cache your files. One way 
+to do this is to have your server administrator setup 
+a <code>cron</code> job. </p>
+<p>See: <a href="/remote-editing-tutorial.html">Remote Editing Tutorial</a></p>
+<h1 id="creating-posts">Creating posts</h1>
+<h2 id="a-simple-example">A simple example</h2>
+<h3 id="1-open-the-new-post">1. Open the new post</h3>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd</span> /path/to/myproject/source
+<span class="nv">$ </span>nano my-new-post.md
+</pre></div>
+
+
+<h3 id="2-add-content-to-the-post">2. Add content to the post</h3>
+<p>Put the following in as your page content, and save the post</p>
+<div class="codehilite"><pre>[[
+title: My New Post
+]]
+
+# Here is a new post!
+
+* It&#39;s easy
+* It&#39;s fun
+* It&#39;s fast
+</pre></div>
+
+
+<p>The double brackets <code>[[</code> and  <code>]]</code> indicate the post data block. Here you can specify 
+various information about your pages. <a href="#post-data-block">Learn more</a> about the post data block.</p>
+<p><small>Note: Post properties in this block must be either valid <code>YAML</code> or valid <code>JSON</code>.</small></p>
+<h3 id="3-optionally-add-a-link-for-a-menu-entry">3. (optionally) Add a link for a menu entry</h3>
+<p>PyKwiki parses the <code>links.yaml</code> file to generate the site menu. Once 
+you understand the format of <code>links.yaml</code>, adding links is very quick and easy.</p>
+<ul>
+<li>Learn more: <a href="/links.yaml.html">links.yaml</a></li>
+</ul>
+<h3 id="4-cache-the-post">4. Cache the post</h3>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd</span> /path/to/myproject
+<span class="nv">$ </span>pykwiki cache
+</pre></div>
+
+
+<h2 id="post-data-block">Post data block</h2>
+<p>The post data block is entirely optional, but it adds a lot of functionality
+to PyKwiki. The minimal recommended fields are <code>title</code> and <code>tags</code>.</p>
+<p>This block should appear at the top of a post, and must be enclosed in <code>[[</code> and <code>]]</code>.  </p>
+<div class="codehilite"><pre><span class="c1"># The post title will show in search results, as well as </span>
+<span class="c1">#   in the title bar of the browser.</span>
+<span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My Post Title</span>
+<span class="c1"># The post author is displayed by most themes.</span>
+<span class="c1">#   Can be a comma separated list of multiple authors.</span>
+<span class="l-Scalar-Plain">author</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Harry Potter</span>
+<span class="c1"># Post tags are essentially categories. </span>
+<span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">A</span><span class="p-Indicator">,</span> <span class="nv">YAML</span><span class="p-Indicator">,</span> <span class="nv">List</span><span class="p-Indicator">,</span> <span class="nv">Of</span><span class="p-Indicator">,</span> <span class="nv">Tags</span><span class="p-Indicator">]</span>
+<span class="c1"># A page description is mostly useful for search engines</span>
+<span class="c1">#   but it will be used as the page blurb if none is found</span>
+<span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">A simple description of my page,</span>
+    <span class="l-Scalar-Plain">this information is usually used by themes to make</span> 
+    <span class="l-Scalar-Plain">your site more search engine friendly. If no blurb</span>
+    <span class="l-Scalar-Plain">is specified, this will be used as the page blurb.</span>
+<span class="c1"># The page blurb can be set to &quot;auto&quot;, which allows</span>
+<span class="c1">#   PyKwiki to generate one based on the first 50 words</span>
+<span class="c1">#   in the body of a page.</span>
+<span class="l-Scalar-Plain">blurb</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">This is my post blurb. It will be used as the short</span> 
+    <span class="l-Scalar-Plain">description in search results. If I want this to be</span> 
+    <span class="l-Scalar-Plain">autogenerated, I should set its value to &quot;auto&quot;</span>
+    <span class="l-Scalar-Plain">for example</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">blurb</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">auto</span>
+<span class="c1"># Post keywords are used by SEO</span>
+<span class="l-Scalar-Plain">keywords</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">This is, a string, of comma separated words</span>
+<span class="c1"># The timestamp of the page. It MUST match the </span>
+<span class="c1">#   `timestamp_format` specified in config.yaml</span>
+<span class="l-Scalar-Plain">timestamp</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2013-11-01 21:45</span>
+<span class="c1"># Pages that are flagged as private are basically unpublished.</span>
+<span class="c1">#   They are not searchable and can only be reached by a direct link.</span>
+<span class="l-Scalar-Plain">private</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+<span class="c1"># The nowrap option is used by some themes to prevent wrapping</span>
+<span class="c1">#   the post content in a &quot;container&quot;</span>
+<span class="l-Scalar-Plain">nowrap</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+</pre></div>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/authoring.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(4); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(6); return false;">&raquo;</a></li>
+  
+</ul>
+

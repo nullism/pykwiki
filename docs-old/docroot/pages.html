@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    
+    <title>Search | PyKwiki</title>
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/static/codehilite/manni.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/static/bootstrap3/js/bootstrap.min.js"></script>
+    <script src="/static/respond.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->   
+    <style type="text/css">
+    html, body { height: 100%; }
+    #wrap {
+        min-height: 100%;
+        height: auto;
+        /* Negative indent footer by its height */
+        margin: 0 auto -60px;
+        /* Pad bottom by footer height */
+        padding: 0 0 60px;
+        background: #f5f5f5;
+        border-top: 1px solid #f2f2f2;
+    }
+
+    #footer {
+      height: 60px;
+      padding-top: 20px;
+      background: #eee;
+    }
+
+    .carousel-indicators li { 
+        background-color: #bbb;
+        border-color: #aaa;
+    }
+    .carousel-indicators .active {
+        background-color: #ccc;
+        border-color: #bbb;
+    }
+
+    .toc { 
+        float: right;
+        border: 1px solid #f5f5f5;
+        background: #f5f5f5;
+        padding: 5px;
+        border-radius: 10px;
+        color: #999;
+    }
+    .toc ul, .toc li, .toc ul li { 
+        margin-left: 10px;
+        padding-left: 0px;
+    }
+    h1:target, h2:target, h3:target { 
+        background-color: #dfd;
+    }
+    </style> 
+    <script>
+    // Globals
+    var has_gaq = false;
+    </script>
+</head>
+<body>
+
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+    <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" 
+                data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Home</a>
+    </div>
+    <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+    
+        
+            <li>
+            
+                <a href="/getting-started.html" target="_self">Getting Started</a>
+            
+            </li>
+        
+    
+        
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+                data-toggle="dropdown">Authoring <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            
+                <li>
+                
+                    <a href="/authoring.html" target="_self">Authoring Pages</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/markdown.html" target="_self">Markdown Format</a>
+                
+                </li>
+            
+            </ul>
+            </li>
+        
+    
+        
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+                data-toggle="dropdown">Configuration <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            
+                <li>
+                
+                    <a href="/config.yaml.html" target="_self">Config.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/links.yaml.html" target="_self">Links.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/extensions.html" target="_self">Extensions</a>
+                
+                </li>
+            
+            </ul>
+            </li>
+        
+    
+        
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+                data-toggle="dropdown">Nullism <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            
+                <li>
+                
+                    <a href="http://pyormish.nullism.com" target="_blank">
+                        PyORMish
+                        <span class="glyphicon glyphicon-new-window"></span>
+                    </a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="http://nullism.com" target="_blank">
+                        Nullism
+                        <span class="glyphicon glyphicon-new-window"></span>
+                    </a>
+                
+                </li>
+            
+            </ul>
+            </li>
+        
+    
+    </ul>
+
+    <form class="navbar-form navbar-right" role="search" 
+        method="get"
+        action="/pages.html">
+      <div class="form-group">
+        <input type="text" name="q" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-primary" style="display: none;"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+    </div>
+    </div>
+</div>
+<div id="wrap">
+<div class="container" style="padding-top: 60px;">
+
+<script>
+var idx = null;
+var shown_ids = [];
+
+function clear_pages() { 
+    shown_ids = [];
+    $('#pages').html('');
+}    
+
+function no_results() { 
+    $('#pages').html('<p>No results</p>');
+}
+
+function sort_by_frequency(arr) {
+    var frequency = {};
+
+    arr.forEach(function(value) { frequency[value] = 0; });
+    var uniques = arr.filter(function(value) {
+        return ++frequency[value] == 1;
+    });
+    return uniques.sort(function(a, b) {
+        return frequency[b] - frequency[a];
+    });
+}
+
+function get_param(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return decodeURIComponent(pair[1]);}
+    }
+    return false;
+}
+
+function list_page_by_id(id) {
+    id = id.toString();
+    if(shown_ids.indexOf(id) != -1) { 
+        return false;
+    }
+    var file = idx.ids[id]; 
+    if(!file) { 
+        return false;
+    }
+    shown_ids.push(id);
+    var page = idx.info[file];
+    page.dt = new Date(page.mepoch * 1000);
+    var el_d = $('<div></div>');
+    var el_h = $('<h3></h3>');
+    var el_t = $('<small></small>');
+    var el_p = $('<p></p>');
+    el_h.html('<a href="/'+file+'">'+page.title+'</a>');
+    el_t.addClass('pull-right');
+    el_t.addClass('text-muted');
+    el_t.html(page.dt.toDateString());
+    el_h.append(el_t);
+    el_p.html(page.blurb);
+    el_d.append(el_h);
+    el_d.append(el_p);
+    $('#pages').append(el_d);
+}
+
+function list_pages_by_tag(tag) { 
+    clear_pages();
+    for(var i=0; i<idx.tags[tag].length; i++) { 
+        list_page_by_id(idx.tags[tag][i]);
+    }
+    $('#results').html('Results for tag "'+tag+'"');
+}
+
+function list_pages_by_query(search) {
+    clear_pages(); 
+    search = search.toLowerCase();
+    search = search.replace(/\'/,'');
+    search = search.replace(/[^a-z0-9\-]/g, ' ');
+    var parts = search.split(' ');
+    var to_show = [];
+    for(var i=0; i<parts.length; i++) { 
+        var ids = idx.index[parts[i]];
+        if(ids) {
+            for(var y=0; y<ids.length; y++) {
+                to_show.push(ids[y]);
+            }
+        }
+    }
+    to_show = sort_by_frequency(to_show);
+    for(var i=0; i<to_show.length; i++) { 
+        list_page_by_id(to_show[i]);
+    }
+    if(to_show.length < 1) { 
+        no_results();
+    }
+    $('#results').html('Results for query "'+search+'"');
+}
+
+function start_callback(data) { 
+    $('#pages').html('Search index loaded');
+    idx = data;
+    var q = get_param('q');
+    if(q) { 
+        list_pages_by_query(q);
+        return;
+    }
+    var t = get_param('t');
+    if(t) { 
+        list_pages_by_tag(t);
+    }
+}
+
+$(document).ready(function() { 
+    // Get the search index file
+    $('#pages').html('Loading search index...');
+    $.get('/idx.json',
+        function(data) { 
+            if(data) {
+                start_callback(data);                
+            }
+        }
+    ,"json");
+});
+</script>
+<div class="col-sm-3">
+
+    <div class="input-group">
+        <input type="text" id="search_text" class="form-control" 
+            onkeydown="if (event.keyCode == 13) { $('#search_button').click(); return false; }"
+            placeholder="Search" 
+        />
+        <span class="input-group-btn">
+        <button class="btn btn-primary"
+            id="search_button"
+            onclick="list_pages_by_query($('#search_text').val())">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+        </span>
+    </div>
+    <br />
+
+    <div class="panel-group" id="date_accordion">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#date_accordion" href="#collapse_November_11__2013">
+          November 11, 2013
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_November_11__2013" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul>
+        
+            <li><a href="/authoring.html">Authoring Pages</a></li>
+        
+            <li><a href="/extensions.html">Extensions</a></li>
+        
+            <li><a href="/markdown.html">Markdown Basics</a></li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#date_accordion" href="#collapse_November_10__2013">
+          November 10, 2013
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_November_10__2013" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul>
+        
+            <li><a href="/config.yaml.html">Config.yaml</a></li>
+        
+            <li><a href="/getting-started.html">Getting Started</a></li>
+        
+            <li><a href="/links.yaml.html">Links.yaml</a></li>
+        
+            <li><a href="/projects.html">My Projects</a></li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#date_accordion" href="#collapse_November_04__2013">
+          November 04, 2013
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_November_04__2013" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul>
+        
+            <li><a href="/faqs.html">Frequently Asked Questions</a></li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#date_accordion" href="#collapse_January_01__2012">
+          January 01, 2012
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_January_01__2012" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul>
+        
+            <li><a href="/home.html">Welcome!</a></li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+</div>
+
+<div class="col-sm-9">
+    
+        <a class="label label-default" href="#" onclick="list_pages_by_tag('authoring'); return false;">authoring</a>
+    
+        <a class="label label-default" href="#" onclick="list_pages_by_tag('configuration'); return false;">configuration</a>
+    
+        <a class="label label-default" href="#" onclick="list_pages_by_tag('delete'); return false;">delete</a>
+    
+        <a class="label label-default" href="#" onclick="list_pages_by_tag('editing'); return false;">editing</a>
+    
+        <a class="label label-default" href="#" onclick="list_pages_by_tag('setup'); return false;">setup</a>
+    
+        <a class="label label-default" href="#" onclick="list_pages_by_tag('usage'); return false;">usage</a>
+    
+    <h2 id="results">Results</h2>
+    <div id="pages"></div>
+</div>
+
+</div>
+</div><!-- End #wrap -->
+<div id="footer">
+    <div class="container">
+    <p class="text-muted credit">&copy; 2013, PyKwiki
+    &mdash; powered by <a href="http://pykwiki.nullism.com">PyKwiki</a>
+    </p>
+    </div>
+</div>
+</body>
+</html>

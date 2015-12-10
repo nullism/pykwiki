@@ -1,0 +1,112 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">links.yaml - November 15, 2013</div>
+    <div class="panel-body">
+        <h1 id="linksyaml">links.yaml</h1>
+<p>The <code>links.yaml</code> file specifies how PyKwiki should generate a menu for your site. </p>
+<p><strong>Example of the structure of a link:</strong></p>
+<div class="codehilite"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">Example Link Name</span><span class="p-Indicator">:</span>
+    <span class="c1"># PyKwiki page name, relative to the source directory, *optional*</span>
+    <span class="l-Scalar-Plain">page</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">external-links</span>
+    <span class="c1"># Used in &lt;a href=&gt;, *optional* </span>
+    <span class="l-Scalar-Plain">href</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://google.com</span>
+    <span class="c1"># Target attribute, *optional*, defaults to _self</span>
+    <span class="l-Scalar-Plain">target</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">_blank</span>
+    <span class="c1"># Title is used in &lt;a title=&gt;, *optional*</span>
+    <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Some Website or Page</span>
+    <span class="c1"># Children is used to specify sub link hierarchy, *optional*</span>
+    <span class="l-Scalar-Plain">children</span><span class="p-Indicator">:</span> <span class="p-Indicator">[]</span>
+</pre></div>
+
+
+<h2 id="full-menu-example">Full menu example</h2>
+<div class="codehilite"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">Home</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">page</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">home</span>
+    <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Visit the home page</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">GitHub</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">href</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://github.com/webgovernor/pykwiki</span>
+    <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Checkout the source code!</span>
+    <span class="l-Scalar-Plain">target</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">_blank</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">About</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">children</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">About The Author</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">page</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">about-the-author</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">About The Site</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">page</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">about-the-site</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">About PyKwiki</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">href</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://pykwiki.nullism.com/about.html</span>
+        <span class="l-Scalar-Plain">target</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">_blank</span>
+</pre></div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">About Search - November 12, 2013</div>
+    <div class="panel-body">
+        <div class="toc">
+<ul>
+<li><a href="#about-search">About Search</a><ul>
+<li><a href="#how-it-works">How it works</a><ul>
+<li><a href="#1-the-search-index">1. The search index</a></li>
+<li><a href="#2-themes-load-the-index">2. Themes load the index</a></li>
+<li><a href="#3-users-enter-search-terms">3. Users enter search terms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="about-search">About Search</h1>
+<h2 id="how-it-works">How it works</h2>
+<h3 id="1-the-search-index">1. The search index</h3>
+<p>Existing content is cached, and a search index is built.</p>
+<div class="codehilite"><pre><span class="nv">$</span> <span class="nv">pykwiki</span> <span class="n">cache</span>
+<span class="o">...</span>
+</pre></div>
+
+
+<p>The search index gets written to <code>docroot/idx.json</code>. </p>
+<p><strong>Sample JSON index file format</strong></p>
+<div class="codehilite"><pre><span class="p">{</span>
+    <span class="s2">&quot;index&quot;</span><span class="o">:</span><span class="p">{</span>
+        <span class="s2">&quot;foo&quot;</span><span class="o">:</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="s2">&quot;bar&quot;</span><span class="o">:</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="s2">&quot;baz&quot;</span><span class="o">:</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;ids&quot;</span><span class="o">:</span><span class="p">{</span>
+        <span class="s2">&quot;1&quot;</span><span class="o">:</span> <span class="s2">&quot;somepage.html&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="o">:</span> <span class="s2">&quot;other-page.html&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="o">:</span> <span class="s2">&quot;baz.html&quot;</span><span class="p">,</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The <code>index</code> object contains a list of words as properties. Each word has a list of page ids after it. The list is sorted by the number of times that word appears in a page. In the above example, <code>"foo"</code> appears most in page id <code>3</code>, which is <code>baz.html</code>. The <code>"ids"</code> object holds the mapping of ids to pages. </p>
+<h3 id="2-themes-load-the-index">2. Themes load the index</h3>
+<p>Themes that support basic search (currently all of them) also use the <code>pages.json</code> file to load information about a page after filtering search results. </p>
+<p><strong>Sample JSON page file format</strong></p>
+<div class="codehilite"><pre><span class="p">{</span>
+    <span class="s2">&quot;info&quot;</span><span class="o">:</span><span class="p">{</span>
+        <span class="s2">&quot;somepage.html&quot;</span><span class="o">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;Some Page&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;/somepage.html&quot;</span><span class="p">,</span> <span class="c1">// Relative URL</span>
+            <span class="s2">&quot;mtime&quot;</span><span class="o">:</span><span class="mi">123456789000</span><span class="p">,</span> <span class="c1">// Miliseconds since 1/1/1970</span>
+            <span class="s2">&quot;mtimestamp&quot;</span><span class="o">:</span><span class="s2">&quot;2010-01-01 10:10&quot;</span><span class="p">,</span> <span class="c1">// Page().mtimestamp</span>
+            <span class="s2">&quot;mdate_string&quot;</span><span class="o">:</span><span class="s2">&quot;January 01, 2010&quot;</span><span class="p">,</span> <span class="c1">// Page().mdate_string</span>
+            <span class="s2">&quot;mtime_string&quot;</span><span class="o">:</span><span class="s2">&quot;10:10&quot;</span><span class="p">,</span> <span class="c1">// Page().mtime_string</span>
+        <span class="p">},</span>
+        <span class="p">...</span>
+    <span class="p">},</span>        
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="3-users-enter-search-terms">3. Users enter search terms</h3>
+<p>Themes specify how to compare user search terms against the <code>idx.json</code> file. In most cases, it goes like this: </p>
+<ol>
+<li>Split users' search terms into a list</li>
+<li>Remove non alphanumeric characters</li>
+<li>Compare each word in the list against the index to determine the order to display pages.</li>
+</ol>
+    </div>
+</div>

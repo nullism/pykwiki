@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+<meta name="description" content="PyKwiki is a static file wiki suitable for blogs, wikis, or almost any type of documentation">
+<meta name="keywords" content="configuration,gallery">
+
+    <title>Themes | PyKwiki</title>
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/static/codehilite/manni.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style type="text/css">
+    html, body { height: 100%; }
+
+    h1:target, h2:target, h3:target { 
+        background-color: #dfd;
+    }
+
+    #wrap {
+        min-height: 100%;
+        height: auto;
+        /* Negative indent footer by its height */
+        margin: 0 auto -60px;
+        /* Pad bottom by footer height */
+        padding: 0 0 60px;
+    }
+
+    #footer {
+        height: 60px;
+        padding-top: 20px;
+        background: #eee;
+    }
+    #footer .social-div { 
+        float: left;
+        margin-left: 10px;
+    }
+
+    .link_section {
+        padding: 3px;
+        margin: 0px; 
+        font-weight: bold;
+    }
+
+    .toc { 
+        float: right;
+        border: 2px solid #efefef;
+        background: #f5f5f5;
+        padding: 5px;
+        border-radius: 3px;
+        color: #999;
+    }
+    .toc ul, .toc li, .toc ul li { 
+        margin-left: 10px;
+        padding-left: 0px;
+    }
+
+    .htmltruncate-lg, .htmltruncate-md, .htmltruncate-sm { 
+        overflow: hidden;
+        position: relative;
+        border-bottom: 2px dashed #eee;
+        margin-bottom: 5px;
+        min-height: 60px;
+    }
+    .htmltruncate-bottom { 
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        background: none;
+        background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, #fff 100%);
+        z-index: 100;
+        height: 60px;
+    }
+    .htmltruncate-lg {
+        max-height: 500px;
+    }
+    .htmltruncate-md { 
+        max-height: 300px;
+    }
+    .htmltruncate-sm { 
+        max-height: 150px;
+    }
+    </style> 
+    <script>
+    // Globals
+    var has_gaq = false;
+    </script>
+</head>
+<body>
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+    <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" 
+                data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Home</a>
+    </div>
+    <div class="navbar-collapse collapse" style="max-height: none;">
+    <ul class="nav navbar-nav">
+    
+        
+            <li>
+            
+                <a href="/features.html" target="_self">Features</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/getting-started.html" target="_self">Getting Started</a>
+            
+            </li>
+        
+    
+        
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+                data-toggle="dropdown">Documentation <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Authoring</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/authoring.html" target="_self">Authoring Pages</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/markdown.html" target="_self">Markdown Format</a>
+                
+                </li>
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Configuration</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/config.yaml.html" target="_self">config.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/links.yaml.html" target="_self">links.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/webserver.html" target="_self">Webserver</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/extensions.html" target="_self">Extensions</a>
+                
+                </li>
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Themes</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/themes.html" target="_self">Available Themes</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/creating-themes.html" target="_self">Creating Themes</a>
+                
+                </li>
+            
+            </ul>
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/support.html" target="_self">Support</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/download.html" target="_self">Download</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/faqs.html" target="_self">FAQs</a>
+            
+            </li>
+        
+    
+    </ul>
+
+    <form class="navbar-form navbar-right" role="search" 
+        method="get"
+        action="/search.html">
+      <div class="form-group">
+        <input type="text" name="q" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-primary" style="display: none;"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+    </div>
+    </div>
+</div>
+<div id="wrap">
+<div class="container" style="padding-top: 60px;">
+
+<p>
+
+    <a class="label label-default"
+        href="/search.html?t=configuration">configuration <b class="glyphicon glyphicon-tag"></b></a>
+
+    <a class="label label-default"
+        href="/search.html?t=gallery">gallery <b class="glyphicon glyphicon-tag"></b></a>
+
+</p>
+<h1 id="built-in-themes">Built-in themes</h1>
+<p>PyKwiki features some built-in themes that can be installed with <code>pykwiki theme install &lt;theme_name&gt;</code>. </p>
+<div class="row">
+
+<div class="col-sm-4">
+<h2>Default</h2>
+
+    <a href="/uploads/themes/pykwiki-theme-default.png" class="thumbnail" target="_blank">
+        <img src="/uploads/themes/pykwiki-theme-default.png" class="img-responsive" />
+    </a>
+
+<p>The default PyKwiki theme.</p>
+
+<h3>Features</h3>
+<ul>
+
+    <li>Valid HTML5</li>
+
+    <li>Mobile friendly</li>
+
+    <li>Uses Bootstrap 3</li>
+
+    <li>Supports searching</li>
+
+    <li>Includes respond.js for IE8 support</li>
+
+    <li>Includes mustache.js for javascript templates</li>
+
+    <li>Supports GitHub, Facebook, and Twitter: like, follow, watch.</li>
+
+</ul>
+
+</div>
+
+<div class="col-sm-4">
+<h2>Amelia</h2>
+
+    <a href="/uploads/themes/pykwiki-theme-amelia.png" class="thumbnail" target="_blank">
+        <img src="/uploads/themes/pykwiki-theme-amelia.png" class="img-responsive" />
+    </a>
+
+<p>A colorful theme based on Amelia from <a href="http://bootswatch.com">Bootswatch</a>.</p>
+
+<h3>Features</h3>
+<ul>
+
+    <li>Valid HTML5</li>
+
+    <li>Mobile friendly</li>
+
+    <li>Uses Bootstrap 3</li>
+
+    <li>Supports searching</li>
+
+    <li>Includes respond.js for IE8 support</li>
+
+    <li>Built-in support for Github, Facebook, and Twitter social buttons</li>
+
+</ul>
+
+</div>
+
+<div class="col-sm-4">
+<h2>Barebones</h2>
+
+    <a href="/uploads/themes/pykwiki-theme-barebones.png" class="thumbnail" target="_blank">
+        <img src="/uploads/themes/pykwiki-theme-barebones.png" class="img-responsive" />
+    </a>
+
+<p>A minimal stripped starter theme without CSS, designed to be used as a template for new themes.</p>
+
+<h3>Features</h3>
+<ul>
+
+    <li>Infinitely nested menus</li>
+
+    <li>Valid HTML5</li>
+
+    <li>Ready for customization</li>
+
+    <li>No CSS</li>
+
+    <li>Supports searching</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-sm-4">
+<h2>Blogit</h2>
+
+    <a href="/uploads/themes/pykwiki-theme-blogit.png" class="thumbnail" target="_blank">
+        <img src="/uploads/themes/pykwiki-theme-blogit.png" class="img-responsive" />
+    </a>
+
+<p>A blog oriented theme using a readable black and white color scheme..</p>
+
+<h3>Features</h3>
+<ul>
+
+    <li>Configurable header image and background color</li>
+
+    <li>Optional Disqus comments</li>
+
+    <li>Valid HTML5</li>
+
+    <li>Mobile friendly</li>
+
+    <li>Uses Bootstrap 3</li>
+
+    <li>Supports searching</li>
+
+    <li>Includes respond.js for IE8 support</li>
+
+    <li>Built-in support for Github, Facebook, and Twitter social buttons</li>
+
+</ul>
+
+</div>
+
+<div class="col-sm-4">
+<h2>Cyborg</h2>
+
+    <a href="/uploads/themes/pykwiki-theme-cyborg.png" class="thumbnail" target="_blank">
+        <img src="/uploads/themes/pykwiki-theme-cyborg.png" class="img-responsive" />
+    </a>
+
+<p>A jet black theme based on Cyborg from <a href="http://bootswatch.com">Bootswatch</a>.</p>
+
+<h3>Features</h3>
+<ul>
+
+    <li>Valid HTML5</li>
+
+    <li>Mobile friendly</li>
+
+    <li>Uses Bootstrap 3</li>
+
+    <li>Supports searching</li>
+
+    <li>Includes respond.js for IE8 support</li>
+
+    <li>Built-in support for Github, Facebook, and Twitter social buttons</li>
+
+</ul>
+
+</div>
+
+<div class="col-sm-4">
+<h2>Readable</h2>
+
+    <a href="/uploads/themes/pykwiki-theme-readable.png" class="thumbnail" target="_blank">
+        <img src="/uploads/themes/pykwiki-theme-readable.png" class="img-responsive" />
+    </a>
+
+<p>A high-legibility theme based on Readable from <a href="http://bootswatch.com">Bootswatch</a>.</p>
+
+<h3>Features</h3>
+<ul>
+
+    <li>Valid HTML5</li>
+
+    <li>Mobile friendly</li>
+
+    <li>Uses Bootstrap 3</li>
+
+    <li>Supports searching</li>
+
+    <li>Includes respond.js for IE8 support</li>
+
+    <li>Built-in support for Github, Facebook, and Twitter social buttons</li>
+
+</ul>
+
+</div>
+
+<p></div>
+<div class="row"></p>
+<div class="col-sm-4">
+<h2>Slate</h2>
+
+    <a href="/uploads/themes/pykwiki-theme-slate.png" class="thumbnail" target="_blank">
+        <img src="/uploads/themes/pykwiki-theme-slate.png" class="img-responsive" />
+    </a>
+
+<p>A dark and sleek theme based on Slate from <a href="http://bootswatch.com">Bootswatch</a>.</p>
+
+<h3>Features</h3>
+<ul>
+
+    <li>Valid HTML5</li>
+
+    <li>Mobile friendly</li>
+
+    <li>Uses Bootstrap 3</li>
+
+    <li>Supports searching</li>
+
+    <li>Includes respond.js for IE8 support</li>
+
+    <li>Built-in support for Github, Facebook, and Twitter social buttons</li>
+
+</ul>
+
+</div>
+
+<div class="col-sm-4">
+<h2>United</h2>
+
+    <a href="/uploads/themes/pykwiki-theme-united.png" class="thumbnail" target="_blank">
+        <img src="/uploads/themes/pykwiki-theme-united.png" class="img-responsive" />
+    </a>
+
+<p>A Ubuntu-like theme based on United from <a href="http://bootswatch.com">Bootswatch</a>.</p>
+
+<h3>Features</h3>
+<ul>
+
+    <li>Valid HTML5</li>
+
+    <li>Mobile friendly</li>
+
+    <li>Uses Bootstrap 3</li>
+
+    <li>Supports searching</li>
+
+    <li>Includes respond.js for IE8 support</li>
+
+    <li>Built-in support for Github, Facebook, and Twitter social buttons</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div><!-- End #wrap -->
+<div id="footer">
+    <div class="container">
+    
+        <div class="social-div">
+        <p class="text-muted credit">&copy; 2013, PyKwiki
+        &mdash; powered by <a href="http://pykwiki.nullism.com">PyKwiki</a>
+        </p>
+        </div>
+
+        
+        <div class="social-div">
+            <iframe src="http://ghbtns.com/github-btn.html?user=nullism&amp;repo=pykwiki&amp;type=watch"
+                style="border: 0px; width: 53px; height: 20px; overflow: hidden;"></iframe>
+            <iframe src="http://ghbtns.com/github-btn.html?user=nullism&amp;repo=pykwiki&amp;type=fork"
+                style="border: 0px; width: 53px; height: 20px; overflow: hidden;"></iframe>
+        </div>
+        
+
+        
+
+        
+
+
+        <div class="clearfix"></div>
+    </div>
+
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-20427551-9', 'nullism.com');
+      ga('send', 'pageview');
+
+    </script>
+    
+
+</div>
+
+<script src="/static/bootstrap3/js/bootstrap.min.js"></script>
+<script src="/static/mustachejs/mustache.js"></script>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="/static/respond.min.js"></script>
+<![endif]-->   
+
+</body>
+</html>

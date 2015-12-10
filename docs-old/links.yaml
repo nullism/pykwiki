@@ -1,0 +1,32 @@
+- Features:
+    post: features
+- "Getting Started":
+    post: getting-started
+- Documentation:
+    children:
+    - Authoring
+    - Authoring Pages:
+        post: authoring
+    - Markdown Format:
+        post: markdown
+    - Configuration
+    - config.yaml:
+        post: config.yaml
+    - links.yaml:
+        post: links.yaml
+    - Webserver:
+        post: webserver
+    - Extensions:
+        post: extensions
+    - Themes
+    - Available Themes:
+        post: themes
+    - Creating Themes:
+        post: creating-themes
+- Support:
+    post: support
+- Download:
+    post: download
+- FAQs:
+    post: faqs    
+        

@@ -1,0 +1,176 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">Extensions - November 11, 2013</div>
+    <div class="panel-body">
+        <div class="toc">
+<ul>
+<li><a href="#pykwiki-extensions">PyKwiki Extensions</a><ul>
+<li><a href="#markdown-extensions">MarkDown Extensions</a><ul>
+<li><a href="#pykwikiextpage">pykwiki.ext.page</a></li>
+<li><a href="#pykwikiexttpl">pykwiki.ext.tpl</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="pykwiki-extensions">PyKwiki Extensions</h1>
+<h2 id="markdown-extensions">MarkDown Extensions</h2>
+<h3 id="pykwikiextpage">pykwiki.ext.page</h3>
+<p>This extension is not compatible with the <code>wikilink</code> markdown extension.</p>
+<p>This extension syntax is:</p>
+<div class="codehilite"><pre><span class="p">[[</span><span class="n">page</span><span class="o">&lt;</span><span class="p">:</span><span class="n">optional</span> <span class="n">property</span><span class="o">&gt;</span><span class="p">]]</span>
+</pre></div>
+
+
+<p>Assuming you have a page in <code>source</code> called <code>home.md</code> with <code>title</code> set to "Home", then the following MarkDown:</p>
+<div class="codehilite"><pre>Here is a link to [[home]]
+</pre></div>
+
+
+<p>Generates the following HTML:</p>
+<div class="codehilite"><pre><span class="nt">&lt;p&gt;</span>Here is a link to <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/home.html&quot;</span> <span class="na">class=</span><span class="s">&quot;pagelink&quot;</span><span class="nt">&gt;</span>Home<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>
+</pre></div>
+
+
+<p>Similar things can be achieved with <code>title</code>, <code>blurb</code>, <code>url</code>, and <code>description</code>:</p>
+<div class="codehilite"><pre>This is a link to [[home]], known as [[home:title]], found at [[home:url]]
+[[home:blurb]]
+[[home:description]]
+</pre></div>
+
+
+<p>Will create:</p>
+<div class="codehilite"><pre><span class="nt">&lt;p&gt;</span>This is a link to <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/home.html&quot;</span> <span class="na">class=</span><span class="s">&quot;pagelink&quot;</span><span class="nt">&gt;</span>Home<span class="nt">&lt;/a&gt;</span>, known as Home, found at /home.html
+   This is just an example page used for testing random junk.
+   This is just an example page used for ...<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+
+
+<h3 id="pykwikiexttpl">pykwiki.ext.tpl</h3>
+<p>This extension allows for templates to be included in your source files.</p>
+<p>The basic usage is:</p>
+<div class="codehilite"><pre>{tpl:template_name}
+key: value
+{endtpl}
+</pre></div>
+
+
+<p>The above code will attempt to render a Jinja2 template named <code>template_name.tpl</code> inside of your source directory. </p>
+<p><strong>Example</strong></p>
+<p>If you have a template called <code>project.tpl</code> located in <code>base_path/source</code>, and it contains the following content:</p>
+<div class="codehilite"><pre># {{name}}
+* Description: {{description}}
+* url: [{{url}}]({{url}})
+</pre></div>
+
+
+<p>And you include the following in one of your <code>md</code> pages.</p>
+<div class="codehilite"><pre>{tpl:project}
+name: Widget System
+description: A fun widget system for everyone!
+url: http://widgets.com
+{endtpl}
+</pre></div>
+
+
+<p>Then PyKwiki will render <code>project.tpl</code> with the data from <code>{tpl:project}</code> into the HTML, like so:</p>
+<div class="codehilite"><pre><span class="nt">&lt;h1&gt;</span>Widget System<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;</span>Description: A fun widget system for everyone!<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>url: <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://widgets.com&quot;</span><span class="nt">&gt;</span>http://widgets.com<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</pre></div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Markdown Basics - November 11, 2013</div>
+    <div class="panel-body">
+        <h1 id="markdown">Markdown</h1>
+<p>Markdown is a popular text format for editing files. It is often used to produce well formatted web content. It is used extensively by GitHub, Reddit, Stack Overflow, and many others. </p>
+<p>One of the easiest ways to become familiar with Markdown is to <a href="https://stackedit.io">give it a try</a>!</p>
+<h2 id="text-formatting">Text formatting</h2>
+<h3 id="bold-italics-lists">Bold, italics, lists</h3>
+<div class="codehilite"><pre>*This is italic*
+
+**This is bold**
+
+This sentence has **bold**, *italics*, and ***bold-italics***
+
+* This is a list item
+* So is this
+    * And this is a sublist item
+
+Numbered lists are easy
+
+1. First item
+2. Second item
+    1. Sub second item
+3. Third item
+</pre></div>
+
+
+<p>The above Markdown produces the following HTML</p>
+<div class="codehilite"><pre><span class="nt">&lt;p&gt;&lt;em&gt;</span>This is italic<span class="nt">&lt;/em&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;&lt;strong&gt;</span>This is bold<span class="nt">&lt;/strong&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>This sentence has <span class="nt">&lt;strong&gt;</span>bold<span class="nt">&lt;/strong&gt;</span>, <span class="nt">&lt;em&gt;</span>italics<span class="nt">&lt;/em&gt;</span>, and <span class="nt">&lt;strong&gt;&lt;em&gt;</span>bold-italics<span class="nt">&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;</span>This is a list item<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>So is this
+        <span class="nt">&lt;ul&gt;&lt;li&gt;</span>And this is a sublist item<span class="nt">&lt;/li&gt;&lt;/ul&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>Numbered lists are easy<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;ol&gt;</span>
+    <span class="nt">&lt;li&gt;</span>First item<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>Second item
+        <span class="nt">&lt;ol&gt;&lt;li&gt;</span>Sub second item<span class="nt">&lt;/li&gt;&lt;/ol&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>Third item<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ol&gt;</span>
+</pre></div>
+
+
+<h3 id="headings">Headings</h3>
+<p>If you enter the following in your Markdown (<code>.md</code>) files:</p>
+<div class="codehilite"><pre>&lt;h1&gt;An HTML h1 heading&lt;/h1&gt;
+
+# An h1 heading
+
+Also an h1 heading
+==================
+
+## An h2 heading
+
+Also an h2 heading
+------------------
+
+### An h3 heading
+
+#### An h4 heading
+</pre></div>
+
+
+<p>You would see the following HTML on your page:</p>
+<div class="codehilite"><pre><span class="nt">&lt;h1&gt;</span>An HTML h1 heading<span class="nt">&lt;/h1&gt;</span>
+
+<span class="nt">&lt;h1&gt;</span>An h1 heading<span class="nt">&lt;/h1&gt;</span>
+
+<span class="nt">&lt;h1&gt;</span>Also an h1 heading<span class="nt">&lt;/h1&gt;</span>
+
+<span class="nt">&lt;h2&gt;</span>An h2 heading<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;h2&gt;</span>Also an h2 heading<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;h3&gt;</span>An h3 heading<span class="nt">&lt;/h3&gt;</span>
+
+<span class="nt">&lt;h4&gt;</span>An h4 heading<span class="nt">&lt;/h4&gt;</span>
+</pre></div>
+    </div>
+</div>

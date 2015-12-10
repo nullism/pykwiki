@@ -1,0 +1,292 @@
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_pagelist(1); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_pagelist(1); return false;">1</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_pagelist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(9); return false;">9</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_pagelist(3); return false;">&raquo;</a></li>
+  
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="/creating-themes.html">Creating Themes</a> 
+        <span class="pull-right text-muted">November 19, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#creating-themes">Creating themes</a><ul>
+<li><a href="#theme-directory-structure">Theme Directory Structure</a></li>
+<li><a href="#infoyaml">info.yaml</a></li>
+<li><a href="#menuhtml">menu.html</a></li>
+<li><a href="#pagehtml">page.html</a></li>
+</ul>
+</li>
+<li><a href="#bundling-for-distribution">Bundling for distribution</a></li>
+</ul>
+</div>
+<h1 id="creating-themes">Creating themes</h1>
+<p>PyKwiki themes are designed to be easy to create. </p>
+<p>Visit <a href="/api.html">API</a> to see a list of advanced functions and properties available to themes.</p>
+<h2 id="theme-directory-structure">Theme Directory Structure</h2>
+<div class="codehilite"><pre>ThemeName/
+    info.yaml
+    menu.html
+    page.html
+    pagelist.html
+    posts.html
+    search.html
+    static/
+</pre></div>
+
+
+<ul>
+<li><code>info.yaml</code> - Includes information about the theme, such as author, version, and description.</li>
+<li><code>menu.html</code> - Renders the site menu.</li>
+<li><code>page.html</code> - Rendered for each page in <code>source</code>.</li>
+<li><code>pagelist.html</code> - Displays a list of pages as configured by <code>conf.pagelist</code>.</li>
+<li><code>posts.html</code> - Paginates <code>pagelist-N.html</code></li>
+<li><code>search.html</code> - The search page.</li>
+<li><code>static/</code> - All files in this directory will be copied to <code>docroot/static/</code>. </li>
+</ul>
+<h2 id="infoyaml">info.yaml</h2>
+<p>This file provide PyKwiki with some basic knowledge. </p>
+<div class="codehilite"><pre><span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Some Theme</span>
+<span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">This is a special theme</span>
+<span class="l-Scalar-Plain">author</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Your Name</span>
+<span class="l-Scalar-Plain">author_email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">youremail</span>
+<span class="l-Scalar-Plain">license</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">MIT, GPL, BSD, etc.</span>
+<span class="l-Scalar-Plain">version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1.0</span>
+</pre></div>
+
+
+<h2 id="menuhtml">menu.html</h2>
+<p>This renders the PyKwiki theme. The <code>links</code> variable is made available when this template is rendered.</p>
+<p>Here's an example link file that nests a single level deep. The following example uses a Jinja2 macro to make an infinitely nesting list.</p>
+<div class="codehilite"><pre><span class="cp">{%</span> <span class="k">macro</span> <span class="nv">make_links</span><span class="o">(</span><span class="nv">ls</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;ul&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">link</span> <span class="k">in</span> <span class="nv">ls</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">link.href</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;a href=&quot;</span><span class="cp">{{</span><span class="nv">link.href</span><span class="cp">}}</span><span class="x">&quot; target=&quot;</span><span class="cp">{{</span><span class="nv">link.target</span><span class="o">|</span><span class="nf">default</span><span class="o">(</span><span class="s1">&#39;_self&#39;</span><span class="o">)</span><span class="cp">}}</span><span class="x">&quot;&gt;</span><span class="cp">{{</span><span class="nv">link.label</span><span class="cp">}}</span><span class="x">&lt;/a&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;b&gt;</span><span class="cp">{{</span><span class="nv">link.label</span><span class="cp">}}</span><span class="x">&lt;/b&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="x">    </span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">link.children</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        </span><span class="cp">{{</span> <span class="nv">make_links</span><span class="o">(</span><span class="nv">link.children</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;/li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;/ul&gt;</span>
+<span class="cp">{%</span>- <span class="k">endmacro</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{{</span> <span class="nv">make_links</span><span class="o">(</span><span class="nv">links</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+
+
+<p>The <code>links</code> list is a list of <code>link</code> objects. The properties of a <code>link</code> object are as follows.</p>
+<ul>
+<li><code>label</code> - The human readable link label.</li>
+<li><code>target</code> - <em>Optional</em>. Specifies the value that should go in <code>target</code>, like <code>_self</code> or <code>_blank</code>.</li>
+<li><code>href</code> - <em>Optional</em>. The url of the page. It may be an internal relative path to a page, or it may include <code>http</code>. </li>
+<li><code>rel</code> - PyKwiki populates this with one of <code>external</code> or <code>internal</code>. </li>
+<li><code>children</code> - <em>Optional</em>. A list of links that follow the current link.</li>
+</ul>
+<h2 id="pagehtml">page.html</h2>
+<p>This is the template rendered for each source page you have. This template has access to the <code>conf</code>, <code>ctrl</code> and <a href="/api.html#page-object">page</a> objects.</p>
+<p>An example <code>page.html</code> template:</p>
+<div class="codehilite"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;layout.html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}{{</span><span class="nv">page.title</span><span class="cp">}}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">tag</span> <span class="k">in</span> <span class="nv">page.tags</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;a href=&quot;</span><span class="cp">{{</span><span class="nv">conf.web_prefix</span><span class="cp">}}</span><span class="x">/</span><span class="cp">{{</span><span class="nv">conf.search_tpl</span><span class="cp">}}</span><span class="x">?t=</span><span class="cp">{{</span><span class="nv">tag</span><span class="cp">}}</span><span class="x">&quot;&gt;</span><span class="cp">{{</span><span class="nv">tag</span><span class="cp">}}</span><span class="x">&lt;/a&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span><span class="nv">page.target_text</span><span class="o">|</span><span class="nf">safe</span><span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+
+
+<h1 id="bundling-for-distribution">Bundling for distribution</h1>
+<p>The top-level directory in the theme zip file should be the name of your theme. It should be structured so it can be installed with the following commands:</p>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd </span>themes/
+<span class="nv">$ </span>unzip theme-yourtheme.zip
+</pre></div>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="/creating-themes.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="/config.yaml.html">config.yaml</a> 
+        <span class="pull-right text-muted">November 19, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <h1 id="configyaml">config.yaml</h1>
+<p>Below is a typical <code>config.yaml</code> file</p>
+<div class="codehilite"><pre><span class="c1"># Maximum number of words to use in a blurb</span>
+<span class="l-Scalar-Plain">blurb_max</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
+<span class="c1"># The default home page to be written as docroot/index.html</span>
+<span class="l-Scalar-Plain">home_page</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">home.md</span>
+<span class="l-Scalar-Plain">site</span><span class="p-Indicator">:</span>
+    <span class="c1"># The site title, used in &lt;title&gt;</span>
+    <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My PyKwiki Project</span>
+    <span class="c1"># Author for use in meta name=author</span>
+    <span class="l-Scalar-Plain">author</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Example Author</span>
+    <span class="c1"># Description for use in meta name=description</span>
+    <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="s">&quot;Example</span><span class="nv"> </span><span class="s">Site</span><span class="nv"> </span><span class="s">Description</span>
+        <span class="s">goes</span><span class="nv"> </span><span class="s">here&quot;</span>
+    <span class="c1"># Keywords for use in meta name=keywords</span>
+    <span class="l-Scalar-Plain">keywords</span><span class="p-Indicator">:</span> <span class="s">&quot;example,</span><span class="nv"> </span><span class="s">pykwiki&quot;</span>    
+<span class="c1"># Theme is a subdirectory of themes/</span>
+<span class="l-Scalar-Plain">theme</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+<span class="c1"># Web prefix, must not end with &quot;/&quot;</span>
+<span class="l-Scalar-Plain">web_prefix</span><span class="p-Indicator">:</span> <span class="s">&#39;&#39;</span>
+<span class="c1"># The project&#39;s directory</span>
+<span class="l-Scalar-Plain">base_path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/home/HarryPotter/MyPyKwikiProject/</span>
+<span class="c1"># The date format used by posts</span>
+<span class="l-Scalar-Plain">date_format</span><span class="p-Indicator">:</span> <span class="s">&#39;%B</span><span class="nv"> </span><span class="s">%d,</span><span class="nv"> </span><span class="s">%Y&#39;</span>
+<span class="c1"># The time format used by posts</span>
+<span class="l-Scalar-Plain">time_format</span><span class="p-Indicator">:</span> <span class="s">&#39;%H:%M:%S&#39;</span>
+<span class="c1"># The timestamp format used by posts, this must match</span>
+<span class="c1">#   the format found in the page data block, if specified</span>
+<span class="l-Scalar-Plain">timestamp_format</span><span class="p-Indicator">:</span> <span class="s">&#39;%Y-%m-%d</span><span class="nv"> </span><span class="s">%H:%M&#39;</span>
+<span class="c1"># Pagelist section</span>
+<span class="l-Scalar-Plain">pagelist</span><span class="p-Indicator">:</span>
+    <span class="c1"># How many posts to show per page</span>
+    <span class="l-Scalar-Plain">per_page</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+    <span class="c1"># Maximum number of pages to render</span>
+    <span class="l-Scalar-Plain">max_pages</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">20</span>
+    <span class="c1"># What type of post data to display (blurb, preview, full)</span>
+    <span class="l-Scalar-Plain">post_type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">preview</span>
+    <span class="c1"># What field to order pages by (mtime, title)</span>
+    <span class="l-Scalar-Plain">order_field</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mtime</span>
+    <span class="c1"># What direction to order pages (descending, ascending)</span>
+    <span class="l-Scalar-Plain">order_type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">descending</span>
+</pre></div>
+
+
+<h2 id="parts">Parts</h2>
+<ul>
+<li><code>blurb_max</code> - specifies how many words of a page should be shown.</li>
+<li><code>home_page</code> - Tells PyKwiki to look for this page in the <code>source</code> 
+    directory, and if found, save it to <code>index.html</code> in the <code>docroot</code>
+    directory.</li>
+<li><code>web_prefix</code> - This should be an empty string if not specified.
+    Themes prepend this value to all site links. This is usefull for
+    serving multiple PyKwiki projects from the same docroot directory.</li>
+<li><code>base_path</code> - This is the full path to your PyKwiki Project's directory.</li>
+<li><code>site</code> - Generate site settings<ul>
+<li><code>title</code> - The human readable site title. Most themes will
+    populate the html <code>&lt;title&gt;</code> attribute with this value.</li>
+<li><code>author</code> - Most themes put this value in <code>&lt;meta name=author&gt;</code></li>
+<li><code>description</code> - Most themes use this value in <code>&lt;meta name=description&gt;</code></li>
+<li><code>keywords</code> - This is a string of keywords that some themes use in <code>&lt;meta name=keywords&gt;</code></li>
+</ul>
+</li>
+<li><code>date_format</code> - This describes how the date will appear when themes lookup a page's date. It uses <a href="http://docs.python.org/2/library/time.html#time.strftime">strftime</a> formatting.</li>
+<li><code>time_format</code> - This describes how the time will appear when themes lookup a page's time. It uses <a href="http://docs.python.org/2/library/time.html#time.strftime">strftime</a> formatting.</li>
+<li><code>timestamp_format</code> - This describes how the date and time will appear when themes lookup a page's timestamp.It also uses <a href="http://docs.python.org/2/library/time.html#time.strftime">strftime</a> formatting. <ul>
+<li><strong>This format must match the format in the <a href="/authoring.html#page-data-block">page data block</a></strong>.</li>
+</ul>
+</li>
+</ul>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="/config.yaml.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_pagelist(1); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_pagelist(1); return false;">1</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_pagelist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(9); return false;">9</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_pagelist(3); return false;">&raquo;</a></li>
+  
+</ul>
+

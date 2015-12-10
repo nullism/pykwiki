@@ -1,0 +1,346 @@
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(2); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(4); return false;">&raquo;</a></li>
+  
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/extensions.html">Extensions</a> 
+        <span class="pull-right text-muted">October 30, 2014</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#pykwiki-extensions">PyKwiki Extensions</a><ul>
+<li><a href="#markdown-extensions">MarkDown Extensions</a><ul>
+<li><a href="#pykwikiextpost">pykwiki.ext.post</a><ul>
+<li><a href="#post-sections">Post sections</a></li>
+</ul>
+</li>
+<li><a href="#pykwikiexttpl">pykwiki.ext.tpl</a></li>
+<li><a href="#pykwikiextuml">pykwiki.ext.uml</a><ul>
+<li><a href="#installation">Installation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="pykwiki-extensions">PyKwiki Extensions</h1>
+<h2 id="markdown-extensions">MarkDown Extensions</h2>
+<h3 id="pykwikiextpost">pykwiki.ext.post</h3>
+<div class="alert alert-warning">
+    <p><b>Warning:</b> This documentation is only compatible with <b>version 1.0</b> and newer.</p>
+</div>
+
+<p>This extension is not compatible with the <code>wikilink</code> markdown extension.</p>
+<p>This extension syntax is:</p>
+<div class="codehilite"><pre><span class="p">[[</span><span class="n">page</span><span class="o">&lt;:</span><span class="n">optional</span> <span class="n">property</span><span class="o">&gt;</span><span class="p">]]</span>
+</pre></div>
+
+
+<p>Assuming you have a post in <code>source</code> called <code>home.md</code> with <code>title</code> set to "Home", then the following MarkDown:</p>
+<div class="codehilite"><pre>Here is a link to [[home]]
+</pre></div>
+
+
+<p>Generates the following HTML:</p>
+<div class="codehilite"><pre><span class="nt">&lt;p&gt;</span>Here is a link to <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/home.html&quot;</span> <span class="na">class=</span><span class="s">&quot;postlink&quot;</span><span class="nt">&gt;</span>Home<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>
+</pre></div>
+
+
+<p>Similar things can be achieved with <code>title</code>, <code>blurb</code>, <code>url</code>, and <code>description</code>:</p>
+<div class="codehilite"><pre>This is a link to [[home]], known as [[home:title]], found at [[home:url]]
+[[home:blurb]]
+[[home:description]]
+</pre></div>
+
+
+<p>Will create:</p>
+<div class="codehilite"><pre><span class="nt">&lt;p&gt;</span>This is a link to <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/home.html&quot;</span> <span class="na">class=</span><span class="s">&quot;postlink&quot;</span><span class="nt">&gt;</span>Home<span class="nt">&lt;/a&gt;</span>, known as Home, found at /home.html
+   This is just an example post used for testing random junk.
+   This is just an example post used for ...<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+
+
+<h4 id="post-sections">Post sections</h4>
+<p><span class="text text-muted">New in version <strong>1.0.3</strong></span></p>
+<p>One of the more poweful features of the <code>post</code> markdown extension is the ability to include sections from other pages.</p>
+<p>You can specify a page section with <code>{section:name}</code> and <code>{endsection}</code>. </p>
+<p>For example, in a page called <code>faqs.md</code>, you could add a section such as the following:</p>
+<div class="codehilite"><pre>::: text
+{section:foo}
+# This is a section about foo
+
+To learn more about foo, see &lt;a href=&quot;foo&quot;&gt;Foo&lt;/a&gt;.
+{endsection}
+</pre></div>
+
+
+<p>Then to include that section in another page:</p>
+<div class="codehilite"><pre>Below is a section from the FAQs page:
+[[faqs:section:foo]]
+</pre></div>
+
+
+<h3 id="pykwikiexttpl">pykwiki.ext.tpl</h3>
+<p>This extension allows for templates to be included in your source files. See <a href="/templates.html">Helper Templates</a> for examples.</p>
+<p>The basic usage is:</p>
+<div class="codehilite"><pre>{tpl:template_name}
+key: value
+{endtpl}
+</pre></div>
+
+
+<p>The above code will attempt to render a Jinja2 template named <code>template_name.tpl</code> inside of your source directory. </p>
+<p><strong>Example</strong></p>
+<p>If you have a template called <code>project.tpl</code> located in <code>base_path/source</code>, and it contains the following content:</p>
+<div class="codehilite"><pre># {{name}}
+* Description: {{description}}
+* url: [{{url}}]({{url}})
+</pre></div>
+
+
+<p>And you include the following in one of your <code>md</code> pages.</p>
+<div class="codehilite"><pre>{tpl:project}
+name: Widget System
+description: A fun widget system for everyone!
+url: http://widgets.com
+{endtpl}
+</pre></div>
+
+
+<p>Then PyKwiki will render <code>project.tpl</code> with the data from <code>{tpl:project}</code> into the HTML, like so:</p>
+<div class="codehilite"><pre><span class="nt">&lt;h1&gt;</span>Widget System<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;</span>Description: A fun widget system for everyone!<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>url: <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://widgets.com&quot;</span><span class="nt">&gt;</span>http://widgets.com<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</pre></div>
+
+
+<h3 id="pykwikiextuml">pykwiki.ext.uml</h3>
+<p><span class="text text-muted">New in version <strong>1.0.8</strong></span></p>
+<p>This extension is powered by <a href="http://plantuml.com">Plant UML</a> and 
+requires <a href="https://github.com/dougn/python-plantuml">python-plantuml</a>
+to be installed. </p>
+<h4 id="installation">Installation</h4>
+<div class="codehilite"><pre><span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">plantuml</span>
+</pre></div>
+
+
+<p>Then add <code>pykwiki.ext.uml</code> to your <code>config.yaml</code> <code>extensions</code> section.</p>
+<p><strong>Example</strong></p>
+<div class="codehilite"><pre>{uml}
+Alice -&gt; Bob: Connection
+Bob -&gt; Marge: Another connection
+note left: This is just a note
+{enduml}
+</pre></div>
+
+
+<p>The above produces the following HTML by default.</p>
+<div class="codehilite"><pre><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;http://www.plantuml.com/plantuml/img/utBCoKnELT2rKt3AJx9ISCxFoqjDBidCp-C2ya72leb5wQbM2evv-IKPgKKAoGW50000&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+
+
+<p><strong>Live example</strong></p>
+<p><img src="http://www.plantuml.com/plantuml/img/utBCoKnELT2rKt3AJx9ISCxFoqjDBidCp-C2ya72leb5wQbM2evv-IKPgKKAoGW5G95KXPpKj18hXP2Cp6858CegBIvHI5G0oN010000"/></p>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/extensions.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/examples/codehilite.html">Code-Hilite Examples</a> 
+        <span class="pull-right text-muted">October 21, 2014</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#no-hilighting-text">No hilighting (text)</a></li>
+<li><a href="#python">Python</a></li>
+<li><a href="#ini-configuration-files">INI Configuration files.</a></li>
+</ul>
+</div>
+<p>PyKwiki uses the Markdown module's <a href="http://pythonhosted.org//Markdown/extensions/code_hilite.html">codehilite</a> extension by default.</p>
+<p>This extension is powered by <a href="http://pygments.org">Pygments</a> and supports a <a href="http://pygments.org/languages/">wide variety of languages</a>.</p>
+<h1 id="no-hilighting-text">No hilighting (text)</h1>
+<div class="codehilite"><pre>Unhilighted:
+
+    :::text
+    No &quot;syntax&quot; highlighting here...
+</pre></div>
+
+
+<p><strong>Produces:</strong></p>
+<p>Unhilighted:</p>
+<div class="codehilite"><pre>No &quot;syntax&quot; highlighting here...
+</pre></div>
+
+
+<h1 id="python">Python</h1>
+<div class="codehilite"><pre>Sample *Python*:
+
+    :::python
+    def foo():
+        print(&quot;Bar&quot;)
+        return False
+</pre></div>
+
+
+<p><strong>Produces:</strong></p>
+<p>Sample <em>Python</em>:</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Bar&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">False</span>
+</pre></div>
+
+
+<h1 id="ini-configuration-files">INI Configuration files.</h1>
+<div class="codehilite"><pre>Contents of `myconfig.ini`:
+
+    :::ini
+    ; Database connection info
+    server = localhost
+    password = &quot;ASDFG123456&quot;
+    db_server = mydb.localhost
+</pre></div>
+
+
+<p><strong>Produces:</strong></p>
+<p>Contents of <code>myconfig.ini</code>:</p>
+<div class="codehilite"><pre><span class="c1">; Database connection info</span>
+<span class="na">server</span> <span class="o">=</span> <span class="s">localhost</span>
+<span class="na">password</span> <span class="o">=</span> <span class="s">&quot;ASDFG123456&quot;</span>
+<span class="na">db_server</span> <span class="o">=</span> <span class="s">mydb.localhost</span>
+</pre></div>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/examples/codehilite.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(2); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(4); return false;">&raquo;</a></li>
+  
+</ul>
+

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+<meta name="description" content="PyKwiki is a static file wiki suitable for blogs, wikis, or almost any type of documentation">
+<meta name="keywords" content="features">
+
+    <title>Features | PyKwiki</title>
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/static/codehilite/manni.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style type="text/css">
+    html, body { height: 100%; }
+
+    h1:target, h2:target, h3:target { 
+        background-color: #dfd;
+    }
+
+    #wrap {
+        min-height: 100%;
+        height: auto;
+        /* Negative indent footer by its height */
+        margin: 0 auto -60px;
+        /* Pad bottom by footer height */
+        padding: 0 0 60px;
+    }
+
+    #footer {
+        height: 60px;
+        padding-top: 20px;
+        background: #eee;
+    }
+    #footer .social-div { 
+        float: left;
+        margin-left: 10px;
+    }
+
+    .link_section {
+        padding: 3px;
+        margin: 0px; 
+        font-weight: bold;
+    }
+
+    .toc { 
+        float: right;
+        border: 2px solid #efefef;
+        background: #f5f5f5;
+        padding: 5px;
+        border-radius: 3px;
+        color: #999;
+    }
+    .toc ul, .toc li, .toc ul li { 
+        margin-left: 10px;
+        padding-left: 0px;
+    }
+
+    .htmltruncate-lg, .htmltruncate-md, .htmltruncate-sm { 
+        overflow: hidden;
+        position: relative;
+        border-bottom: 2px dashed #eee;
+        margin-bottom: 5px;
+        min-height: 60px;
+    }
+    .htmltruncate-bottom { 
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        background: none;
+        background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, #fff 100%);
+        z-index: 100;
+        height: 60px;
+    }
+    .htmltruncate-lg {
+        max-height: 500px;
+    }
+    .htmltruncate-md { 
+        max-height: 300px;
+    }
+    .htmltruncate-sm { 
+        max-height: 150px;
+    }
+    </style> 
+    <script>
+    // Globals
+    var has_gaq = false;
+    </script>
+</head>
+<body>
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+    <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" 
+                data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Home</a>
+    </div>
+    <div class="navbar-collapse collapse" style="max-height: none;">
+    <ul class="nav navbar-nav">
+    
+        
+            <li>
+            
+                <a href="/features.html" target="_self">Features</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/getting-started.html" target="_self">Getting Started</a>
+            
+            </li>
+        
+    
+        
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+                data-toggle="dropdown">Documentation <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Authoring</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/authoring.html" target="_self">Authoring Pages</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/markdown.html" target="_self">Markdown Format</a>
+                
+                </li>
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Configuration</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/config.yaml.html" target="_self">config.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/links.yaml.html" target="_self">links.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/webserver.html" target="_self">Webserver</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/extensions.html" target="_self">Extensions</a>
+                
+                </li>
+            
+                <li>
+                
+                    <p class="link_section navbar-text">Themes</p>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/themes.html" target="_self">Available Themes</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/creating-themes.html" target="_self">Creating Themes</a>
+                
+                </li>
+            
+            </ul>
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/support.html" target="_self">Support</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/download.html" target="_self">Download</a>
+            
+            </li>
+        
+    
+        
+            <li>
+            
+                <a href="/faqs.html" target="_self">FAQs</a>
+            
+            </li>
+        
+    
+    </ul>
+
+    <form class="navbar-form navbar-right" role="search" 
+        method="get"
+        action="/search.html">
+      <div class="form-group">
+        <input type="text" name="q" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-primary" style="display: none;"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+    </div>
+    </div>
+</div>
+<div id="wrap">
+<div class="container" style="padding-top: 60px;">
+
+<p>
+
+    <a class="label label-default"
+        href="/search.html?t=features">features <b class="glyphicon glyphicon-tag"></b></a>
+
+</p>
+<h1 id="features">Features</h1>
+<p>An overview of PyKwiki's most important features.
+See also: <a href="/comparison.html">Feature Comparison</a></p>
+<div class="row">
+
+<div class="col-sm-4">
+    <h2>Recent Posts</h2>
+
+    <a href="/uploads/features/recent_posts.png" target="_blank" class="thumbnail">
+    <img src="/uploads/features/recent_posts.png" class="img-responsive" alt="feature" />
+    </a>
+
+    <p>PyKwiki works well for blogs, review sites, or anything else that needs a "recent posts" type of feature.</p>
+
+    <a href="/posts.html" class="btn btn-primary">Try it out &raquo;</a>
+
+</div>
+
+<div class="col-sm-4">
+    <h2>Ranked Searching</h2>
+
+    <a href="/uploads/features/builtin-search.png" target="_blank" class="thumbnail">
+    <img src="/uploads/features/builtin-search.png" class="img-responsive" alt="feature" />
+    </a>
+
+    <p>PyKwiki indexes your pages when you change them. This index is a pure JSON file optimized for fast searches.</p>
+
+    <a href="/about-search.html" class="btn btn-primary">Learn more &raquo;</a>
+
+</div>
+
+<div class="col-sm-4">
+    <h2>Post Templates</h2>
+
+    <a href="/uploads/features/templates.png" target="_blank" class="thumbnail">
+    <img src="/uploads/features/templates.png" class="img-responsive" alt="feature" />
+    </a>
+
+    <p>Easily create complex templates using Jinja2 syntax and the built-in <code>tpl</code> Markdown extension.</p>
+
+    <a href="/extensions.html#pykwikiexttpl" class="btn btn-primary">Learn more &raquo;</a>
+
+</div>
+
+<p></div><!-- End row --></p>
+<div class="row">
+
+<div class="col-sm-4">
+    <h2>Markdown Editing</h2>
+
+    <a href="/uploads/pykwiki-screenshot-editor.png" target="_blank" class="thumbnail">
+    <img src="/uploads/pykwiki-screenshot-editor.png" class="img-responsive" alt="feature" />
+    </a>
+
+    <p>Edit posts using an efficient and well supported format. No more messing with broken WYSIWYG tools &mdash; you can use any text editor you prefer.</p>
+
+    <a href="/markdown.html" class="btn btn-primary">Learn more &raquo;</a>
+
+</div>
+
+<div class="col-sm-4">
+    <h2>Easy Setup</h2>
+
+    <a href="/uploads/features/easy-setup.png" target="_blank" class="thumbnail">
+    <img src="/uploads/features/easy-setup.png" class="img-responsive" alt="feature" />
+    </a>
+
+    <p>Because PyKwiki does not use a database or require WSGI, PHP, or any other server side scripting, setup is a breeze.</p>
+
+    <a href="/getting-started.html" class="btn btn-primary">Learn more &raquo;</a>
+
+</div>
+
+<div class="col-sm-4">
+    <h2>Fastest Page Loads</h2>
+
+    <a href="/uploads/pykwiki-screenshot-speed.png" target="_blank" class="thumbnail">
+    <img src="/uploads/pykwiki-screenshot-speed.png" class="img-responsive" alt="feature" />
+    </a>
+
+    <p>By skipping the database and saving server side processing for "compile" time, PyKwiki loads pages as fast as your webserver can serve static files.</p>
+
+    <a href="/speed.html" class="btn btn-primary">Learn more &raquo;</a>
+
+</div>
+
+<p></div><!-- End row --></p>
+<div class="row">
+<div class="col-sm-4">
+    <h2>Security</h2>
+
+    <p>Because PyKwiki is simply a collection of compiled static files, it's as secure as your webserver.</p>
+
+</div>
+
+<div class="col-sm-4">
+    <h2>Beautiful</h2>
+
+    <a href="/uploads/themes/pykwiki-theme-amelia.png" target="_blank" class="thumbnail">
+    <img src="/uploads/themes/pykwiki-theme-amelia.png" class="img-responsive" alt="feature" />
+    </a>
+
+    <p>By default, PyKwiki gives you all the beauty and elegance of Bootstrap.</p>
+
+    <a href="/themes.html" class="btn btn-primary">Learn more &raquo;</a>
+
+</div>
+
+<div class="col-sm-4">
+    <h2>Feeds</h2>
+
+    <a href="/uploads/features/rss.png" target="_blank" class="thumbnail">
+    <img src="/uploads/features/rss.png" class="img-responsive" alt="feature" />
+    </a>
+
+    <p>Since version 1.0.6, Pykwiki supports automatic RSS feeds, if an rss.xml template is present in the theme.</p>
+
+</div>
+
+</div>
+
+</div>
+</div><!-- End #wrap -->
+<div id="footer">
+    <div class="container">
+    
+        <div class="social-div">
+        <p class="text-muted credit">&copy; 2013, PyKwiki
+        &mdash; powered by <a href="http://pykwiki.nullism.com">PyKwiki</a>
+        </p>
+        </div>
+
+        
+        <div class="social-div">
+            <iframe src="http://ghbtns.com/github-btn.html?user=nullism&amp;repo=pykwiki&amp;type=watch"
+                style="border: 0px; width: 53px; height: 20px; overflow: hidden;"></iframe>
+            <iframe src="http://ghbtns.com/github-btn.html?user=nullism&amp;repo=pykwiki&amp;type=fork"
+                style="border: 0px; width: 53px; height: 20px; overflow: hidden;"></iframe>
+        </div>
+        
+
+        
+
+        
+
+
+        <div class="clearfix"></div>
+    </div>
+
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-20427551-9', 'nullism.com');
+      ga('send', 'pageview');
+
+    </script>
+    
+
+</div>
+
+<script src="/static/bootstrap3/js/bootstrap.min.js"></script>
+<script src="/static/mustachejs/mustache.js"></script>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="/static/respond.min.js"></script>
+<![endif]-->   
+
+</body>
+</html>

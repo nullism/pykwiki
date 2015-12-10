@@ -1,0 +1,312 @@
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_pagelist(8); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_pagelist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(8); return false;">8</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_pagelist(9); return false;">9</a>
+    </li>
+  
+  
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="/markdown.html">Markdown Basics</a> 
+        <span class="pull-right text-muted">November 11, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <h1 id="markdown">Markdown</h1>
+<p>Markdown is a popular text format for editing files. It is often used to produce well formatted web content. It is used extensively by GitHub, Reddit, Stack Overflow, and many others. </p>
+<p>One of the easiest ways to become familiar with Markdown is to <a href="https://stackedit.io">give it a try</a>!</p>
+<h2 id="text-formatting">Text formatting</h2>
+<h3 id="bold-italics-lists">Bold, italics, lists</h3>
+<div class="codehilite"><pre>*This is italic*
+
+**This is bold**
+
+This sentence has **bold**, *italics*, and ***bold-italics***
+
+* This is a list item
+* So is this
+    * And this is a sublist item
+
+Numbered lists are easy
+
+1. First item
+2. Second item
+    1. Sub second item
+3. Third item
+</pre></div>
+
+
+<p>The above Markdown produces the following HTML</p>
+<div class="codehilite"><pre><span class="nt">&lt;p&gt;&lt;em&gt;</span>This is italic<span class="nt">&lt;/em&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;&lt;strong&gt;</span>This is bold<span class="nt">&lt;/strong&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>This sentence has <span class="nt">&lt;strong&gt;</span>bold<span class="nt">&lt;/strong&gt;</span>, <span class="nt">&lt;em&gt;</span>italics<span class="nt">&lt;/em&gt;</span>, and <span class="nt">&lt;strong&gt;&lt;em&gt;</span>bold-italics<span class="nt">&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;</span>
+
+<span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;</span>This is a list item<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>So is this
+        <span class="nt">&lt;ul&gt;&lt;li&gt;</span>And this is a sublist item<span class="nt">&lt;/li&gt;&lt;/ul&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>Numbered lists are easy<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;ol&gt;</span>
+    <span class="nt">&lt;li&gt;</span>First item<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>Second item
+        <span class="nt">&lt;ol&gt;&lt;li&gt;</span>Sub second item<span class="nt">&lt;/li&gt;&lt;/ol&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>Third item<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ol&gt;</span>
+</pre></div>
+
+
+<h3 id="headings">Headings</h3>
+<p>If you enter the following in your Markdown (<code>.md</code>) files:</p>
+<div class="codehilite"><pre>&lt;h1&gt;An HTML h1 heading&lt;/h1&gt;
+
+# An h1 heading
+
+Also an h1 heading
+==================
+
+## An h2 heading
+
+Also an h2 heading
+------------------
+
+### An h3 heading
+
+#### An h4 heading
+</pre></div>
+
+
+<p>You would see the following HTML on your page:</p>
+<div class="codehilite"><pre><span class="nt">&lt;h1&gt;</span>An HTML h1 heading<span class="nt">&lt;/h1&gt;</span>
+
+<span class="nt">&lt;h1&gt;</span>An h1 heading<span class="nt">&lt;/h1&gt;</span>
+
+<span class="nt">&lt;h1&gt;</span>Also an h1 heading<span class="nt">&lt;/h1&gt;</span>
+
+<span class="nt">&lt;h2&gt;</span>An h2 heading<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;h2&gt;</span>Also an h2 heading<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;h3&gt;</span>An h3 heading<span class="nt">&lt;/h3&gt;</span>
+
+<span class="nt">&lt;h4&gt;</span>An h4 heading<span class="nt">&lt;/h4&gt;</span>
+</pre></div>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="/markdown.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="/features.html">Features</a> 
+        <span class="pull-right text-muted">October 12, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <h1 id="features">Features</h1>
+<p>An overview of PyKwiki's most important features.
+<div class="row"></p>
+<div class="col-sm-4">
+    <h2>Recent Posts</h2>
+
+    <a href="/uploads/features/recent_posts.png" target="_blank" class="thumbnail">
+    <img src="/uploads/features/recent_posts.png" class="img-responsive" alt="feature" />
+    </a>
+
+    <p>PyKwiki works well for blogs, review sites, or anything else that needs a "recent posts" type of feature.</p>
+
+    <a href="/posts.html" class="btn btn-primary">Try it out &raquo;</a>
+
+</div>
+
+<div class="col-sm-4">
+    <h2>Ranked Searching</h2>
+
+    <a href="/uploads/features/builtin-search.png" target="_blank" class="thumbnail">
+    <img src="/uploads/features/builtin-search.png" class="img-responsive" alt="feature" />
+    </a>
+
+    <p>PyKwiki indexes your pages when you change them. This index is a pure JSON file optimized for fast searches.</p>
+
+    <a href="/about-search.html" class="btn btn-primary">Learn more &raquo;</a>
+
+</div>
+
+<div class="col-sm-4">
+    <h2>Post Templates</h2>
+
+    <a href="/uploads/features/templates.png" target="_blank" class="thumbnail">
+    <img src="/uploads/features/templates.png" class="img-responsive" alt="feature" />
+    </a>
+
+    <p>Easily create complex templates using Jinja2 syntax and the built-in <code>tpl</code> Markdown extension.</p>
+
+    <a href="/extensions.html#pykwikiexttpl" class="btn btn-primary">Learn more &raquo;</a>
+
+</div>
+
+<p></div><!-- End row --></p>
+<div class="row">
+
+<div class="col-sm-4">
+    <h2>Markdown Editing</h2>
+
+    <a href="/uploads/pykwiki-screenshot-editor.png" target="_blank" class="thumbnail">
+    <img src="/uploads/pykwiki-screenshot-editor.png" class="img-responsive" alt="feature" />
+    </a>
+
+    <p>Edit posts using an efficient and well supported format. No more messing with broken WYSIWYG tools &mdash; you can use any text editor you prefer.</p>
+
+    <a href="/markdown.html" class="btn btn-primary">Learn more &raquo;</a>
+
+</div>
+
+<div class="col-sm-4">
+    <h2>Easy Setup</h2>
+
+    <a href="/uploads/features/easy-setup.png" target="_blank" class="thumbnail">
+    <img src="/uploads/features/easy-setup.png" class="img-responsive" alt="feature" />
+    </a>
+
+    <p>Because PyKwiki does not use a database or require WSGI, PHP, or any other server side scripting, setup is a breeze.</p>
+
+    <a href="/getting-started.html" class="btn btn-primary">Learn more &raquo;</a>
+
+</div>
+
+<div class="col-sm-4">
+    <h2>Fastest Page Loads</h2>
+
+    <a href="/uploads/pykwiki-screenshot-speed.png" target="_blank" class="thumbnail">
+    <img src="/uploads/pykwiki-screenshot-speed.png" class="img-responsive" alt="feature" />
+    </a>
+
+    <p>By skipping the database and saving server side processing for "compile" time, PyKwiki loads pages as fast as your webserver can serve static files.</p>
+
+    <a href="/speed.html" class="btn btn-primary">Learn more &raquo;</a>
+
+</div>
+
+<p></div><!-- End row --></p>
+<div class="row">
+<div class="col-sm-4">
+    <h2>Security</h2>
+
+    <p>Because PyKwiki is simply a collection of compiled static files, it's as secure as your webserver.</p>
+
+</div>
+
+<div class="col-sm-4">
+    <h2>Beautiful</h2>
+
+    <a href="/uploads/themes/pykwiki-theme-amelia.png" target="_blank" class="thumbnail">
+    <img src="/uploads/themes/pykwiki-theme-amelia.png" class="img-responsive" alt="feature" />
+    </a>
+
+    <p>By default, PyKwiki gives you all the beauty and elegance of Bootstrap.</p>
+
+    <a href="/themes.html" class="btn btn-primary">Learn more &raquo;</a>
+
+</div>
+
+</div>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="/features.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_pagelist(8); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_pagelist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(8); return false;">8</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_pagelist(9); return false;">9</a>
+    </li>
+  
+  
+</ul>
+

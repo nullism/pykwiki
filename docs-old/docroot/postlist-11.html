@@ -1,0 +1,184 @@
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(10); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(12); return false;">&raquo;</a></li>
+  
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/webserver.html">Webserver</a> 
+        <span class="pull-right text-muted">November 18, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <h1 id="webserver-configuration">Webserver Configuration</h1>
+<h2 id="apache">Apache</h2>
+<p>To configure Apache to work with PyKwiki, you'll need a virtual host entry for static files that points to the PyKwiki install. </p>
+<p>For example, if your project directory is <code>/home/hpotter/pykwiki/MyBlog</code>, then a virtual host entry might appear as follows:</p>
+<div class="codehilite"><pre><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span>
+    <span class="nb">ServerName</span> www.myblog.com
+    <span class="nb">DocumentRoot</span> <span class="s2">&quot;/home/hpotter/pykwiki/MyBlog/docroot/&quot;</span>
+    <span class="nb">ErrorDocument</span> <span class="m">404</span> <span class="sx">/404.html</span>
+    <span class="nt">&lt;Directory</span> <span class="s">&quot;/home/hpotter/pykwiki/MyBlog/docroot/&quot;</span><span class="nt">&gt;</span>
+        <span class="nb">RewriteEngine</span> <span class="k">Off</span>
+        <span class="nb">Options</span> Indexes FollowSymLinks MultiViews
+        <span class="nb">AllowOverride</span> <span class="k">None</span>
+        <span class="nb">Order</span> allow,deny
+        <span class="nb">allow</span> from <span class="k">all</span>
+    <span class="nt">&lt;/Directory&gt;</span>
+<span class="nt">&lt;/VirtualHost&gt;</span>
+</pre></div>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/webserver.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/speed.html">Speed</a> 
+        <span class="pull-right text-muted">November 12, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <h1 id="faster-than-php">Faster than PHP</h1>
+<p>PyKwiki is fast because it's 100% static. No server side processing is necessary. Why regenerate a page every single time someone visits it? PyKwiki regenerates the page only when its content has changed. </p>
+<p><em>But wait! How can that be if you have built-in searching?</em> PyKwiki generates a JSON index file for page searches, so unlike most other static content systems, you don't need to rely on a third party to perform searches. </p>
+<h2 id="optimizing-pykwiki">Optimizing PyKwiki</h2>
+<p>In most cases, PyKwiki won't require any optimization. However, if a PyKwiki site happens to receive hundreds of thousands of views per day, then there are a few different techniques to help remove this load.</p>
+<ol>
+<li>Use Nginx or Apache Workers MPM. <ul>
+<li>This alone can greatly increase page performance.</li>
+</ul>
+</li>
+<li>Cache content.<ul>
+<li>Tell your webserver to cache content in the user's browser for a few hours. They won't see updates when they're released, but this can dramatically reduce server load.</li>
+</ul>
+</li>
+<li>Use a CDN.<ul>
+<li>Use something like <a href="http://cloudflare.com">Cloud Flare</a> to cache your content on a CDN. This can be the most expensive option, but it works well.</li>
+</ul>
+</li>
+</ol>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/speed.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(10); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(12); return false;">&raquo;</a></li>
+  
+</ul>
+

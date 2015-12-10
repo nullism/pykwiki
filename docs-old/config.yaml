@@ -1,0 +1,28 @@
+blurb_max: 50
+home_page: home
+site:
+  author: Aaron Meier
+  description: "PyKwiki is a static file wiki suitable for 
+    blogs, wikis, or almost any type of documentation"
+  keywords: pykwiki, wiki, cms, blog
+  title: PyKwiki
+  base_url: http://pykwiki.nullism.com
+theme: default
+web_prefix: ''
+base_path: /home/nullism/github/pykwiki/docs-old/
+markdown_exts: ['codehilite','toc', 'pykwiki.ext.tpl', 'pykwiki.ext.post', 'pykwiki.ext.uml']
+date_format: "%B %d, %Y"
+time_format: "%H:%I"
+source_ext: '.md'
+# Page listing
+postlist:
+    # How many posts to show per page
+    per_page: 2
+    # How many pages
+    max_pages: 20
+    # Post display type (full, blurb, preview)
+    post_type: preview
+    # What to order on (mtime, title)
+    order_field: mtime
+    # How to order (descending, ascending)
+    order_type: descending

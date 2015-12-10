@@ -1,0 +1,323 @@
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_pagelist(4); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_pagelist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(4); return false;">4</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_pagelist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(9); return false;">9</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_pagelist(6); return false;">&raquo;</a></li>
+  
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="/getting-started.html">Getting Started</a> 
+        <span class="pull-right text-muted">November 18, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#getting-started">Getting Started</a><ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#install-pykwiki">Install PyKwiki</a></li>
+<li><a href="#create-a-new-project">Create a new project</a></li>
+<li><a href="#serve-the-default-content">Serve the default content</a></li>
+<li><a href="#configuration">Configuration</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="getting-started">Getting Started</h1>
+<p>This guide outlines the minimal steps to get PyKwiki serving static files.</p>
+<h2 id="requirements">Requirements</h2>
+<p>PyKwiki does not require anything outside of Python, but it does require the following Python packages:</p>
+<ul>
+<li><code>jinja2</code> (&gt;=2.6) - Jinja2 is used to compile themes into .html.<ul>
+<li>Install with <code>sudo pip install jinja2</code></li>
+</ul>
+</li>
+<li><code>markdown</code> (&gt;=2.3) - MarkDown is the syntax used for PyKwiki.<ul>
+<li>Install with <code>sudo pip install markdown</code></li>
+</ul>
+</li>
+<li><code>pyyaml</code> (&gt;=3.0) - Configuration files use YAML<ul>
+<li>Install with <code>sudo pip install pyyaml</code></li>
+</ul>
+</li>
+</ul>
+<p>The above packages should be auto-installed when PyKwiki is installed.</p>
+<h2 id="install-pykwiki">Install PyKwiki</h2>
+<p>You can download the setup.py directly, or simply run:</p>
+<div class="codehilite"><pre><span class="nv">$</span> <span class="nv">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">pykwiki</span>
+</pre></div>
+
+
+<h2 id="create-a-new-project">Create a new project</h2>
+<p>The <code>pykwiki new &lt;Name&gt;</code> command creates a project directory in the current
+working directory. The project directory will be named <code>&lt;Name&gt;</code>. </p>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd</span> ~
+<span class="nv">$ </span>mkdir pykwiki_projects
+<span class="nv">$ </span><span class="nb">cd </span>pykwiki_projects
+<span class="nv">$ </span>pykwiki new MySite
+...
+</pre></div>
+
+
+<h2 id="serve-the-default-content">Serve the default content</h2>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd </span>MySite/
+<span class="nv">$ </span>pykwiki cache
+...
+<span class="nv">$ </span><span class="nb">cd </span>docroot
+<span class="nv">$ </span>python -m SimpleHTTPServer 5000
+</pre></div>
+
+
+<p>Now you can navigate to <a href="http://localhost:5000">http://localhost:5000</a> to see that PyKwiki is working.</p>
+<h2 id="configuration">Configuration</h2>
+<p>PyKwiki is now ready for final tweaks.</p>
+<ul>
+<li><a href="/config.yaml.html">config.yaml</a> - Main configuration file.</li>
+<li><a href="/links.yaml.html">links.yaml</a> - Menu hierarchy configuration file.</li>
+</ul>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="/getting-started.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="/authoring.html">Authoring Pages</a> 
+        <span class="pull-right text-muted">November 16, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#overview">Overview</a><ul>
+<li><a href="#things-to-know">Things to know</a></li>
+<li><a href="#remote-editing">Remote editing</a><ul>
+<li><a href="#example-workflow">Example workflow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#creating-pages">Creating pages</a><ul>
+<li><a href="#a-simple-example">A simple example</a><ul>
+<li><a href="#1-open-the-new-page">1. Open the new page</a></li>
+<li><a href="#2-add-content-to-the-page">2. Add content to the page</a></li>
+<li><a href="#3-optionally-add-a-link-for-a-menu-entry">3. (optionally) Add a link for a menu entry</a></li>
+<li><a href="#4-cache-the-new-page">4. Cache the new page</a></li>
+</ul>
+</li>
+<li><a href="#page-data-block">Page data block</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="overview">Overview</h1>
+<p>Adding pages to your PyKwiki consists of two main pieces.</p>
+<ol>
+<li>Some way to get your content to a server.</li>
+<li>Some way to run <code>pykwiki cache</code> to cache your content.</li>
+</ol>
+<h2 id="things-to-know">Things to know</h2>
+<p>Technical knowledge: </p>
+<ol>
+<li>A basic understanding of <a href="/markdown.html">Markdown</a>.</li>
+<li>A basic understanding of the <a href="http://www.yaml.org/spec/1.2/spec.html#Introduction">YAML</a> data format. </li>
+</ol>
+<p>PyKwiki knowledge:</p>
+<ol>
+<li>New pages must be somewhere in the <code>source</code> directory.</li>
+<li>New pages must have the <code>.md</code> extension unless a different extension has been specified in <code>config.yaml</code> (the <code>source_ext</code> property).</li>
+<li>Page content must be in the <code>Markdown</code> format.</li>
+<li>For best cross-platform perfomance, page names should not have any spaces.</li>
+</ol>
+<h2 id="remote-editing">Remote editing</h2>
+<p>If you don't have access to the server, or if you prefer 
+to use your own text editor to edit files, then you can
+sync files between your computer and the server.</p>
+<p>The server needs some way to cache your files. One way 
+to do this is to have your server administrator setup 
+a <code>cron</code> job. </p>
+<h3 id="example-workflow">Example workflow</h3>
+<p>For you</p>
+<ol>
+<li>Setup Dropbox on your computer</li>
+<li>Edit files and save them to <code>Dropbox/source</code></li>
+<li>Add uploads such as images or audio to <code>Dropbox/source/uploads/</code></li>
+</ol>
+<p>For your server administrator </p>
+<ol>
+<li>Have the server administrator setup Dropbox with your credentials.</li>
+<li>Have the server administrator setup syncing and caching.<ol>
+<li>Set up recursive syncing from <code>Dropbox/source</code> to <code>source</code> and <code>Dropbox/links.yaml</code> to <code>base_path</code></li>
+<li>Set up caching. A cronjob that runs <code>pykwiki cache</code> every five minutes, for example.</li>
+</ol>
+</li>
+</ol>
+<h1 id="creating-pages">Creating pages</h1>
+<h2 id="a-simple-example">A simple example</h2>
+<h3 id="1-open-the-new-page">1. Open the new page</h3>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd</span> /path/to/myproject/source
+<span class="nv">$ </span>nano my-new-page.mkd
+</pre></div>
+
+
+<h3 id="2-add-content-to-the-page">2. Add content to the page</h3>
+<p>Put the following in as your page content, and save the page</p>
+<div class="codehilite"><pre>[[
+title: My New Page
+]]
+
+# Here is a new page.
+
+* It&#39;s easy
+* It&#39;s fun
+* It&#39;s fast
+</pre></div>
+
+
+<p>The double brackets <code>[[</code> and  <code>]]</code> indicate the page data block. Here you can specify 
+various information about your pages. <a href="#page-data-block">Learn more</a> about the page data block.</p>
+<p><small>Note: Page properties in this block must be either valid <code>YAML</code> or valid <code>JSON</code>.</small></p>
+<h3 id="3-optionally-add-a-link-for-a-menu-entry">3. (optionally) Add a link for a menu entry</h3>
+<p>PyKwiki parses the <code>links.yaml</code> file to generate the site menu. Once 
+you understand the format of <code>links.yaml</code>, adding links is very quick and easy.</p>
+<ul>
+<li>Learn more: <a href="/links.yaml.html">links.yaml</a></li>
+</ul>
+<h3 id="4-cache-the-new-page">4. Cache the new page</h3>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd</span> /path/to/myproject
+<span class="nv">$ </span>pykwiki cache
+</pre></div>
+
+
+<h2 id="page-data-block">Page data block</h2>
+<p>The page data block is entirely optional, but it adds a lot of functionality
+to PyKwiki. The minimal recommended fields are <code>title</code> and <code>tags</code>.</p>
+<p>This block should appear at the top of a page, and must be enclosed in <code>[[</code> and <code>]]</code>.  </p>
+<div class="codehilite"><pre><span class="c1"># The page title will show in search results, as well as </span>
+<span class="c1">#   in the title bar of the browser.</span>
+<span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My Page Title</span>
+<span class="c1"># The page author is displayed by most themes.</span>
+<span class="l-Scalar-Plain">author</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Harry Potter</span>
+<span class="c1"># Page tags are essentially categories. </span>
+<span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">A</span><span class="p-Indicator">,</span> <span class="nv">YAML</span><span class="p-Indicator">,</span> <span class="nv">List</span><span class="p-Indicator">,</span> <span class="nv">Of</span><span class="p-Indicator">,</span> <span class="nv">Tags</span><span class="p-Indicator">]</span>
+<span class="c1"># A page description is mostly useful for search engines</span>
+<span class="c1">#   but it will be used as the page blurb if none is found</span>
+<span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">A simple description of my page,</span>
+    <span class="l-Scalar-Plain">this information is usually used by themes to make</span> 
+    <span class="l-Scalar-Plain">your site more search engine friendly. If no blurb</span>
+    <span class="l-Scalar-Plain">is specified, this will be used as the page blurb.</span>
+<span class="c1"># The page blurb can be set to &quot;auto&quot;, which allows</span>
+<span class="c1">#   PyKwiki to generate one based on the first 50 words</span>
+<span class="c1">#   in the body of a page.</span>
+<span class="l-Scalar-Plain">blurb</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">This is my page blurb. It will be used as the short</span> 
+    <span class="l-Scalar-Plain">description in search results. If I want this to be</span> 
+    <span class="l-Scalar-Plain">autogenerated, I should set its value to &quot;auto&quot;</span>
+    <span class="l-Scalar-Plain">for example</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">blurb</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">auto</span>
+<span class="c1"># Page keywords are used by SEO</span>
+<span class="l-Scalar-Plain">keywords</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">This is, a string, of comma separated words</span>
+<span class="c1"># The timestamp of the page. It MUST match the </span>
+<span class="c1">#   `timestamp_format` specified in config.yaml</span>
+<span class="l-Scalar-Plain">timestamp</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2013-11-01 21:45</span>
+<span class="c1"># Pages that are flagged as private are basically unpublished.</span>
+<span class="c1">#   They are not searchable and can only be reached by a direct link.</span>
+<span class="l-Scalar-Plain">private</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+</pre></div>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="/authoring.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_pagelist(4); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_pagelist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(4); return false;">4</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_pagelist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(9); return false;">9</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_pagelist(6); return false;">&raquo;</a></li>
+  
+</ul>
+

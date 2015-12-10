@@ -1,0 +1,208 @@
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_pagelist(6); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_pagelist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(6); return false;">6</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_pagelist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(9); return false;">9</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_pagelist(8); return false;">&raquo;</a></li>
+  
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="/about-search.html">About Search</a> 
+        <span class="pull-right text-muted">November 12, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#about-search">About Search</a><ul>
+<li><a href="#how-it-works">How it works</a><ul>
+<li><a href="#1-the-search-index">1. The search index</a></li>
+<li><a href="#2-themes-load-the-index">2. Themes load the index</a></li>
+<li><a href="#3-users-enter-search-terms">3. Users enter search terms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="about-search">About Search</h1>
+<h2 id="how-it-works">How it works</h2>
+<h3 id="1-the-search-index">1. The search index</h3>
+<p>Existing content is cached, and a search index is built.</p>
+<div class="codehilite"><pre><span class="nv">$</span> <span class="nv">pykwiki</span> <span class="n">cache</span>
+<span class="o">...</span>
+</pre></div>
+
+
+<p>The search index gets written to <code>docroot/idx.json</code>. </p>
+<p><strong>Sample JSON index file format</strong></p>
+<div class="codehilite"><pre><span class="p">{</span>
+    <span class="s2">&quot;index&quot;</span><span class="o">:</span><span class="p">{</span>
+        <span class="s2">&quot;foo&quot;</span><span class="o">:</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="s2">&quot;bar&quot;</span><span class="o">:</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="s2">&quot;baz&quot;</span><span class="o">:</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;ids&quot;</span><span class="o">:</span><span class="p">{</span>
+        <span class="s2">&quot;1&quot;</span><span class="o">:</span> <span class="s2">&quot;somepage.html&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="o">:</span> <span class="s2">&quot;other-page.html&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="o">:</span> <span class="s2">&quot;baz.html&quot;</span><span class="p">,</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The <code>index</code> object contains a list of words as properties. Each word has a list of page ids after it. The list is sorted by the number of times that word appears in a page. In the above example, <code>"foo"</code> appears most in page id <code>3</code>, which is <code>baz.html</code>. The <code>"ids"</code> object holds the mapping of ids to pages. </p>
+<h3 id="2-themes-load-the-index">2. Themes load the index</h3>
+<p>Themes that support basic search (currently all of them) also use the <code>pages.json</code> file to load information about a page after filtering search results. </p>
+<p><strong>Sample JSON page file format</strong></p>
+<div class="codehilite"><pre><span class="p">{</span>
+    <span class="s2">&quot;info&quot;</span><span class="o">:</span><span class="p">{</span>
+        <span class="s2">&quot;somepage.html&quot;</span><span class="o">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;Some Page&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;/somepage.html&quot;</span><span class="p">,</span> <span class="c1">// Relative URL</span>
+            <span class="s2">&quot;mtime&quot;</span><span class="o">:</span><span class="mi">123456789000</span><span class="p">,</span> <span class="c1">// Miliseconds since 1/1/1970</span>
+            <span class="s2">&quot;mtimestamp&quot;</span><span class="o">:</span><span class="s2">&quot;2010-01-01 10:10&quot;</span><span class="p">,</span> <span class="c1">// Page().mtimestamp</span>
+            <span class="s2">&quot;mdate_string&quot;</span><span class="o">:</span><span class="s2">&quot;January 01, 2010&quot;</span><span class="p">,</span> <span class="c1">// Page().mdate_string</span>
+            <span class="s2">&quot;mtime_string&quot;</span><span class="o">:</span><span class="s2">&quot;10:10&quot;</span><span class="p">,</span> <span class="c1">// Page().mtime_string</span>
+        <span class="p">},</span>
+        <span class="p">...</span>
+    <span class="p">},</span>        
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="3-users-enter-search-terms">3. Users enter search terms</h3>
+<p>Themes specify how to compare user search terms against the <code>idx.json</code> file. In most cases, it goes like this: </p>
+<ol>
+<li>Split users' search terms into a list</li>
+<li>Remove non alphanumeric characters</li>
+<li>Compare each word in the list against the index to determine the order to display pages.</li>
+</ol>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="/about-search.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="/speed.html">Speed</a> 
+        <span class="pull-right text-muted">November 12, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <h1 id="faster-than-php">Faster than PHP</h1>
+<p>PyKwiki is fast because it's 100% static. No server side processing is necessary. Why regenerate a page every single time someone visits it? PyKwiki regenerates the page only when its content has changed. </p>
+<p><em>But wait! How can that be if you have built-in searching?</em> PyKwiki generates a JSON index file for page searches, so unlike most other static content systems, you don't need to rely on a third party to perform searches. </p>
+<h2 id="optimizing-pykwiki">Optimizing PyKwiki</h2>
+<p>In most cases, PyKwiki won't require any optimization. However, if a PyKwiki site happens to receive hundreds of thousands of views per day, then there are a few different techniques to help remove this load.</p>
+<ol>
+<li>Use Nginx or Apache Workers MPM. <ul>
+<li>This alone can greatly increase page performance.</li>
+</ul>
+</li>
+<li>Cache content.<ul>
+<li>Tell your webserver to cache content in the user's browser for a few hours. They won't see updates when they're released, but this can dramatically reduce server load.</li>
+</ul>
+</li>
+<li>Use a CDN.<ul>
+<li>Use something like <a href="http://cloudflare.com">Cloud Flare</a> to cache your content on a CDN. This can be the most expensive option, but it works well.</li>
+</ul>
+</li>
+</ol>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="/speed.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_pagelist(6); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_pagelist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(6); return false;">6</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_pagelist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_pagelist(9); return false;">9</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_pagelist(8); return false;">&raquo;</a></li>
+  
+</ul>
+

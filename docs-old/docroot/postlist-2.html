@@ -1,0 +1,186 @@
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(1); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(3); return false;">&raquo;</a></li>
+  
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/links.yaml.html">links.yaml</a> 
+        <span class="pull-right text-muted">July 22, 2015</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <h1 id="linksyaml">links.yaml</h1>
+<p>The <code>links.yaml</code> file specifies how PyKwiki should generate a menu for your site. </p>
+<p><strong>Example of the structure of a link:</strong></p>
+<div class="codehilite"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">Example Link Name</span><span class="p-Indicator">:</span>
+    <span class="c1"># PyKwiki page name, relative to the source directory, *optional*</span>
+    <span class="l-Scalar-Plain">post</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">external-links</span>
+    <span class="c1"># Used in &lt;a href=&gt;, *optional* </span>
+    <span class="l-Scalar-Plain">href</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://google.com</span>
+    <span class="c1"># Target attribute, *optional*, defaults to _self</span>
+    <span class="l-Scalar-Plain">target</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">_blank</span>
+    <span class="c1"># Title is used in &lt;a title=&gt;, *optional*</span>
+    <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Some Website or Page</span>
+    <span class="c1"># Children is used to specify sub link hierarchy, *optional*</span>
+    <span class="l-Scalar-Plain">children</span><span class="p-Indicator">:</span> <span class="p-Indicator">[]</span>
+</pre></div>
+
+
+<h2 id="full-menu-example">Full menu example</h2>
+<div class="codehilite"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">Home</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">post</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">home</span>
+    <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Visit the home page</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">GitHub</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">href</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://github.com/nullism/pykwiki</span>
+    <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Checkout the source code!</span>
+    <span class="l-Scalar-Plain">target</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">_blank</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">About</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">children</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">About The Author</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">post</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">about-the-author</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">About The Site</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">post</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">about-the-site</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">About PyKwiki</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">href</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://pykwiki.nullism.com/about.html</span>
+        <span class="l-Scalar-Plain">target</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">_blank</span>
+</pre></div>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/links.yaml.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/support.html">Support</a> 
+        <span class="pull-right text-muted">July 22, 2015</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <h1 id="support">Support</h1>
+<p>The preferred method to report issues or ask questions is via the PyKwiki Github page.</p>
+<p><a href="https://github.com/nullism/pykwiki/issues" class="btn btn-default btn-lg">Github</a></p>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/support.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(1); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(3); return false;">&raquo;</a></li>
+  
+</ul>
+

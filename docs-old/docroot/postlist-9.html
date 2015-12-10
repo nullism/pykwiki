@@ -1,0 +1,259 @@
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(8); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(10); return false;">&raquo;</a></li>
+  
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/about-search.html">About Search</a> 
+        <span class="pull-right text-muted">November 22, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#about-search">About Search</a><ul>
+<li><a href="#how-it-works">How it works</a><ul>
+<li><a href="#1-the-search-index">1. The search index</a></li>
+<li><a href="#2-themes-load-the-index">2. Themes load the index</a></li>
+<li><a href="#3-users-enter-search-terms">3. Users enter search terms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="about-search">About Search</h1>
+<h2 id="how-it-works">How it works</h2>
+<h3 id="1-the-search-index">1. The search index</h3>
+<p>Existing content is cached, and a search index is built.</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">pykwiki</span> <span class="n">cache</span>
+<span class="p">...</span>
+</pre></div>
+
+
+<p>The search index gets written to <code>conf.index_file</code> (default: <code>idx.json</code>). </p>
+<p><strong>Sample JSON index file format</strong></p>
+<div class="codehilite"><pre><span class="p">{</span>
+    <span class="s2">&quot;index&quot;</span><span class="o">:</span><span class="p">{</span>
+        <span class="s2">&quot;foo&quot;</span><span class="o">:</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="s2">&quot;bar&quot;</span><span class="o">:</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="s2">&quot;baz&quot;</span><span class="o">:</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;ids&quot;</span><span class="o">:</span><span class="p">{</span>
+        <span class="s2">&quot;1&quot;</span><span class="o">:</span> <span class="s2">&quot;somepage.html&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="o">:</span> <span class="s2">&quot;other-page.html&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="o">:</span> <span class="s2">&quot;baz.html&quot;</span><span class="p">,</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The <code>index</code> object contains a list of words as properties. Each word has a list of page ids after it. The list is sorted by the number of times that word appears in a page. In the above example, <code>"foo"</code> appears most in page id <code>3</code>, which is <code>baz.html</code>. The <code>"ids"</code> object holds the mapping of ids to pages. </p>
+<h3 id="2-themes-load-the-index">2. Themes load the index</h3>
+<p>Themes that support basic search (currently all of them) also use <code>conf.post_data_file</code> (default: <code>posts.json</code>) to load information about a page after filtering search results. </p>
+<p><strong>Sample JSON post data file format</strong></p>
+<div class="codehilite"><pre><span class="p">{</span>
+    <span class="s2">&quot;info&quot;</span><span class="o">:</span><span class="p">{</span>
+        <span class="s2">&quot;somepage.html&quot;</span><span class="o">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;Some Page&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;/somepage.html&quot;</span><span class="p">,</span> <span class="c1">// Relative URL</span>
+            <span class="s2">&quot;mtime&quot;</span><span class="o">:</span><span class="mi">123456789000</span><span class="p">,</span> <span class="c1">// Miliseconds since 1/1/1970</span>
+            <span class="s2">&quot;mtimestamp&quot;</span><span class="o">:</span><span class="s2">&quot;2010-01-01 10:10&quot;</span><span class="p">,</span> <span class="c1">// Page().mtimestamp</span>
+            <span class="s2">&quot;mdate_string&quot;</span><span class="o">:</span><span class="s2">&quot;January 01, 2010&quot;</span><span class="p">,</span> <span class="c1">// Page().mdate_string</span>
+            <span class="s2">&quot;mtime_string&quot;</span><span class="o">:</span><span class="s2">&quot;10:10&quot;</span><span class="p">,</span> <span class="c1">// Page().mtime_string</span>
+        <span class="p">},</span>
+        <span class="p">...</span>
+    <span class="p">},</span>        
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="3-users-enter-search-terms">3. Users enter search terms</h3>
+<p>Themes specify how to compare user search terms against <code>conf.index_file</code>. In most cases, it goes like this: </p>
+<ol>
+<li>Split users' search terms into a list</li>
+<li>Remove non alphanumeric characters</li>
+<li>Compare each word in the list against the index to determine the order to display pages.</li>
+</ol>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/about-search.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/release-notes.html">Release Notes</a> 
+        <span class="pull-right text-muted">November 21, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#v101-2013-11-21">v1.0.1 - 2013-11-21</a></li>
+<li><a href="#v032-2013-11-12">v0.3.2 - 2013-11-12</a></li>
+<li><a href="#v031-2013-11-10">v0.3.1 - 2013-11-10</a></li>
+<li><a href="#v03-2013-11-05">v0.3 - 2013-11-05</a></li>
+<li><a href="#v02-2013-11-02">v0.2 - 2013-11-02</a></li>
+<li><a href="#v01-2013-10-15">v0.1 - 2013-10-15</a></li>
+</ul>
+</div>
+<h1 id="v101-2013-11-21">v1.0.1 - 2013-11-21</h1>
+<p>First stable release. Is <strong>not</strong> compatible with previous versions.</p>
+<ul>
+<li>renamed "Page", "PageController" and all related methods and instances to use "post" instead of "page"</li>
+<li>updated themes to use new Post system.</li>
+<li>major changes to <code>pykwiki.core</code><ul>
+<li>All instances of Page are now replaces with Post</li>
+<li>Added working pagination</li>
+</ul>
+</li>
+<li>updated <code>pykwiki.ext.page</code> and renamed it to <code>pykwiki.ext.post</code></li>
+</ul>
+<h1 id="v032-2013-11-12">v0.3.2 - 2013-11-12</h1>
+<p>Added pagination support.</p>
+<h1 id="v031-2013-11-10">v0.3.1 - 2013-11-10</h1>
+<p>Fixed issue with page lists not rendering. </p>
+<p>Added themes to the core packages.</p>
+<ul>
+<li>Theme: Readable</li>
+<li>Theme: United</li>
+</ul>
+<h1 id="v03-2013-11-05">v0.3 - 2013-11-05</h1>
+<p>Added several themes to the core packages.</p>
+<ul>
+<li>Theme: Amelia</li>
+<li>Theme: Slate</li>
+<li>Theme: Cyborg</li>
+</ul>
+<h1 id="v02-2013-11-02">v0.2 - 2013-11-02</h1>
+<ul>
+<li>Added to a git repository.</li>
+<li>Implemented client-side search indexing.</li>
+<li>Implemented tag / category system.</li>
+</ul>
+<h1 id="v01-2013-10-15">v0.1 - 2013-10-15</h1>
+<p>Initial public release. </p>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/release-notes.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(8); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(10); return false;">&raquo;</a></li>
+  
+</ul>
+

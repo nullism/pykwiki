@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    
+    <title>Recent | PyKwiki</title>
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/bootstrap3/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/static/codehilite/manni.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/static/bootstrap3/js/bootstrap.min.js"></script>
+    <script src="/static/respond.min.js"></script>
+    <script src="/static/mustachejs/mustache.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->   
+    <style type="text/css">
+    html, body { height: 100%; }
+    #wrap {
+        min-height: 100%;
+        height: auto;
+        /* Negative indent footer by its height */
+        margin: 0 auto -60px;
+        /* Pad bottom by footer height */
+        padding: 0 0 60px;
+    }
+
+    #footer {
+      height: 60px;
+      padding-top: 20px;
+      background: #eee;
+    }
+
+    .carousel-indicators li { 
+        background-color: #bbb;
+        border-color: #aaa;
+    }
+    .carousel-indicators .active {
+        background-color: #ccc;
+        border-color: #bbb;
+    }
+
+    .toc { 
+        float: right;
+        border: 1px solid #f5f5f5;
+        background: #f5f5f5;
+        padding: 5px;
+        border-radius: 10px;
+        color: #999;
+    }
+    .toc ul, .toc li, .toc ul li { 
+        margin-left: 10px;
+        padding-left: 0px;
+    }
+    h1:target, h2:target, h3:target { 
+        background-color: #dfd;
+    }
+    </style> 
+    <script>
+    // Globals
+    var has_gaq = false;
+    </script>
+</head>
+<body>
+
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+    <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" 
+                data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Home</a>
+    </div>
+    <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+    
+        
+            <li>
+            
+                <a href="/getting-started.html" target="_self">Getting Started</a>
+            
+            </li>
+        
+    
+        
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+                data-toggle="dropdown">Authoring <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            
+                <li>
+                
+                    <a href="/authoring.html" target="_self">Authoring Pages</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/markdown.html" target="_self">Markdown Format</a>
+                
+                </li>
+            
+            </ul>
+            </li>
+        
+    
+        
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+                data-toggle="dropdown">Configuration <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            
+                <li>
+                
+                    <a href="/config.yaml.html" target="_self">Config.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/links.yaml.html" target="_self">Links.yaml</a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="/extensions.html" target="_self">Extensions</a>
+                
+                </li>
+            
+            </ul>
+            </li>
+        
+    
+        
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+                data-toggle="dropdown">Nullism <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            
+                <li>
+                
+                    <a href="http://pyormish.nullism.com" target="_blank">
+                        PyORMish
+                        <span class="glyphicon glyphicon-new-window"></span>
+                    </a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="http://nullism.com" target="_blank">
+                        Nullism
+                        <span class="glyphicon glyphicon-new-window"></span>
+                    </a>
+                
+                </li>
+            
+            </ul>
+            </li>
+        
+    
+    </ul>
+
+    <form class="navbar-form navbar-right" role="search" 
+        method="get"
+        action="/search.html">
+      <div class="form-group">
+        <input type="text" name="q" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-primary" style="display: none;"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+    </div>
+    </div>
+</div>
+<div id="wrap">
+<div class="container" style="padding-top: 60px;">
+
+<script>
+var info_data = null;
+var page_list = [];
+var page_tpl = null;
+
+function display_page(fname) {
+    var page = info_data['info'][fname];
+    var html = page_tpl({'pg':page});
+    $('#pages').append(html);
+}
+
+function display_pages(sort_key, reverse) {
+    if(reverse) { 
+        page_list.sort(function(a, b) { 
+            return b[sort_key] - a[sort_key];
+        });        
+
+    } else { 
+        page_list.sort(function(a, b) { 
+            return a[sort_key] - b[sort_key];
+        });        
+    }
+    
+    for(var i in page_list) { 
+        display_page(page_list[i].page);
+    }
+}
+
+function info_data_cb(data) { 
+    info_data = data;
+    for(var k in data['info']) {
+        data['info'][k]['page'] = k;
+        page_list.push(data['info'][k]);
+    }
+    page_tpl = Mustache.compile($('#page_tpl').html());
+    display_pages('mtime', true);   
+}
+ 
+$(document).ready(function() { 
+    $('.toc').hide();
+    /*
+    $.get('/pages.json',
+        function(data) { 
+            if(data) {
+                info_data_cb(data);                
+            }
+        }
+    ,"json");
+    */
+});
+
+</script>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/speed.html">Speed</a>
+        </div>
+        <div class="panel-body">
+        <h1 id="faster-than-php">Faster than PHP</h1>
+<p>PyKwiki is fast because it's 100% static. No server side processing is necessary. Why regenerate a page every single time someone visits it? PyKwiki regenerates the page only when its content has changed. </p>
+<p><em>But wait! How can that be if you have built-in searching?</em> PyKwiki generates a JSON index file for page searches, so unlike most other static content systems, you don't need to rely on a third party to perform searches. </p>
+        <a href="/speed.html" class="btn btn-default">...</a>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/extensions.html">Extensions</a>
+        </div>
+        <div class="panel-body">
+        <div class="toc">
+<ul>
+<li><a href="#pykwiki-extensions">PyKwiki Extensions</a><ul>
+<li><a href="#markdown-extensions">MarkDown Extensions</a><ul>
+<li><a href="#pykwikiextpage">pykwiki.ext.page</a></li>
+<li><a href="#pykwikiexttpl">pykwiki.ext.tpl</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="pykwiki-extensions">PyKwiki Extensions</h1>
+<h2 id="markdown-extensions">MarkDown Extensions</h2>
+<h3 id="pykwikiextpage">pykwiki.ext.page</h3>
+<p>This extension is not compatible with the <code>wikilink</code> markdown extension.</p>
+<p>This extension syntax is:</p>
+<div class="codehilite"><pre><span class="p">[[</span><span class="n">page</span><span class="o">&amp;lt;</span><span class="p">:</span><span class="n">optional</span> <span class="n">property</span><span class="o">&amp;gt;</span><span class="p">]]</span>
+</pre></div>
+
+
+<p>Assuming you have a page in <code>source</code> called <code>home.md</code> with <code>title</code> set to "Home", then the following MarkDown:</p>
+<div class="codehilite"><pre>Here is a link to [[home]]
+</pre></div>
+
+
+<p>Generates the following HTML:</p>
+<div class="codehilite"><pre><span class="nt">&amp;lt;p&amp;gt;</span>Here is a link to <span class="nt">&amp;lt;a</span> <span class="na">href=</span><span class="s">&amp;quot;/home.html&amp;quot;</span> <span class="na">class=</span><span class="s">&amp;quot;pagelink&amp;quot;</span><span class="nt">&amp;gt;</span>Home<span class="nt">&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;</span>
+</pre></div>
+
+
+<p>Similar</p>
+        <a href="/extensions.html" class="btn btn-default">...</a>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/markdown.html">Markdown Basics</a>
+        </div>
+        <div class="panel-body">
+        <h1 id="markdown">Markdown</h1>
+<p>Markdown is a popular text format for editing files. It is often used to produce well formatted web content. It is used extensively by GitHub, Reddit, Stack Overflow, and many others. </p>
+<p>One of the easiest ways to become familiar with Markdown is to <a href="https://stackedit.io">give it a try</a>!</p>
+<h2 id="text-formatting">Text formatting</h2>
+<h3 id="bold-italics-lists">Bold, italics, lists</h3>
+<div class="codehilite"><pre>*This is italic*
+
+**This is bold**
+
+This sentence has **bold**, *italics*, and ***bold-italics***
+
+* This is a list item
+* So is this
+    * And this is a sublist item
+
+Numbered lists are</pre></div>
+        <a href="/markdown.html" class="btn btn-default">...</a>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/authoring.html">Authoring Pages</a>
+        </div>
+        <div class="panel-body">
+        <div class="toc">
+<ul>
+<li><a href="#overview">Overview</a><ul>
+<li><a href="#things-to-know">Things to know</a></li>
+<li><a href="#remote-editing">Remote editing</a><ul>
+<li><a href="#example-workflow">Example workflow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#creating-pages">Creating pages</a><ul>
+<li><a href="#a-simple-example">A simple example</a><ul>
+<li><a href="#1-open-the-new-page">1. Open the new page</a></li>
+<li><a href="#2-add-content-to-the-page">2. Add content to the page</a></li>
+<li><a href="#3-optionally-add-a-link-for-a-menu-entry">3. (optionally) Add a link for a menu entry</a></li>
+<li><a href="#4-cache-the-new-page">4. Cache the new page</a></li>
+</ul>
+</li>
+<li><a href="#page-data-block">Page data block</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="overview">Overview</h1>
+<p>Adding pages to your PyKwiki consists of two main pieces.</p>
+<ol>
+<li>Some way to get your content to a server.</li>
+<li>Some way to run <code>pykwiki cache</code> to cache your content.</li>
+</ol>
+<h2 id="things-to-know">Things to know</h2>
+<p>Technical knowledge: </p>
+<ol>
+<li>A basic understand of <a href="/markdown.html">Markdown</a>.</li>
+<li>A basic understanding of the <a href="http://www.yaml.org/spec/1.2/spec.html#Introduction">YAML</a></li></ol>
+        <a href="/authoring.html" class="btn btn-default">...</a>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/links.yaml.html">Links.yaml</a>
+        </div>
+        <div class="panel-body">
+        <h1 id="linksyaml">Links.yaml</h1>
+<p>The <code>links.yaml</code> file specifies how PyKwiki should generate a menu for your site. </p>
+<p><strong>Example of the structure of a link:</strong></p>
+<div class="codehilite"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">Example Link Name</span><span class="p-Indicator">:</span>
+    <span class="c1"># PyKwiki page name, relative to the source directory, *optional*</span>
+    <span class="l-Scalar-Plain">page</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">external-links</span>
+    <span class="c1"># Used in &amp;lt;a href=&amp;gt;, *optional* </span>
+    <span class="l-Scalar-Plain">href</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://google.com</span>
+    <span class="c1"># Target attribute, *optional*, defaults to _self</span>
+    <span class="l-Scalar-Plain">target</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">_blank</span>
+    <span class="c1"># Title is used in &amp;lt;a title=&amp;gt;, *optional*</span>
+    <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Some Website or Page</span>
+    <span class="c1"># Children is used to specify sub link</span></pre></div>
+        <a href="/links.yaml.html" class="btn btn-default">...</a>
+        </div>
+    </div>
+
+
+
+
+<script id="page_tpl" type="text/template">
+<h2><a href="{{pg.url}}">{{pg.title}}</a> 
+    <span class="text-muted pull-right">{{pg.mdate_string}}</span>
+</h2>
+<p>{{pg.blurb}} &mdash; <small class="text-muted">{{pg.author}}</small></p>
+</script>
+
+<script id="search_result_tpl" type="text/template">
+<h3><a href="{{pg.url}}">{{pg.title}}</a> 
+    <span class="text-muted pull-right">{{pg.mdate_string}}</span>
+</h3>
+<p>{{pg.blurb}} &mdash; <small class="text-muted">{{pg.author}}</small></p>
+</script>
+
+
+
+</div>
+</div><!-- End #wrap -->
+<div id="footer">
+    <div class="container">
+    <p class="text-muted credit">&copy; 2013, PyKwiki
+    &mdash; powered by <a href="http://pykwiki.nullism.com">PyKwiki</a>
+    </p>
+    </div>
+</div>
+</body>
+</html>

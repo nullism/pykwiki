@@ -1,0 +1,41 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">Speed - November 12, 2013</div>
+    <div class="panel-body">
+        <h1 id="faster-than-php">Faster than PHP</h1>
+<p>PyKwiki is fast because it's 100% static. No server side processing is necessary. Why regenerate a page every single time someone visits it? PyKwiki regenerates the page only when its content has changed. </p>
+<p><em>But wait! How can that be if you have built-in searching?</em> PyKwiki generates a JSON index file for page searches, so unlike most other static content systems, you don't need to rely on a third party to perform searches. </p>
+<h2 id="optimizing-pykwiki">Optimizing PyKwiki</h2>
+<p>In most cases, PyKwiki won't require any optimization. However, if a PyKwiki site happens to receive hundreds of thousands of views per day, then there are a few different techniques to help remove this load.</p>
+<ol>
+<li>Use Nginx or Apache Workers MPM. <ul>
+<li>This alone can greatly increase page performance.</li>
+</ul>
+</li>
+<li>Cache content.<ul>
+<li>Tell your webserver to cache content in the user's browser for a few hours. They won't see updates when they're released, but this can dramatically reduce server load.</li>
+</ul>
+</li>
+<li>Use a CDN.<ul>
+<li>Use something like <a href="http://cloudflare.com">Cloud Flare</a> to cache your content on a CDN. This can be the most expensive option, but it works well.</li>
+</ul>
+</li>
+</ol>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">testing - November 12, 2013</div>
+    <div class="panel-body">
+        <div class="codehilite"><pre><span class="nv">$ </span>sudo pip install pykwiki
+...
+<span class="nv">$ </span>pykwiki new MyProject
+...
+<span class="nv">$ </span><span class="nb">cd </span>MyProject
+<span class="nv">$ </span>pykwiki cache
+<span class="nv">$ </span><span class="nb">cd </span>docroot
+<span class="nv">$ </span>python -m SimpleHTTPServer 5000
+Serving HTTP on 0.0.0.0 port 5000 ...
+</pre></div>
+    </div>
+</div>

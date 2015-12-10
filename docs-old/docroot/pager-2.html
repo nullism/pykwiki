@@ -1,0 +1,154 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">Getting Started - November 18, 2013</div>
+    <div class="panel-body">
+        <div class="toc">
+<ul>
+<li><a href="#getting-started">Getting Started</a><ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#install-pykwiki">Install PyKwiki</a></li>
+<li><a href="#create-a-new-project">Create a new project</a></li>
+<li><a href="#serve-the-default-content">Serve the default content</a></li>
+<li><a href="#configuration">Configuration</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="getting-started">Getting Started</h1>
+<p>This guide outlines the minimal steps to get PyKwiki serving static files.</p>
+<h2 id="requirements">Requirements</h2>
+<p>PyKwiki does not require anything outside of Python, but it does require the following Python packages:</p>
+<ul>
+<li><code>jinja2</code> (&gt;=2.6) - Jinja2 is used to compile themes into .html.<ul>
+<li>Install with <code>sudo pip install jinja2</code></li>
+</ul>
+</li>
+<li><code>markdown</code> (&gt;=2.3) - MarkDown is the syntax used for PyKwiki.<ul>
+<li>Install with <code>sudo pip install markdown</code></li>
+</ul>
+</li>
+<li><code>pyyaml</code> (&gt;=3.0) - Configuration files use YAML<ul>
+<li>Install with <code>sudo pip install pyyaml</code></li>
+</ul>
+</li>
+</ul>
+<p>The above packages should be auto-installed when PyKwiki is installed.</p>
+<h2 id="install-pykwiki">Install PyKwiki</h2>
+<p>You can download the setup.py directly, or simply run:</p>
+<div class="codehilite"><pre><span class="nv">$</span> <span class="nv">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">pykwiki</span>
+</pre></div>
+
+
+<h2 id="create-a-new-project">Create a new project</h2>
+<p>The <code>pykwiki new &lt;Name&gt;</code> command creates a project directory in the current
+working directory. The project directory will be named <code>&lt;Name&gt;</code>. </p>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd</span> ~
+<span class="nv">$ </span>mkdir pykwiki_projects
+<span class="nv">$ </span><span class="nb">cd </span>pykwiki_projects
+<span class="nv">$ </span>pykwiki new MySite
+...
+</pre></div>
+
+
+<h2 id="serve-the-default-content">Serve the default content</h2>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd </span>MySite/
+<span class="nv">$ </span>pykwiki cache
+...
+<span class="nv">$ </span><span class="nb">cd </span>docroot
+<span class="nv">$ </span>python -m SimpleHTTPServer 5000
+</pre></div>
+
+
+<p>Now you can navigate to <a href="http://localhost:5000">http://localhost:5000</a> to see that PyKwiki is working.</p>
+<h2 id="configuration">Configuration</h2>
+<p>PyKwiki is now ready for final tweaks.</p>
+<ul>
+<li><a href="/config.yaml.html">config.yaml</a> - Main configuration file.</li>
+<li><a href="/links.yaml.html">links.yaml</a> - Menu hierarchy configuration file.</li>
+</ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Creating Themes - November 17, 2013</div>
+    <div class="panel-body">
+        <div class="toc">
+<ul>
+<li><a href="#theme-directory-structure">Theme Directory Structure</a><ul>
+<li><a href="#infoyaml">info.yaml</a></li>
+<li><a href="#menuhtml">menu.html</a></li>
+</ul>
+</li>
+<li><a href="#bundling-for-distribution">Bundling for distribution</a></li>
+</ul>
+</div>
+<h1 id="theme-directory-structure">Theme Directory Structure</h1>
+<div class="codehilite"><pre>ThemeName/
+    info.yaml
+    menu.html
+    page.html
+    pagelist.html
+    search.html
+    static/
+</pre></div>
+
+
+<ul>
+<li><code>info.yaml</code> - Includes information about the theme, such as author, version, and description.</li>
+<li><code>menu.html</code> - Renders the site menu.</li>
+<li><code>page.html</code> - Rendered for each page in <code>source</code>.</li>
+<li><code>pagelist.html</code> - Displays a list of pages.</li>
+<li><code>search.html</code> - The search page.</li>
+<li><code>static/</code> - All files in this directory will be copied to <code>docroot/static/</code>. </li>
+</ul>
+<h2 id="infoyaml">info.yaml</h2>
+<p>This file provide PyKwiki with some basic knowledge. </p>
+<div class="codehilite"><pre><span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Some Theme</span>
+<span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">This is a special theme</span>
+<span class="l-Scalar-Plain">author</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Your Name</span>
+<span class="l-Scalar-Plain">author_email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">youremail</span>
+<span class="l-Scalar-Plain">license</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">MIT, GPL, BSD, etc.</span>
+<span class="l-Scalar-Plain">version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1.0</span>
+</pre></div>
+
+
+<h2 id="menuhtml">menu.html</h2>
+<p>This renders the PyKwiki theme. The <code>links</code> variable is made available when this template is rendered.</p>
+<p>Here's an example link file that nests a single level deep. The following example uses a Jinja2 macro to make an infinitely nesting list.</p>
+<div class="codehilite"><pre><span class="cp">{%</span> <span class="k">macro</span> <span class="nv">make_links</span><span class="o">(</span><span class="nv">ls</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;ul&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">link</span> <span class="k">in</span> <span class="nv">ls</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">link.href</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;a href=&quot;</span><span class="cp">{{</span><span class="nv">link.href</span><span class="cp">}}</span><span class="x">&quot; target=&quot;</span><span class="cp">{{</span><span class="nv">link.target</span><span class="o">|</span><span class="nf">default</span><span class="o">(</span><span class="s1">&#39;_self&#39;</span><span class="o">)</span><span class="cp">}}</span><span class="x">&quot;&gt;</span><span class="cp">{{</span><span class="nv">link.label</span><span class="cp">}}</span><span class="x">&lt;/a&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;b&gt;</span><span class="cp">{{</span><span class="nv">link.label</span><span class="cp">}}</span><span class="x">&lt;/b&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="x">    </span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">link.children</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        </span><span class="cp">{{</span> <span class="nv">make_links</span><span class="o">(</span><span class="nv">link.children</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;/li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;/ul&gt;</span>
+<span class="cp">{%</span>- <span class="k">endmacro</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{{</span> <span class="nv">make_links</span><span class="o">(</span><span class="nv">links</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+
+
+<p>The <code>links</code> list is a list of <code>link</code> objects. The properties of a <code>link</code> object are as follows.</p>
+<ul>
+<li><code>label</code> - The human readable link label.</li>
+<li><code>target</code> - <em>Optional</em>. Specifies the value that should go in <code>target</code>, like <code>_self</code> or <code>_blank</code>.</li>
+<li><code>href</code> - <em>Optional</em>. The url of the page. It may be an internal relative path to a page, or it may include <code>http</code>. </li>
+<li><code>rel</code> - PyKwiki populates this with one of <code>external</code> or <code>internal</code>. </li>
+<li><code>children</code> - <em>Optional</em>. A list of links that follow the current link.</li>
+</ul>
+<h1 id="bundling-for-distribution">Bundling for distribution</h1>
+<p>The top-level directory in the theme zip file should be the name of your theme. It should be structured so it can be installed with the following commands:</p>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd </span>themes/
+<span class="nv">$ </span>unzip theme-yourtheme.zip
+</pre></div>
+    </div>
+</div>

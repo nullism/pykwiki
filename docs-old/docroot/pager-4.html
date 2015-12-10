@@ -1,0 +1,133 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">Frequently Asked Questions - November 16, 2013</div>
+    <div class="panel-body">
+        <div class="toc">
+<ul>
+<li><a href="#frequently-asked-questions">Frequently Asked Questions</a></li>
+<li><a href="#about-authoring">About authoring</a><ul>
+<li><a href="#how-do-i-specify-the-date-of-the-page">How do I specify the date of the page?</a></li>
+</ul>
+</li>
+<li><a href="#about-theming">About theming</a><ul>
+<li><a href="#what-theme-templates-are-required">What theme templates are required?</a></li>
+</ul>
+</li>
+<li><a href="#about-configuring">About configuring</a><ul>
+<li><a href="#what-does-a-project-directory-look-like">What does a project directory look like?</a></li>
+<li><a href="#what-webservers-work-with-pykwiki">What webservers work with PyKwiki?</a></li>
+<li><a href="#what-versions-of-python-work-with-pykwiki">What versions of Python work with PyKwiki?</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="frequently-asked-questions">Frequently Asked Questions</h1>
+<h1 id="about-authoring">About authoring</h1>
+<h2 id="how-do-i-specify-the-date-of-the-page">How do I specify the date of the page?</h2>
+<p>In the page configuration section, set the <code>timestamp</code> key.
+It must match the format from <code>config.yaml</code> - <code>timestamp_format</code>. </p>
+<p><strong>Example</strong></p>
+<div class="codehilite"><pre>[[
+title: My Page
+tags: [stuff, moar stuff]
+timestamp: 2013-11-13 21:14
+]]
+</pre></div>
+
+
+<p>See: <a href="/authoring.html#page-data-block">Page Data Block</a> for more information.</p>
+<h1 id="about-theming">About theming</h1>
+<h2 id="what-theme-templates-are-required">What theme templates are required?</h2>
+<p>The required templates and files for a theme can be found under
+<a href="/creating-themes.html#theme-directory-structure">theme directory structure</a>
+on the <a href="/creating-themes.html">Creating Themes</a> page.</p>
+<h1 id="about-configuring">About configuring</h1>
+<h2 id="what-does-a-project-directory-look-like">What does a project directory look like?</h2>
+<p>You should checkout <a href="/getting-started.html">Getting Started</a>, but it basically looks like this:</p>
+<div class="codehilite"><pre><span class="n">MyProject</span><span class="o">/</span>
+    <span class="n">links</span><span class="o">.</span><span class="n">yaml</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
+    <span class="n">source</span><span class="o">/</span>
+    <span class="n">docroot</span><span class="o">/</span>
+    <span class="n">themes</span><span class="o">/</span>
+</pre></div>
+
+
+<h2 id="what-webservers-work-with-pykwiki">What webservers work with PyKwiki?</h2>
+<p>Any webserver that serves static files should work with PyKwiki.
+Two popular choices include Apache2 and Nginx.</p>
+<h2 id="what-versions-of-python-work-with-pykwiki">What versions of Python work with PyKwiki?</h2>
+<p>PyKwiki officially works with the following versions: </p>
+<ul>
+<li>Python == 2.7</li>
+<li>Python &gt;= 3.3</li>
+</ul>
+<p>Python 3.2 is <strong>not</strong> supported because the Jinja2 2.6 package
+does not support Python 3.2. Because PyKwiki requires Jinja2, 
+there is no way around this. </p>
+<p><strong>Python 3.2 will not work</strong></p>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">config.yaml - November 15, 2013</div>
+    <div class="panel-body">
+        <h1 id="configyaml">config.yaml</h1>
+<p>Below is a typical <code>config.yaml</code> file</p>
+<div class="codehilite"><pre><span class="c1"># Maximum number of words to use in a blurb</span>
+<span class="l-Scalar-Plain">blurb_max</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
+<span class="c1"># The default home page to be written as docroot/index.html</span>
+<span class="l-Scalar-Plain">home_page</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">home.md</span>
+<span class="l-Scalar-Plain">site</span><span class="p-Indicator">:</span>
+    <span class="c1"># The site title, used in &lt;title&gt;</span>
+    <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My PyKwiki Project</span>
+    <span class="c1"># Author for use in meta name=author</span>
+    <span class="l-Scalar-Plain">author</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Example Author</span>
+    <span class="c1"># Description for use in meta name=description</span>
+    <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="s">&quot;Example</span><span class="nv"> </span><span class="s">Site</span><span class="nv"> </span><span class="s">Description</span>
+        <span class="s">goes</span><span class="nv"> </span><span class="s">here&quot;</span>
+    <span class="c1"># Keywords for use in meta name=keywords</span>
+    <span class="l-Scalar-Plain">keywords</span><span class="p-Indicator">:</span> <span class="s">&quot;example,</span><span class="nv"> </span><span class="s">pykwiki&quot;</span>    
+<span class="c1"># Theme is a subdirectory of themes/</span>
+<span class="l-Scalar-Plain">theme</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+<span class="c1"># Web prefix, must not end with &quot;/&quot;</span>
+<span class="l-Scalar-Plain">web_prefix</span><span class="p-Indicator">:</span> <span class="s">&#39;&#39;</span>
+<span class="c1"># The project&#39;s directory</span>
+<span class="l-Scalar-Plain">base_path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/home/HarryPotter/MyPyKwikiProject/</span>
+<span class="c1"># The date format used by posts</span>
+<span class="l-Scalar-Plain">date_format</span><span class="p-Indicator">:</span> <span class="s">&#39;%B</span><span class="nv"> </span><span class="s">%d,</span><span class="nv"> </span><span class="s">%Y&#39;</span>
+<span class="c1"># The time format used by posts</span>
+<span class="l-Scalar-Plain">time_format</span><span class="p-Indicator">:</span> <span class="s">&#39;%H:%M:%S&#39;</span>
+<span class="c1"># The timestamp format used by posts, this must match</span>
+<span class="c1">#   the format found in the page data block, if specified</span>
+<span class="l-Scalar-Plain">timestamp_format</span><span class="p-Indicator">:</span> <span class="s">&#39;%Y-%m-%d</span><span class="nv"> </span><span class="s">%H:%M&#39;</span>
+</pre></div>
+
+
+<h2 id="parts">Parts</h2>
+<ul>
+<li><code>blurb_max</code> - specifies how many words of a page should be shown.</li>
+<li><code>home_page</code> - Tells PyKwiki to look for this page in the <code>source</code> 
+    directory, and if found, save it to <code>index.html</code> in the <code>docroot</code>
+    directory.</li>
+<li><code>web_prefix</code> - This should be an empty string if not specified.
+    Themes prepend this value to all site links. This is usefull for
+    serving multiple PyKwiki projects from the same docroot directory.</li>
+<li><code>base_path</code> - This is the full path to your PyKwiki Project's directory.</li>
+<li><code>site</code> - Generate site settings<ul>
+<li><code>title</code> - The human readable site title. Most themes will
+    populate the html <code>&lt;title&gt;</code> attribute with this value.</li>
+<li><code>author</code> - Most themes put this value in <code>&lt;meta name=author&gt;</code></li>
+<li><code>description</code> - Most themes use this value in <code>&lt;meta name=description&gt;</code></li>
+<li><code>keywords</code> - This is a string of keywords that some themes use in <code>&lt;meta name=keywords&gt;</code></li>
+</ul>
+</li>
+<li><code>date_format</code> - This describes how the date will appear when themes lookup a page's date. It uses <a href="http://docs.python.org/2/library/time.html#time.strftime">strftime</a> formatting.</li>
+<li><code>time_format</code> - This describes how the time will appear when themes lookup a page's time. It uses <a href="http://docs.python.org/2/library/time.html#time.strftime">strftime</a> formatting.</li>
+<li><code>timestamp_format</code> - This describes how the date and time will appear when themes lookup a page's timestamp.It also uses <a href="http://docs.python.org/2/library/time.html#time.strftime">strftime</a> formatting. <ul>
+<li><strong>This format must match the format in the <a href="/authoring.html#page-data-block">page data block</a></strong>.</li>
+</ul>
+</li>
+</ul>
+    </div>
+</div>

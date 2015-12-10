@@ -1,0 +1,256 @@
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(7); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(9); return false;">&raquo;</a></li>
+  
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/command-line.html">PyKwiki Command Line</a> 
+        <span class="pull-right text-muted">November 22, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <h1 id="basic-usage">Basic Usage</h1>
+<div class="codehilite"><pre>usage: pykwiki <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-b BASE_PATH<span class="o">]</span> <span class="o">[</span>-c CONFIG_FILE<span class="o">]</span>
+               <span class="o">{</span>new,index,cache,info,theme<span class="o">}</span> ...
+
+positional arguments:
+  <span class="o">{</span>new,index,cache,info,theme<span class="o">}</span>
+    new                 create a new project
+    index               build the search index
+    cache               cache and index posts
+    info                display PyKwiki information
+    theme               control built-in themes
+
+optional arguments:
+  -h, --help            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  -b BASE_PATH, --base-path BASE_PATH
+                        the base directory to operate on, defaults to current
+                        directory
+  -c CONFIG_FILE, --config-file CONFIG_FILE
+                        full path to configuration YAML file to load
+</pre></div>
+
+
+<h1 id="cache-posts">Cache posts</h1>
+<h2 id="quick-caching">Quick caching</h2>
+<p>Quick caching only changes the content of your pages. It does not rebuild the search index,
+post lists (/posts.html), cache uploads, or build the site menu.</p>
+<div class="codehilite"><pre><span class="nv">$ </span>pykwiki -c /path/to/my/config.yaml cache -q
+</pre></div>
+
+
+<h2 id="forced-caching">Forced caching</h2>
+<p>Forced caching without the <code>-q</code> flag rebuilds everything. It caches all posts, uploads, menus, and theme templates.</p>
+<div class="codehilite"><pre><span class="nv">$ </span>pykwiki -c /path/to/my/config.yaml cache -f
+</pre></div>
+
+
+<p>Forced caching <strong>with</strong> the <code>-q</code> flag caches every post, but it skips the search index, uploads, and theme files.</p>
+<div class="codehilite"><pre><span class="nv">$ </span>pykwiki -c /path/to/my/config.yaml cache -qf
+</pre></div>
+
+
+<h2 id="smart-caching">Smart caching</h2>
+<p>Using the <code>cache</code> command by itself causes PyKwiki to attempt to detect changes and rebuild what is necessary to update your site. It rebuilds menus if <code>links.yaml</code> has been modified, it caches theme files if it detects at least one updated post, and it caches all modified posts.</p>
+<div class="codehilite"><pre><span class="nv">$ </span>pykwiki -c /path/to/my/config.yaml cache
+</pre></div>
+
+
+<h1 id="install-themes">Install themes</h1>
+<p>To install any of the <a href="/themes.html">Themes</a> included in the PyKwiki distribution, run the following command:</p>
+<div class="codehilite"><pre><span class="nv">$ </span>pykwiki -c /path/to/my/config.yaml theme install &lt;theme name&gt;
+</pre></div>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/command-line.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="http://pykwiki.nullism.com/remote-editing-tutorial.html">Remote Editing Tutorial</a> 
+        <span class="pull-right text-muted">November 22, 2013</span>
+    </div>
+    <div class="panel-body">
+        
+            <div class="htmltruncate-md">
+                <div class="toc">
+<ul>
+<li><a href="#remote-editing-with-bit-torrent-sync">Remote editing with Bit Torrent Sync</a><ul>
+<li><a href="#bt-sync-server-setup">BT Sync Server Setup</a></li>
+<li><a href="#bt-sync-client-setup">BT Sync Client Setup</a></li>
+<li><a href="#webserver-setup">Webserver setup</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="remote-editing-with-bit-torrent-sync">Remote editing with Bit Torrent Sync</h1>
+<p>BitTorrent Sync is free software available from <a href="http://www.bittorrent.com/sync">http://www.bittorrent.com/sync</a>.</p>
+<h2 id="bt-sync-server-setup">BT Sync Server Setup</h2>
+<ol>
+<li><a href="http://www.bittorrent.com/sync/downloads">Download BT Sync</a> for your server OS.</li>
+<li>
+<p>Extract it somewhere</p>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd</span> /path/to/btsync
+<span class="nv">$ </span>tar -xvzf btsync_some_version.tar.gz
+</pre></div>
+
+
+</li>
+<li>
+<p>Run the server</p>
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd </span>btsync_some_version/
+<span class="nv">$ </span>sudo ./btsync
+</pre></div>
+
+
+</li>
+<li>
+<p>Access the BT Sync web GUI: <code>http://&lt;your-domain&gt;:8888</code>.</p>
+</li>
+<li>Add a PyKwiki project folder and copy the folder key.</li>
+</ol>
+<h2 id="bt-sync-client-setup">BT Sync Client Setup</h2>
+<ol>
+<li><a href="http://www.bittorrent.com/sync/downloads">Download</a> and install BT Sync.</li>
+<li>Follow the BT Sync instruction to create a new directory and add the folder key generated in
+the <a href="#bt-sync-server-setup">BT Sync Server Setup</a> step.</li>
+</ol>
+<h2 id="webserver-setup">Webserver setup</h2>
+<ol>
+<li>Configure your webserver to serve static files out of the BT Sync <code>docroot</code> folder. See <a href="/webserver.html">Webserver</a> for more information.</li>
+<li>Setup cron jobs to periodically cache and index the content from BT Sync <code>source</code>.<div class="codehilite"><pre><span class="c"># PyKwiki Caching Example Cron Jobs</span>
+<span class="c"># ----------------------------------------------------------------</span>
+<span class="c"># Cache just page content once per minute, very fast</span>
+* * * * * pykwiki -b /path/to/btsync/project/folder/ cache -q
+<span class="c"># Cache everything (all pages and theme files) and rebuild the search index</span>
+<span class="c">#   since this can take a little longer, run this every 5 minutes</span>
+*/5 * * * * pykwiki -b /path/to/btsync/project/folder/ cache -f
+</pre></div>
+
+
+</li>
+</ol>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="http://pykwiki.nullism.com/remote-editing-tutorial.html" class="btn btn-default">...</a>
+        
+    </div>
+</div>
+
+
+<ul class="pagination">
+  
+  <li><a href="#" onclick="load_postlist(7); return false;">&laquo;</a></li>
+  
+  
+    <li >
+        <a href="#" onclick="load_postlist(1); return false;">1</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(2); return false;">2</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(3); return false;">3</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(4); return false;">4</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(5); return false;">5</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(6); return false;">6</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(7); return false;">7</a>
+    </li>
+  
+    <li class="active">
+        <a href="#" onclick="load_postlist(8); return false;">8</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(9); return false;">9</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(10); return false;">10</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(11); return false;">11</a>
+    </li>
+  
+    <li >
+        <a href="#" onclick="load_postlist(12); return false;">12</a>
+    </li>
+  
+  
+  <li><a href="#" onclick="load_postlist(9); return false;">&raquo;</a></li>
+  
+</ul>
+
