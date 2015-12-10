@@ -8,10 +8,9 @@ import zipfile
 import yaml
 import shutil 
 
-pyk_dir = os.path.dirname(os.path.realpath(__file__))
-pyk_dir = os.path.realpath(os.path.join(pyk_dir, '../'))
-sys.path.insert(0,pyk_dir+'/../')
 import pykwiki.core
+pyk_dir = os.path.dirname(os.path.realpath(pykwiki.core.__file__))
+pyk_dir = os.path.realpath(os.path.join(pyk_dir, '../'))
 
 conf = pykwiki.core.conf
 logger = conf.logger
