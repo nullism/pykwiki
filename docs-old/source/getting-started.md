@@ -26,7 +26,7 @@ The above packages should be auto-installed when PyKwiki is installed.
 
 You can download the setup.py directly, or simply run:
 
-    $ sudo pip install pykwiki
+    $ sudo pip install -I pykwiki==1.1.6
 
 ## Create a new project
 
