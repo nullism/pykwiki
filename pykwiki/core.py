@@ -14,7 +14,7 @@ import scss
 
 def set_jinja_filters(env):
     """ Used to add custom Jinja2 filters to the env """
-    import pykwiki2.jinja_filters as jinja_filters
+    import pykwiki.jinja_filters as jinja_filters
     env.filters['idsafe'] = jinja_filters.idsafe
     return env
 
@@ -76,7 +76,7 @@ class Config(object):
         'title':'Example Site',
         'description':'Example Site Description',
         'author':'Example Author',
-        'keywords':'example, pykwiki2',
+        'keywords':'example, pykwiki',
         'base_url':''        
     }
     postlist = {
@@ -107,8 +107,8 @@ class Config(object):
     upload_exts = ['.gif','.jpg','.jpeg','.png','.tiff','.pdf']
     markdown_exts = [
         'codehilite','toc',
-        'pykwiki2.ext.tpl',
-        'pykwiki2.ext.post',
+        'pykwiki.ext.tpl',
+        'pykwiki.ext.post',
     ]
     # The regex to grab post data blocks
     post_conf_re = re.compile('^\[\[(.*?)\]\]', re.DOTALL)
@@ -176,7 +176,6 @@ class Config(object):
 
     @property
     def default_theme_path(self):
-        #return os.path.join(self.base_path, self.theme_dir, 'pykwiki2')
         self_dir = os.path.split(os.path.abspath(__file__))[0]
         return os.path.join(self_dir, 'data', 'default_theme')
 

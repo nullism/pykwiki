@@ -5,9 +5,9 @@ import sys
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(__file__))
-from pykwiki2 import __version__
+from pykwiki import __version__
 
-setup(name='pykwiki2',
+setup(name='pykwiki',
     version = __version__,
     description = 'A simple pure-python wiki engine.',
     long_description = '''
@@ -16,11 +16,11 @@ fast to setup, secure, and to handle lots of web traffic.
     ''',
     author = 'Aaron Meier',
     author_email = 'webgovernor@gmail.com',
-    packages = ['pykwiki2','pykwiki2.ext'],
-    package_dir={'pykwiki2':'pykwiki2'},
-    scripts=['pykwiki2/scripts/pykwiki2'],
+    packages = ['pykwiki','pykwiki.ext'],
+    package_dir={'pykwiki':'pykwiki'},
+    scripts=['pykwiki/scripts/pykwiki'],
     package_data={
-        'pykwiki2':[
+        'pykwiki':[
             'data/*.zip',
             'data/default_data/*.yaml',
             'data/default_data/source/*.md',
@@ -38,6 +38,6 @@ fast to setup, secure, and to handle lots of web traffic.
     url = 'http://pykwiki.nullism.com',
     license = 'MIT',
     install_requires = ['markdown>=2.6', 'jinja2>=2.6', 'pyyaml>=3.0', 'pyscss>=1.3.4'],
-    provides = ['pykwiki2']
+    provides = ['pykwiki']
 )
 
