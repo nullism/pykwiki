@@ -1,0 +1,467 @@
+/* 
+Default Style
+
+*/
+
+@import 'settings';
+
+html, body { 
+    height: 100%; margin: 0; padding: 0; 
+    font-size: 1.0em;
+    font-family: $primary-font;
+    background: $body-bg-color;
+    color: $text-color;
+    text-align: center;
+}
+
+h1, h2, h3 { 
+    font-family: $heading-font;
+    color: $heading-color;
+    margin-top: -$menu-height;
+    padding-top: $menu-height;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+h1:target, h2:target, h3:target {
+    color: lighten($heading-color, 5);
+    border-bottom: 2px solid lighten($heading-color, 5); 
+}
+pre { 
+    background: transparent;
+}
+code { 
+    font-family: $code-font; 
+}
+
+.post-content p code, .post-content li code { 
+    background: $code-bg-color;
+    color: $code-color;
+    border: 1px solid darken($code-bg-color, 5);
+    border-radius: 5px;
+    padding: 1px; margin: 2px;
+    font-family: $code-font; 
+} 
+[class*="fontawesome-"]:before { 
+    font-family: "FontAwesome", sans-serif;
+}
+.codehilitetable pre {
+    font-family: $code-font;
+}
+.codehilitetable .code { width: 100%; }
+.codehilite pre {
+    background: $code-bg-color;
+    color: $code-color;
+    font-family: $code-font;
+    padding: 10px;
+    overflow-x: auto;
+}
+.container {
+    max-width: $container-max-width;
+    margin: auto;
+    text-align: left;
+}
+#content {
+    min-height: 90%;
+    width: 100%;
+}
+#footer {
+    background: $primary-color;
+    color: $primary-text-color;
+    border-top: 1px solid lighten($primary-color, 5);
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 0.8em;
+    margin-top: 5px;
+    height: $footer-height;
+}
+#footer a { 
+    text-decoration: none;
+    color: lighten($primary-color, 15);
+}
+#footer a:hover {
+    color: $primary-link-hover-color;
+}
+.post {
+    text-align: left; 
+    padding: 15px;
+    color: $text-color;
+}
+
+.pager ul { 
+    list-style-type: none;
+    margin: 0; padding: 0;
+}
+.pager ul li { 
+    float: left;
+}
+.pager a {
+    display: block;
+    padding: 5px;
+    color: lighten($primary-color, 15);
+    background: $primary-color;
+    min-width: 25px;
+    text-align: center;
+    text-decoration: none;
+    margin: 0;
+}
+.pager a:hover {
+    color: $primary-link-hover-color;
+    background: lighten($primary-color, 1);
+}
+.pager ul li.active a {
+    background: darken($primary-color, 5);
+    color: $primary-link-hover-color;
+}
+.pager ul li:first-child a { 
+    border-radius: 5px 0 0 5px;
+}
+.pager ul li:last-child a {
+    border-radius: 0 5px 5px 0;
+}
+.list-post { 
+    padding: 15px;
+    margin: auto;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    text-align: left;
+    border: 1px solid darken($body-bg-color, 5);
+    background: darken($body-bg-color, 3);
+    color: $text-color;
+    word-wrap: break-all;
+}
+.list-post p { word-wrap: break-word; }
+.post a, .list-post a {
+    text-decoration: none;
+    color: $secondary-color;
+}
+.post a:hover, .list-post a:hover { 
+    color: lighten($secondary-color, 5);
+}
+/* Post tag block */
+.post-tags {
+}
+
+.post-tags a, .tag { 
+    color: lighten($primary-color, 15);
+    background: $primary-color;
+    border: 1px solid $primary-color;
+    border-radius: 3px;
+    margin: 2px; padding: 2px; margin-left: 0px;
+    display: block;
+    text-decoration: none;
+    float: left;
+}
+
+.post-tags a:hover, .tag:hover { 
+    color: $primary-link-hover-color;
+    background: lighten($primary-color, 5);
+}
+
+.post-author-block {
+    background: darken($body-bg-color, 2);
+    color: lighten($text-color, 35);
+    font-size: 0.9em;
+}
+
+.post-date { 
+    float: right;
+}
+
+
+/* Top Menu Stuff */
+.top-menu {
+    background: $primary-color;
+    font-family: $menu-font;
+    overflow: hidden;
+}
+.top-menu-mob { text-align: right; }
+.top-menu a.top-menu-link, .top-menu a.top-menu-parent {
+    color: lighten($primary-color, 25);
+    text-decoration: none;
+    height: $menu-height;
+    line-height: $menu-height;
+    min-width: 100px;
+    display: block;
+    padding-left: 5px; padding-right: 5px;
+}
+.top-menu a:hover, .top-menu-link:hover, .top-menu-parent:hover {
+    color: $primary-link-hover-color;
+    background: lighten($primary-color, 5);
+}
+
+.top-menu a.active { 
+    background: darken($primary-color, 5);
+}
+
+.input-text, .button { 
+    line-height: 30px;
+    padding-left: 10px;
+    padding-right: 5px;
+    margin-top: -2px;
+}
+.input-text { 
+    width: 210px;
+}
+.button { 
+    min-width: 50px;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+.top-menu-search-field, .post-search-field, .post-search-btn {
+    border-radius: $default-border-radius;
+}
+
+.top-menu-search-field {
+    border: 1px solid darken($primary-color, 5);
+    color: $text-color;
+    background: $body-bg-color;
+    @if $hide-top-menu-search { display: none; }
+}
+.post-search-field {
+    border: darken($body-bg-color, 5);
+    background: $body-bg-color;
+    color: $text-color;
+}
+.post-search-btn { 
+    border: darken($primary-color, 5);
+    color: lighten($primary-color, 5);
+    background: $primary-color;
+}
+.submenu {
+    display: none;
+    background: darken($primary-color, 5);
+}
+.submenu a { 
+    color: lighten($primary-color, 10);
+    text-decoration: none;
+    display: block;
+    padding: 2px;
+    padding-left: 10px;
+}
+.submenu a:hover { 
+    color: $primary-link-hover-color;
+}
+.submenu-item { 
+    color: $primary-text-color;
+    font-weight: bold;
+    padding: 2px;
+    padding-left: 9px;
+    padding-right: 9px;
+}
+.submenu-section {
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    background: darken($primary-color, 5);
+}
+
+/* Date list stuff */
+.date-wrap {
+    margin-top: 10px;
+    padding: 0;
+    width: 100%;
+}
+.date-group {
+    margin-bottom: 5px;
+    width: 100%;
+}
+.date-title { 
+    width: 100%;
+    margin: 0; padding: 0; 
+}
+.date-title h4 { 
+    padding: 0; margin: 0;
+    width: 100%;
+}
+.date-title a {
+    padding: 0;
+    margin: 0;
+    color: lighten($primary-color, 15);
+    background: $primary-color;
+    text-decoration: none;
+    border-radius: $default-border-radius;
+    border: 1px solid $primary-color;
+    display: block;
+    padding: 10px;
+}
+.date-title a:hover { 
+    color: $primary-link-hover-color;
+    background: darken($primary-color, 15);
+}
+.date-list { 
+    display: none;
+}
+.date-list a { 
+    color: $secondary-color;
+    display: block;
+    padding: 10px;
+    
+}
+.date-list a:hover { 
+    color: lighten($secondary-color, 10);
+}
+.date-list ul {
+    list-style-type: none;
+    margin: 0; padding: 0;
+}
+
+.data-table { 
+    width: 100%;
+    border-collapse: collapse;
+}
+.data-table th {
+    border-bottom: 2px solid darken($body-bg-color, 5);
+}
+.data-table tr { 
+    border-bottom: 1px solid darken($body-bg-color, 3);
+    background: darken($body-bg-color, 1);
+}
+
+.data-table td {
+    background: none;
+    border-left: 1px solid darken($body-bg-color, 3);
+    border-right: 1px solid darken($body-bg-color, 4);
+    padding: 3px;
+}
+
+/* Table of Contents */
+
+.toc { 
+    padding: 0; margin: 0;
+    text-align: left;
+}
+.toc a { 
+    color: $secondary-color; 
+    text-decoration: none; 
+}
+.toc a:hover { 
+    color: lighten($secondary-color, 10); 
+}
+.toc ul { list-style-type: none; padding: 10px; }
+.col { padding: 15px; color: $text-color; }
+.clear { clear: both; padding:0; margin:0; }
+
+
+@media screen and (min-width: $small-page-width) {
+    .toc {
+        position: fixed;
+        width: 240px;
+        top: $menu-height;
+        bottom: 0px;
+        overflow-y: scroll;
+        z-index: 4;
+        left: 0px;
+        background: $toc-bg-color;
+    }
+    .toc-control-open { left: 240px; }
+    .toc-control-closed { left: 0px; }
+    .toc-control { 
+        position: fixed;
+        text-align: center;
+        top: $menu-height;
+        background: $secondary-color;
+        border: 1px solid $secondary-color;
+        border-radius: 0 0 $default-border-radius 0;
+    }
+    .toc-control a {
+        display: block;
+        height: 32px;
+        width: 32px;
+        line-height: 32px;
+        color: lighten($secondary-color, 25);
+        text-decoration: none;
+    }
+    .toc-control a:hover { 
+        color: $primary-link-hover-color;
+    }
+
+    .top-menu-parent, .top-menu-link { 
+        text-align: center;
+    }
+    .top-menu-item { 
+        float: left;
+    }
+    .top-menu-item-right { 
+        float: right;
+        line-height: $menu-height;
+        padding-right: 20px;
+    }
+    .toc ul li ul li ul li ul {
+        display: none;
+    }
+    .post-wrap {
+        width: 100%;
+    }
+    .post-content { 
+    }
+    #content { margin-top: $menu-height; padding-top: 5px; }
+    .top-menu-mob { display: none; }
+    .top-menu-full { display: block; }
+    
+    .top-menu {
+        position: fixed;
+        z-index: 5;
+        top: 0; left: 0; right:0;
+        height: $menu-height;
+    }
+    
+    .submenu { 
+        position:fixed;
+        top: $menu-height;
+        min-width: 200px;
+        z-index: 10;
+    }
+    .row { display: table; width: 100%; }
+    .col { display: table-cell; }
+    .col-200 { width: 200px; min-width: 200px; }
+    .col-300 { width: 300px; min-width: 300px; }
+    #footer {}
+}
+
+@media screen and (min-width: 1px) and (max-width: $small-page-width) {
+    .toc { display: none; }
+    .toc-control { display: none; }
+    .top-menu { position: relative; }
+    .container { max-width: 100%; }
+    .top-menu-item, .top-menu-item-right {
+        display: block; 
+        width: 100%;
+    }
+    .top-menu-search-field {
+        width: 90%;
+        margin: 5px;
+    }
+    .top-menu-parent,.top-menu-link { padding-left: 10px; padding-right: 10px; } 
+    .top-menu-mob { display: block; }
+    .mob-hidden { display: none; }
+    .submenu { 
+        position:relative; 
+        top:0; 
+        width:100%; 
+        margin:0;
+        border:0; 
+        border-radius:0;
+        padding-bottom: 10px;
+        box-shadow: none;
+    }
+    .submenu-section { 
+        display: block;
+    }
+    .submenu a {
+        margin: 0px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .col { display: block; } 
+}
+
+
+.toc ul, .toc li, .toc ul li { 
+    margin-left: 10px;
+    padding: 1px;
+}
+

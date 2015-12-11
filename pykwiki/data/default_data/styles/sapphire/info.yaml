@@ -1,0 +1,8 @@
+name: "Sapphire"
+version: 0.9
+description: "A sapphire blue theme for Pykwiki"
+long_description: A blue style with a collapsing 
+    table of contents. Mobile friendly.
+author_name: "Aaron Meier"
+author_email: "webgovernor@gmail.com"
+author_website: http://nullism.com

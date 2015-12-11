@@ -8,6 +8,10 @@ import zipfile
 import yaml
 import shutil 
 
+# Use local default_data/default_themes for testing
+local_dir = os.path.realpath(os.path.dirname(__file__) + '../../../')
+sys.path.insert(0, local_dir)
+
 import pykwiki.core
 pyk_dir = os.path.dirname(os.path.realpath(pykwiki.core.__file__))
 
