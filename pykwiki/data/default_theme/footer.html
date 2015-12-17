@@ -1,7 +1,7 @@
 <div id="footer">
     {{conf.style_footer}}
     <div class="container" style="text-align: center;">
-        <div class="social-div">
+        <div>
         <p class="text-muted credit">&copy; 2016 {{conf.site.title}}
         &mdash; powered by <a href="http://pykwiki.nullism.com">PyKwiki</a>
         </p>
@@ -9,10 +9,8 @@
 
         {% if sopt.github_username and sopt.github_repo %}
         <div class="social-div">
-            <iframe src="http://ghbtns.com/github-btn.html?user={{sopt.github_username}}&amp;repo={{sopt.github_repo}}&amp;type=watch"
-                style="border: 0px; width: 53px; height: 20px; overflow: hidden;"></iframe>
-            <iframe src="http://ghbtns.com/github-btn.html?user={{sopt.github_username}}&amp;repo={{sopt.github_repo}}&amp;type=fork"
-                style="border: 0px; width: 53px; height: 20px; overflow: hidden;"></iframe>
+            <a href="https://github.com/{{sopt.github_username}}/{{sopt.github_repo}}"
+                class="icon-link"><b class="big-icon fontawesome-github"></b> github</a>
         </div>
         {% endif %}
 
@@ -33,7 +31,7 @@
 
         {% if sopt.twitter_name %}
         <div class="social-div">
-        <a href="https://twitter.com/{{sopt.twitter_name}}" class="twitter-follow-button" data-show-count="false">Follow @{{sopt.twitter_name}}</a>
+        <a href="https://twitter.com/{{sopt.twitter_name}}" class="icon-link" data-show-count="false"><b class="big-icon fontawesome-twitter"></b>Follow @{{sopt.twitter_name}}</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
                     if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';
                     fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
@@ -43,7 +41,8 @@
 
 
         <div class="social-div">
-            <a href="{{conf.web_prefix}}/{{conf.rss_tpl}}">RSS</a>
+            <a href="{{conf.web_prefix}}/{{conf.rss_tpl}}"
+                class="icon-link"><b class="fontawesome-rss"></b>RSS</a>
         </div>
 
         <div class="clear"></div>

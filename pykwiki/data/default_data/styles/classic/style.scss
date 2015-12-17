@@ -58,6 +58,27 @@ code {
     font-family: $code-font; 
 }
 
+/* Icons */
+.icon-link { 
+    line-height: 1.5em;
+}
+.big-icon { 
+    font-size: 1.5em;
+    vertical-align: middle;
+}
+
+/* Social */
+.social-div { 
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 5px;
+    background-color: menu-color($primary-color, 5);
+    height: 1.5em;
+    line-height: 1.5em;
+    padding: 4px;
+}
+
+/* Alerts */
 .alert {
     padding: 15px;
     color: $text-color;

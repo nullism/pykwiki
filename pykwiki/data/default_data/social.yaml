@@ -2,6 +2,8 @@
 github_username: null
 github_repo: null
 
+# Disqus Comments
+disqus_shortname: null
 
 # Twitter name (twitter.com/Name)
 twitter_name: null
