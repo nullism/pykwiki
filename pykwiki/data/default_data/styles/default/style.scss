@@ -5,14 +5,38 @@ Default Style
 
 @import 'settings';
 
+@function menu-color($color, $amt) {
+    @if $use-dark-menu { 
+        @return lighten($color, $amt);
+    } @else { 
+        @return darken($color, $amt);
+    }
+}
+
+@function body-color($color, $amt) { 
+    @if $use-dark-body { 
+        @return lighten($color, $amt);
+    } @else { 
+        @return darken($color, $amt);
+    }
+}
+* { 
+    margin: 0;
+}
 html, body { 
-    height: 100%; margin: 0; padding: 0; 
+    margin: 0; padding: 0; 
     font-size: 1.0em;
     font-family: $primary-font;
     background: $body-bg-color;
     text-align: center;
 }
-
+html { 
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin: 0 0 ($footer-height + 15px); 
+}
 h1, h2, h3 { 
     font-family: $heading-font;
     color: $heading-color;
@@ -23,8 +47,8 @@ h1, h2, h3 {
 }
 
 h1:target, h2:target, h3:target {
-    color: lighten($heading-color, 5);
-    border-bottom: 2px solid lighten($heading-color, 5); 
+    color: body-color($heading-color, 5);
+    border-bottom: 2px solid body-color($heading-color, 5); 
 }
 pre { 
     background: transparent;
@@ -39,15 +63,15 @@ code {
 }
 .alert-info {
     background-color: $alert-info-color;
-    color: lighten($alert-info-color, 5);
+    color: body-color($alert-info-color, 40);
 }
 .alert-warning {
     background-color: $alert-warning-color;
-    color: lighten($alert-warning-color, 5);
+    color: body-color($alert-warning-color, 30);
 }
 .alert-error {
     background-color: $alert-error-color;
-    color: lighten($alert-error-color, 5);
+    color: body-color($alert-error-color, 30);
 }
 
 .post-content p code, .post-content li code { 
@@ -77,11 +101,16 @@ code {
     margin: auto;
     text-align: left;
 }
+.color-div { 
+    border: 1px solid body-color($primary-color, 5);
+    background: body-color($primary-color, 10);
+}
 #content {
-    min-height: 90%;
     width: 100%;
 }
+
 #footer {
+    position: absolute;
     background: $primary-color;
     color: $primary-text-color;
     border-top: 1px solid lighten($primary-color, 5);
@@ -89,12 +118,12 @@ code {
     padding-left: 10px;
     padding-right: 10px;
     font-size: 0.8em;
-    margin-top: 5px;
     height: $footer-height;
+    left: 0; bottom: 0; right: 0;
 }
 #footer a { 
     text-decoration: none;
-    color: darken($primary-color, 15);
+    color: menu-color($primary-color, 25);
 }
 #footer a:hover {
     color: $primary-link-hover-color;
@@ -115,7 +144,7 @@ code {
 .pager a {
     display: block;
     padding: 5px;
-    color: darken($primary-color, 15);
+    color: menu-color($primary-color, 25);
     background: $primary-color;
     min-width: 25px;
     text-align: center;
@@ -124,10 +153,10 @@ code {
 }
 .pager a:hover {
     color: $primary-link-hover-color;
-    background: lighten($primary-color, 5);
+    background: menu-color($primary-color, 5);
 }
 .pager ul li.active a {
-    background: darken($primary-color, 5);
+    background: menu-color($primary-color, 5);
     color: $primary-link-hover-color;
 }
 .pager ul li:first-child a { 
@@ -192,7 +221,7 @@ code {
 }
 .top-menu-mob { text-align: right; }
 .top-menu a.top-menu-link, .top-menu a.top-menu-parent {
-    color: darken($primary-color, 15);
+    color: menu-color($primary-color, 25);
     text-decoration: none;
     height: $menu-height;
     line-height: $menu-height;
@@ -202,11 +231,11 @@ code {
 }
 .top-menu a:hover, .top-menu-link:hover, .top-menu-parent:hover {
     color: $primary-link-hover-color;
-    background: lighten($primary-color, 5);
+    background: menu-color($primary-color, 5);
 }
 
 .top-menu a.active { 
-    background: darken($primary-color, 5);
+    background: menu-color($primary-color, 5);
 }
 
 .input-text, .button { 
@@ -230,27 +259,27 @@ code {
 }
 
 .top-menu-search-field {
-    border: 1px solid darken($primary-color, 15);
+    border: 1px solid menu-color($primary-color, 15);
     color: $text-color;
     background: $body-bg-color;
     @if $hide-top-menu-search { display: none; }
 }
 .post-search-field {
-    border: darken($body-bg-color, 15);
+    border: body-color($body-bg-color, 15);
     background: $body-bg-color;
     color: $text-color;
 }
 .post-search-btn { 
-    border: darken($primary-color, 15);
-    color: darken($primary-color, 15);
+    border: body-color($primary-color, 25);
+    color: body-color($primary-color, 25);
     background: $primary-color;
 }
 .submenu {
     display: none;
-    background: darken($primary-color, 5);
+    background: menu-color($primary-color, 5);
 }
 .submenu a { 
-    color: lighten($primary-color, 10);
+    color: menu-color($primary-color, 25);
     text-decoration: none;
     display: block;
     padding: 2px;
@@ -270,7 +299,7 @@ code {
     display: inline-block;
     padding: 5px;
     margin: 5px;
-    background: darken($primary-color, 10);
+    background: menu-color($primary-color, 7);
 }
 
 /* Date list stuff */
@@ -410,7 +439,10 @@ code {
     }
     .post-content { 
     }
-    #content { margin-top: $menu-height; padding-top: 5px; }
+    #content { 
+        margin-top: $menu-height; 
+        padding-top: 5px; 
+    }
     .top-menu-mob { display: none; }
     .top-menu-full { display: block; }
     
@@ -429,9 +461,15 @@ code {
     }
     .row { display: table; width: 100%; }
     .col { display: table-cell; }
-    .col-200 { width: 200px; min-width: 200px; }
-    .col-300 { width: 300px; min-width: 300px; }
-    #footer {}
+    .col-2 { width: 16%; min-width: 16%; }
+    .col-3 { width: 25%; min-width: 25%; }
+    .col-4 { width: 33%; min-width: 33%; }
+    .col-5 { width: 41%; min-width: 41%; }
+    .col-6 { width: 50%; min-width: 50%; }
+    .col-8 { width: 66%; min-width: 66%; }
+    .col-9 { width: 75%; min-width: 75%; }
+    .col-10 { width: 83%; min-width: 83%; }
+    .col-12 { width: 100%; min-width: 100%; }
 }
 
 @media screen and (min-width: 1px) and (max-width: $small-page-width) {

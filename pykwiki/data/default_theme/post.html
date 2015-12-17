@@ -46,9 +46,11 @@ function hideToc() {
 <div class="post-content">
 <div class="post">
 
+{% if not post.hide_author %}
 <div class="post-author-block">
   Posted on <strong>{{post.mtimestamp}}</strong> by <strong>{{post.author}}</strong>
 </div>
+{% endif %}
 
 <div class="post-tags">
   {% for t in post.tags %}

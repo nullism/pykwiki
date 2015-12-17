@@ -127,7 +127,7 @@ $(document).ready(function() {
 </script>
 <div class="row">
 
-<div class="col col-300">
+<div class="col col-4">
     <div>
         <input type="text" id="search_text" class="input-text post-search-field"
             onkeydown="if (event.keyCode == 13) { $('#search_button').click(); return false; }"
@@ -142,7 +142,7 @@ $(document).ready(function() {
     {% include 'datelist.html' %}
 </div>
 
-<div class="col">
+<div class="col col-8">
     <div class="post-tags" id="taglist" style="display:none;">
       {% for t in ctrl.tags %}
         <a class="tag" href="#" 
