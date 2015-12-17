@@ -764,6 +764,7 @@ class Post(object):
     _title = None
     _mtime = None
     _has_toc = None
+    _hide_author = None
 
     def __init__(self, source_fname):
         conf.check()
@@ -809,6 +810,13 @@ class Post(object):
             return self._author
         self._author = conf.site.get('author', 'Nobody')
         return self._author
+
+    @property
+    def hide_author(self):
+        if self._hide_author != None:
+            return self._hide_author
+        self._hide_author = self.conf.get('hide_author', False)
+        return self._hide_author
 
     @property
     def conf(self):

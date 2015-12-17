@@ -4,6 +4,7 @@ Default Style
 */
 
 @import 'settings';
+@import 'toc';
 
 @function menu-color($color, $amt) {
     @if $use-dark-menu { 
@@ -102,8 +103,8 @@ code {
     text-align: left;
 }
 .color-div { 
-    border: 1px solid body-color($primary-color, 5);
-    background: body-color($primary-color, 10);
+    border: 1px solid menu-color($primary-color, 5);
+    background: menu-color($primary-color, 10);
 }
 #content {
     width: 100%;
@@ -187,7 +188,7 @@ code {
 }
 
 .post-tags a, .tag { 
-    color: darken($primary-color, 15);
+    color: menu-color($primary-color, 20);
     background: $primary-color;
     border: 1px solid $primary-color;
     border-radius: 3px;
@@ -199,7 +200,7 @@ code {
 
 .post-tags a:hover, .tag:hover { 
     color: $primary-link-hover-color;
-    background: lighten($primary-color, 5);
+    background: menu-color($primary-color, 5);
 }
 
 .post-author-block {
@@ -221,7 +222,7 @@ code {
 }
 .top-menu-mob { text-align: right; }
 .top-menu a.top-menu-link, .top-menu a.top-menu-parent {
-    color: menu-color($primary-color, 25);
+    color: menu-color($primary-color, 35);
     text-decoration: none;
     height: $menu-height;
     line-height: $menu-height;
@@ -270,8 +271,8 @@ code {
     color: $text-color;
 }
 .post-search-btn { 
-    border: body-color($primary-color, 25);
-    color: body-color($primary-color, 25);
+    border: menu-color($primary-color, 25);
+    color: menu-color($primary-color, 25);
     background: $primary-color;
 }
 .submenu {
@@ -287,6 +288,7 @@ code {
 }
 .submenu a:hover { 
     color: $primary-link-hover-color;
+    background: menu-color($primary-color, 1);
 }
 .submenu-item { 
     color: $primary-text-color;
@@ -323,17 +325,17 @@ code {
 .date-title a {
     padding: 0;
     margin: 0;
-    color: darken($primary-color, 15);
+    color: menu-color($primary-color, 25);
     background: $primary-color;
     text-decoration: none;
     border-radius: $default-border-radius;
-    border: 1px solid $primary-color;
+    border: 1px solid body-color($primary-color, 5);
     display: block;
     padding: 10px;
 }
 .date-title a:hover { 
     color: $primary-link-hover-color;
-    background: darken($primary-color, 15);
+    background: menu-color($primary-color, 5);
 }
 .date-list { 
     display: none;
@@ -369,56 +371,12 @@ code {
     padding: 3px;
 }
 
-/* Table of Contents */
 
-.toc { 
-    padding: 0; margin: 0;
-    text-align: left;
-}
-.toc a { 
-    color: $secondary-color; 
-    text-decoration: none; 
-}
-.toc a:hover { 
-    color: lighten($secondary-color, 10); 
-}
-.toc ul { list-style-type: none; padding: 10px; }
 .col { padding: 15px; }
 .clear { clear: both; padding:0; margin:0; }
 
 
 @media screen and (min-width: $small-page-width) {
-    .toc {
-        position: fixed;
-        width: 240px;
-        top: $menu-height;
-        bottom: 0px;
-        overflow-y: scroll;
-        z-index: 4;
-        left: 0px;
-        background: #444;
-    }
-    .toc-control-open { left: 240px; }
-    .toc-control-closed { left: 0px; }
-    .toc-control { 
-        position: fixed;
-        text-align: center;
-        top: $menu-height;
-        background: $secondary-color;
-        border: 1px solid $secondary-color;
-        border-radius: 0 0 $default-border-radius 0;
-    }
-    .toc-control a {
-        display: block;
-        height: 32px;
-        width: 32px;
-        line-height: 32px;
-        color: lighten($secondary-color, 25);
-        text-decoration: none;
-    }
-    .toc-control a:hover { 
-        color: $primary-link-hover-color;
-    }
 
     .top-menu-parent, .top-menu-link { 
         text-align: center;
@@ -473,8 +431,6 @@ code {
 }
 
 @media screen and (min-width: 1px) and (max-width: $small-page-width) {
-    .toc { display: none; }
-    .toc-control { display: none; }
     .top-menu { position: relative; }
     .container { max-width: 100%; }
     .top-menu-item, .top-menu-item-right {
@@ -510,8 +466,4 @@ code {
 }
 
 
-.toc ul, .toc li, .toc ul li { 
-    margin-left: 10px;
-    padding: 1px;
-}
 

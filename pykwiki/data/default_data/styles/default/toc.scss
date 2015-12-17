@@ -1,0 +1,81 @@
+/*
+ Default table of contents
+*/
+
+@import 'settings';
+
+
+.toc { 
+    padding: 0; margin: 0;
+    text-align: left;
+}
+.toc a { 
+    color: $secondary-color; 
+    text-decoration: none; 
+}
+.toc a:hover { 
+    color: lighten($secondary-color, 10); 
+}
+.toc ul { 
+    list-style-type: none; 
+    padding: 10px; 
+}
+
+.toc ul, .toc li, .toc ul li { 
+    margin-left: 10px;
+    padding: 1px;
+}
+
+@media screen and (min-width: $small-page-width) {
+    .toc {
+        position: fixed;
+        width: 240px;
+        top: $menu-height;
+        bottom: 0px;
+        overflow-y: scroll;
+        z-index: 4;
+        left: 0px;
+        background: #444;
+    }
+    .toc-control-open { left: 240px; }
+    .toc-control-closed { left: 0px; }
+    .toc-control { 
+        position: fixed;
+        text-align: center;
+        top: $menu-height;
+        background: $secondary-color;
+        border: 1px solid $secondary-color;
+        border-radius: 0 0 $default-border-radius 0;
+    }
+    .toc-control a {
+        display: block;
+        height: 32px;
+        width: 32px;
+        line-height: 32px;
+        color: lighten($secondary-color, 25);
+        text-decoration: none;
+    }
+    .toc-control a:hover { 
+        color: $primary-link-hover-color;
+    }
+
+    .top-menu-parent, .top-menu-link { 
+        text-align: center;
+    }
+    .top-menu-item { 
+        float: left;
+    }
+    .top-menu-item-right { 
+        float: right;
+        line-height: $menu-height;
+        padding-right: 20px;
+    }
+    .toc ul li ul li ul li ul {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1px) and (max-width: $small-page-width) {
+    .toc { display: none; }
+    .toc-control { display: none; }
+}

@@ -6,7 +6,7 @@ site:
     blogs, wikis, or almost any type of documentation"
   keywords: pykwiki, wiki, cms, blog
   title: PyKwiki
-  base_url: http://pykwiki.nullism.com
+  base_url: http://pykwiki-classic.nullism.com
 theme: default
 web_prefix: ''
 base_path: /home/nullism/github/pykwiki/docs-old/

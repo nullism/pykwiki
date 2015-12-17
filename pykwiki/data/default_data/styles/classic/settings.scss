@@ -1,16 +1,22 @@
 // Primary Colors
-$body-bg-color: #333;
-$text-color: #eee;
+$body-bg-color: #fff;
+$text-color: #222;
 $primary-color: #222;
 $secondary-color: #33bbcc;
+
+// Alerts
+$alert-info-color: #aaeecc;
+$alert-warning-color: #ffddcc;
+$alert-error-color: #ffcccc;
 
 // Other Colors
 $primary-link-hover-color: #fff;
 $primary-text-color: #fff;
 $heading-color: $text-color;
-$code-bg-color: #222;
+$code-bg-color: #333;
 $code-color: #fff;
-$toc-bg-color: $primary-color;
+
+
 
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Droid+Sans+Mono|Bitter|Oxygen);
@@ -29,3 +35,5 @@ $footer-height: 75px;
 $hide-top-menu-search: false;
 $default-border-radius: 5px;
 $use-fixed-toc: true;
+$use-dark-body: false;
+$use-dark-menu: true;
