@@ -4,12 +4,19 @@ $text-color: #222;
 $primary-color: #93c54b;
 $secondary-color: #33bbcc;
 
+// Alerts
+$alert-info-color: #ccffcc;
+$alert-warning-color: #fffccc;
+$alert-error-color: #ffcccc;
+
 // Other Colors
 $primary-link-hover-color: #fff;
 $primary-text-color: #fff;
 $heading-color: $text-color;
 $code-bg-color: #333;
 $code-color: #fff;
+
+
 
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Droid+Sans+Mono|Bitter|Oxygen);

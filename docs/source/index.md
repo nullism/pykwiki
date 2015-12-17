@@ -1,23 +1,29 @@
 [[
 title: Welcome
-author: PyKwiki
-description: The default PyKwiki startup page.
-tags: [pykwiki]
+hide_author: true
 ]]
 
-# Welcome!
+{tpl:info}
+message: '<b>Note</b>: This documentation is for PyKwiki <b>2.x</b>.
+    PyKwiki <b>1.x</b> documentation can be found <a href="http://pykwiki-classic.nullism.com">here</a>.'
+{endtpl}
 
-Thanks for installing PyKwiki!
+<div class="row">
+    <div class="col col-4"><h1>Markdown</h1>
+        <p>Pykwiki pages are authored in Markdown; 
+        the format of choice for sites like Reddit,
+        Stack Overflow, Github, and others.</p>
+    </div>
+    <div class="col col-4"><h1>Search</h1>
+        <p>Static keyword searching using JavaScript.
+        Provide the content benefits of dynamic sites 
+        without needing to run server side code.</p>
+    </div>
+    <div class="col col-4"><h1>SASS</h1>
+        <p>Easily customize the look and feel of your
+        site using the power of scss.</p>
+    </div>
+</div>
 
-This page can be found in `source/index.md`.
-
-Where to go from here:
-
-* [Official Documentation](http://pykwiki.nullism.com/)
-* [PyKwiki - Authoring](http://pykwiki.nullism.com/authoring.html)
-* [PyKwiki - config.yaml](http://pykwiki.nullism.com/config.yaml.html)
-* [PyKwiki - links.yaml](http://pykwiki.nullism.com/links.yaml.html)
-
-Report issues at [GitHub - PyKwiki](https://github.com/nullism/pykwiki)
 
 

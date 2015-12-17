@@ -33,6 +33,23 @@ code {
     font-family: $code-font; 
 }
 
+.alert {
+    padding: 15px;
+    color: $text-color;
+}
+.alert-info {
+    background-color: $alert-info-color;
+    color: lighten($alert-info-color, 5);
+}
+.alert-warning {
+    background-color: $alert-warning-color;
+    color: lighten($alert-warning-color, 5);
+}
+.alert-error {
+    background-color: $alert-error-color;
+    color: lighten($alert-error-color, 5);
+}
+
 .post-content p code, .post-content li code { 
     background: $code-bg-color;
     color: $code-color;

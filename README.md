@@ -5,12 +5,12 @@ PyKwiki is a static content generation engine for Python.
 
 Features:
 
-    * Static keyword search
-    * YAML configuration
-    * Markdown
-    * Templates
-    * Extensions
-    * SASS (version 2+)
+* Static keyword search
+* YAML configuration
+* Markdown
+* Templates
+* Extensions
+* SASS (version 2+)
     
 
 ## Install
