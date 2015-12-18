@@ -24,6 +24,7 @@ fast to setup, secure, and to handle lots of web traffic.
             'data/*.zip',
             'data/default_data/*.yaml',
             'data/default_data/source/*.md',
+            'data/default_data/source/tpl/*.tpl',
             'data/default_data/styles/*/*.yaml',
             'data/default_data/styles/*/*.scss',
             'data/default_data/styles/*/static/*.*',

@@ -3,12 +3,13 @@ from pykwiki.core import conf
 import yaml
 import jinja2
 import re
+import os
 
 TPL_RE = r'^(\{tpl:(.+?)\})(.+?)(\{endtpl\})'
 
 def render_tpl(f, **kwargs):
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(
-        [conf.source_path]))
+        [conf.source_path, os.path.join(conf.source_path, 'tpl')]))
     tpl = env.get_template(f)
     return tpl.render(conf=conf, **kwargs)
 
