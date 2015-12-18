@@ -1,8 +1,8 @@
-name: "Classic"
-version: 1.2
-description: "A style similar to the classic Pykwiki 1.x theme."
+name: "Dark"
+version: 1.0
+description: "A dark theme with light text"
 long_description: High contrast black & white theme with 
-    a collapsing table of contents.  
+    a dark background and light text. 
 author_name: "Aaron Meier"
 author_email: "webgovernor@gmail.com"
 author_website: http://nullism.com

@@ -1,13 +1,13 @@
 // Primary Colors
-$body-bg-color: #fff;
-$text-color: #222;
-$primary-color: #222;
-$secondary-color: #33bbcc;
+$body-bg-color: #222;
+$text-color: #ddd;
+$primary-color: #111;
+$secondary-color: #55ddee;
 
 // Alerts
-$alert-info-color: #aaeecc;
-$alert-warning-color: #ffddcc;
-$alert-error-color: #ffcccc;
+$alert-info-color: #00bb44;
+$alert-warning-color: #bbaa11;
+$alert-error-color: #cc0000;
 
 // Other Colors
 $primary-link-hover-color: #fff;
@@ -15,7 +15,7 @@ $primary-text-color: #fff;
 $heading-color: $text-color;
 $code-bg-color: #333;
 $code-color: #fff;
-$toc-bg-color: #444;
+$toc-bg-color: #111;
 
 
 // Fonts
@@ -35,5 +35,5 @@ $footer-height: 75px;
 $hide-top-menu-search: false;
 $default-border-radius: 5px;
 $use-fixed-toc: true;
-$use-dark-body: false;
+$use-dark-body: true;
 $use-dark-menu: true;

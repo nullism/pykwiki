@@ -27,6 +27,7 @@ html, body {
     font-family: $primary-font;
     background: $body-bg-color;
     text-align: center;
+    color: $text-color;
 }
 html { 
     position: relative;
@@ -109,7 +110,7 @@ code {
 }
 .codehilitetable .code { width: 100%; }
 .codehilite pre {
-    background: darken($text-color, 5);
+    background: $code-bg-color;
     color: $code-color;
     font-family: $code-font;
     padding: 10px;
@@ -190,7 +191,7 @@ code {
     margin-bottom: 5px;
     margin-top: 5px;
     text-align: left;
-    border: 1px solid darken($body-bg-color, 10);
+    border: 1px solid darken($body-bg-color, 5);
     word-wrap: break-all;
 }
 .list-post p { word-wrap: break-word; }
