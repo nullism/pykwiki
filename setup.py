@@ -18,7 +18,7 @@ fast to setup, secure, and to handle lots of web traffic.
     author_email = 'webgovernor@gmail.com',
     packages = ['pykwiki','pykwiki.ext'],
     package_dir={'pykwiki':'pykwiki'},
-    scripts=['pykwiki/scripts/pykwiki'],
+    scripts=['pykwiki/scripts/pykwiki', 'pykwiki/scripts/pk'],
     package_data={
         'pykwiki':[
             'data/*.zip',
