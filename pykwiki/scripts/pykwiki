@@ -89,17 +89,21 @@ def command_style(args):
         install_style(style_src, style_dest, args.force)
         return
 
+
 def install_style(style_src, style_dest, force=False):
     """ Installs a built-in style to a project directory """
     style_name = os.path.basename(style_src)
+    info_src = get_yaml_data(os.path.join(style_src, 'info.yaml'))
 
     if not os.path.exists(style_src):
         raise Exception("Cannot find style information for %s!" % style_name)
     
     if os.path.exists(style_dest):
         if not force:
-            logger.info("Already installed: %s", style_name)
-            return False
+            info_dest = get_yaml_data(os.path.join(style_dest, 'info.yaml'))
+            if info_src.get('version') <= info_dest.get('version'):
+                logger.info("Already installed: %s", style_name)
+                return False
         
         logger.debug("Removing existing style: %s"%(style_dest))
         shutil.rmtree(style_dest)
@@ -107,6 +111,13 @@ def install_style(style_src, style_dest, force=False):
     logger.info("Installing style: %s", style_name)
     shutil.copytree(style_src, style_dest)
     return True
+
+def get_yaml_data(yaml_path):
+    with open(yaml_path, 'r') as fh:
+        yml = fh.read()
+        fh.close()
+        info_data = yaml.load(yml)
+        return info_data
 
 def get_styles_dir():        
     return os.path.join(pyk_dir, 'data', 'default_data', 'styles')
