@@ -207,9 +207,9 @@ code {
 }
 
 .post-tags a, .tag { 
-    color: menu-color($primary-color, 20);
-    background: $primary-color;
-    border: 1px solid $primary-color;
+    color: menu-color($secondary-color, 20);
+    background: darken($secondary-color, 25);
+    border: 1px solid darken($secondary-color, 25);
     border-radius: 3px;
     margin: 2px; padding: 2px; margin-left: 0px;
     display: block;
@@ -219,7 +219,7 @@ code {
 
 .post-tags a:hover, .tag:hover { 
     color: $primary-link-hover-color;
-    background: menu-color($primary-color, 5);
+    background: menu-color($secondary-color, 5);
 }
 
 .post-author-block {

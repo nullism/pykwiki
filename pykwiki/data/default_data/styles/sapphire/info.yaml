@@ -1,0 +1,8 @@
+name: "Sapphire"
+version: 0.9
+description: "Like the default style, but with a blue tint"
+long_description: A blue style with a collapsing 
+    table of contents. Mobile friendly.
+author_name: "Aaron Meier"
+author_email: "webgovernor@gmail.com"
+author_website: http://nullism.com

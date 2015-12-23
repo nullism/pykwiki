@@ -1,0 +1,39 @@
+// Primary Colors
+$body-bg-color: #fff;
+$text-color: #222;
+$primary-color: #0099cc;
+$secondary-color: #ff6600;
+
+// Alerts
+$alert-info-color: #aaeecc;
+$alert-warning-color: #ffddcc;
+$alert-error-color: #ffcccc;
+
+// Other Colors
+$primary-link-hover-color: #fff;
+$primary-text-color: #fff;
+$heading-color: $text-color;
+$code-bg-color: #333;
+$code-color: #fff;
+$toc-bg-color: #444;
+
+
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans+Mono|Bitter|Oxygen);
+$primary-font: "Oxygen", sans-serif;
+$heading-font: "Bitter", serif;
+$code-font: "Droid Sans Mono";
+$menu-font: "Oxygen", serif;
+
+// Sizing
+$container-max-width: 1100px;
+$menu-height: 50px;
+$small-page-width: 600px;
+$footer-height: 75px;
+
+// Other
+$hide-top-menu-search: false;
+$default-border-radius: 5px;
+$use-fixed-toc: true;
+$use-dark-body: false;
+$use-dark-menu: true;
