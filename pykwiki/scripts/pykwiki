@@ -89,6 +89,23 @@ def command_style(args):
         install_style(style_src, style_dest, args.force)
         return
 
+    if args.style_command == 'enable':
+        if args.style_name == 'all':
+            logger.info("Please specify a style name to enable")
+            return False
+        style_dest = os.path.join(conf.base_path, 'styles', args.style_name)
+        if not os.path.exists(style_dest):
+            style_src = os.path.join(get_styles_dir(), args.style_name)
+            logger.warning("Style is not installed, attempting to install")
+            install_style(style_src, style_dest)
+        conf.style = args.style_name
+        conf.save()
+        logger.info("Style updated, re-caching site...")
+        ctrl.cache_posts(None, force=True)
+        ctrl.cache_theme()
+        return
+        
+
 
 def install_style(style_src, style_dest, force=False):
     """ Installs a built-in style to a project directory """
@@ -329,7 +346,7 @@ if __name__ == "__main__":
     # --------------------------------------------------------------------------
     parser_style = subparsers.add_parser('style',
         help='display style information')
-    parser_style.add_argument('style_command', choices=['info','install'])
+    parser_style.add_argument('style_command', choices=['info','install','enable'])
     parser_style.add_argument('style_name', nargs='?', default='all', 
         help='name of the available style to install or update')
     parser_style.add_argument('-f', '--force', action='store_true',
