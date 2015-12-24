@@ -390,6 +390,26 @@ code {
     padding: 3px;
 }
 
+/* Thumbnail related */
+.center { 
+    text-align: center;
+}
+.well { 
+    margin: auto;
+    width: 80%;
+    background: body-color($body-bg-color, 10);
+    border: 1px solid body-color($body-bg-color, 10);
+    padding: 10px;
+}
+.thumb { 
+    width: 100%;
+}
+.image-link {
+    border: 2px solid body-color($body-bg-color, 10);
+    display: block;
+    padding: 0;
+    line-height: 0;
+}
 
 .col { padding: 15px; }
 .clear { clear: both; padding:0; margin:0; }
