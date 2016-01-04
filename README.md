@@ -1,7 +1,7 @@
 PyKwiki
 =======
 
-PyKwiki is a static content generation engine for Python. 
+PyKwiki is a simple markdown-based static site generator suited for blogs and wikis. 
 
 Features:
 
