@@ -283,11 +283,15 @@ code {
     color: $text-color;
     background: $body-bg-color;
     @if $hide-top-menu-search { display: none; }
+    height: 25px;
+    line-height: 25px;
 }
 .post-search-field {
     border: body-color($body-bg-color, 15);
     background: $body-bg-color;
     color: $text-color;
+    height: 30px;
+    line-height: 30px;
 }
 .post-search-btn { 
     border: menu-color($primary-color, 25);
