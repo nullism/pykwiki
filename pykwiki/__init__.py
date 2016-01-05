@@ -1,4 +1,4 @@
-__version__ = '2.1.13'
+__version__ = '2.1.14'
 __license__ = '''
 The MIT License (MIT)
 

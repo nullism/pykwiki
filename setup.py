@@ -35,6 +35,7 @@ fast to setup, secure, and to handle lots of web traffic.
             'data/default_theme/static/codehilite/*.css',
             'data/default_theme/static/fonts/*.css',
             'data/default_theme/static/fonts/*.ttf',
+            'data/default_theme/static/fonts/*.eot',
         ]},
     url = 'http://pykwiki.nullism.com',
     license = 'MIT',
