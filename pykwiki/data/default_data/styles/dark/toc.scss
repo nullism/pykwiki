@@ -4,10 +4,12 @@
 
 @import 'settings';
 
+$total-max-width: ($toc-width + $container-max-width + $toc-width);
 
 .toc { 
     padding: 0; margin: 0;
     text-align: left;
+    background: $toc-bg-color;
 }
 .toc a { 
     color: $secondary-color; 
@@ -26,10 +28,11 @@
     padding: 1px;
 }
 
-@media screen and (min-width: $small-page-width) {
+
+@media screen and (min-width: $total-max-width) {
     .toc {
         position: fixed;
-        width: 240px;
+        width: $toc-width;
         top: $menu-height;
         bottom: 0px;
         overflow-y: scroll;
@@ -37,6 +40,8 @@
         left: 0px;
         background: $toc-bg-color;
     }
+    .toc-control { display: none; }
+    /*
     .toc-control-open { left: 240px; }
     .toc-control-closed { left: 0px; }
     .toc-control { 
@@ -58,7 +63,7 @@
     .toc-control a:hover { 
         color: $primary-link-hover-color;
     }
-
+    */
     .top-menu-parent, .top-menu-link { 
         text-align: center;
     }
@@ -75,7 +80,46 @@
     }
 }
 
-@media screen and (min-width: 1px) and (max-width: $small-page-width) {
-    .toc { display: none; }
+
+
+@media screen and (min-width: $container-max-width) and (max-width: $total-max-width) {
     .toc-control { display: none; }
+    .toc {
+        width: $toc-width;
+        z-index: 4;
+        float: left;
+        margin: auto;
+    }
+    .post-content-toc { 
+        float: right;
+        width: ($container-max-width - $toc-width - 20px);
+    }
+    .post-content-toc:after {
+        clear: both;
+        display: block;
+    }
+    .top-menu-parent, .top-menu-link { 
+        text-align: center;
+    }
+    .top-menu-item { 
+        float: left;
+    }
+    .top-menu-item-right { 
+        float: right;
+        line-height: $menu-height;
+        padding-right: 20px;
+    }
+    .toc ul li ul li ul li ul {
+        display: none;
+    }
+}
+
+@media screen and (min-width: $small-page-width) and (max-width: $container-max-width) {
+    .toc-control { display: none; }
+    .toc { float: none; width: 100%; }
+}
+
+@media screen and (min-width: 1px) and (max-width: $small-page-width) {
+    .toc-control { display: none; }
+    .toc { display: none; }  
 }

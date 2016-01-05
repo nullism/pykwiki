@@ -98,6 +98,7 @@ def command_style(args):
             style_src = os.path.join(get_styles_dir(), args.style_name)
             logger.warning("Style is not installed, attempting to install")
             install_style(style_src, style_dest)
+
         conf.style = args.style_name
         conf.save()
         logger.info("Style updated, re-caching site...")

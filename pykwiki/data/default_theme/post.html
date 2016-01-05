@@ -43,6 +43,7 @@ function hideToc() {
 </div>
 {% endif %}
 
+{% if post.toc %}<div class="post-content-toc">{% endif %}
 <div class="post-content">
 <div class="post">
 
@@ -80,5 +81,6 @@ function hideToc() {
 {% endif %}
 </div><!-- end post -->
 </div><!-- end post-content -->
+{% if post.toc %}</div><!-- end post-content-toc -->{% endif %}
 </div><!-- end post-wrap -->
 {% endblock %}
