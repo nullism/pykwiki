@@ -854,12 +854,13 @@ class Post(object):
 
     @property
     def url(self):
-        url = ''
+        url = []
         if conf.site.get('base_url'):
-            url = '%s'%(conf.site['base_url'])
+            url.append(conf.site['base_url'])
         if conf.web_prefix:
-            url = '%s/%s'%(url, conf.web_prefix)
-        return '%s/%s'%(url, self.target_fname)
+            url.append(conf.web_prefix)
+        url.append(self.target_fname)
+        return '/'.join(url)
 
     @property
     def source_text(self):
