@@ -5,6 +5,7 @@ Default Style
 
 @import 'settings';
 @import 'toc';
+@import 'codehilite';
 
 @function menu-color($color, $amt) {
     @if $use-dark-menu { 
