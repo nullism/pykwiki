@@ -457,8 +457,7 @@ class PostController(object):
         if os.path.exists(opt_path):
             data = u_read(opt_path)
             self._social_options = yaml.load(data)
-            return self._theme_options
-
+            return self._social_options
         return {}
 
 
