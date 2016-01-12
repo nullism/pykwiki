@@ -3,6 +3,15 @@ title: Webserver Setup
 tags: [configuration]
 ]]
 
+The examples assume the path to your project's `docroot` directory is `/home/hpotter/pykwiki/MyBlog/docroot/`
+
+# SimpleHTTPServer
+
+    :::text
+    $ cd /home/hpotter/pykwiki/MyBlog/docroot
+    $ python -m SimpleHTTPServer
+    Serving HTTP on 0.0.0.0 port 8000 ...
+
 # Apache
 
     :::apache
