@@ -31,7 +31,8 @@
 
         {% if sopt.twitter_name %}
         <div class="social-div">
-        <a href="https://twitter.com/{{sopt.twitter_name}}" class="icon-link" data-show-count="false"><b class="big-icon fontawesome-twitter"></b>Follow @{{sopt.twitter_name}}</a>
+    <a href="https://twitter.com/intent/follow?screen_name={{sopt.twitter_name}}&tw_p=followbutton" target="_new" class="icon-link" data-show-count="false">
+        <b class="big-icon fontawesome-twitter"></b>Follow @{{sopt.twitter_name}}</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
                     if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';
                     fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
