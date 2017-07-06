@@ -223,6 +223,9 @@ def command_cache(args):
     force = False
     if args.force:
         force = True
+        # Touch links.yaml to force re-cache of links
+        with open(conf.link_path, 'a'):
+            os.utime(conf.link_path, None)
 
     # Skip intensive processing if -q is specified
     if args.quick:
