@@ -1,1 +1,4 @@
 *.pyc
+**pykwiki.egg-info
+**.vscode
+**dist
