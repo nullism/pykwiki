@@ -1,8 +1,8 @@
-__version__ = '2.1.18'
+__version__ = '2.1.19'
 __license__ = '''
 The MIT License (MIT)
 
-Copyright (c) 2013, Aaron Meier
+Copyright (c) 2018, Aaron Meier
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

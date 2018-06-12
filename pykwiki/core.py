@@ -20,8 +20,8 @@ def set_jinja_filters(env):
 
 def render_theme_template(f, **kwargs):
     """ Renders a theme template using a cascading FilySystemLoader
-    
-    All theme templates include sopt, topt, ctrl, and conf 
+
+    All theme templates include sopt, topt, ctrl, and conf
     """
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(
         [conf.theme_path, conf.default_theme_path]))
@@ -36,10 +36,10 @@ def render_text(text, **kwargs):
     env = set_jinja_filters(jinja2.Environment())
     tpl = env.from_string(text)
     return tpl.render(**kwargs)
-    
+
 def u_read(fname):
-    """ Unicode read 
-    
+    """ Unicode read
+
     @param fname [str] - full path to the file to read
     """
     fh = codecs.open(fname, encoding='utf-8')
@@ -48,7 +48,7 @@ def u_read(fname):
     return txt
 
 def u_write(fname, data):
-    """ Unicode write 
+    """ Unicode write
 
     @param fname [str] - full path to the file to write to
     @param data [str] - data to write to fname
@@ -77,7 +77,7 @@ class Config(object):
         'description':'Example Site Description',
         'author':'Example Author',
         'keywords':'example, pykwiki',
-        'base_url':''        
+        'base_url':''
     }
     postlist = {
         'per_page':2,
@@ -117,8 +117,8 @@ class Config(object):
     home_page = 'index'
     version = None
 
-    # These properties will be written to/read from 
-    # the config.yaml file. 
+    # These properties will be written to/read from
+    # the config.yaml file.
     config_text_properties = [
         'web_prefix',
         'home_page',
@@ -153,12 +153,12 @@ class Config(object):
         if not self.base_path:
             raise Exception('conf.base_path not set!')
 
-        if not os.path.exists(self.base_path): 
+        if not os.path.exists(self.base_path):
             raise Exception('Base path %s does not exist!'%(self.base_path))
 
         if not self.source_dir:
             raise Exception('conf.source_dir not set!')
-    
+
         if not self.target_dir:
             raise Exception('conf.target_dir not set!')
 
@@ -251,7 +251,7 @@ class Config(object):
         yml = yaml.dump(export, default_flow_style=False)
         fh.write(yml)
         fh.close()
-        
+
     def load(self, cpath):
         """ Load the config file into the object
 
@@ -260,7 +260,7 @@ class Config(object):
         self.logger.debug('Reading configuration from %s...'%(cpath))
         if not os.path.exists(cpath):
             raise Exception('Config file: %s not found!'%(cpath))
-        
+
         fh = open(cpath, 'r')
         txt = fh.read()
         fh.close()
@@ -269,27 +269,28 @@ class Config(object):
             if k in self.config_text_properties:
                 setattr(self, k, data[k])
         #self.check()
-        
- 
+
+
 
 class PostController(object):
-     
+
     _posts = []
     _source_files = []
     _theme_menu = None
     _theme_options = None
     _social_options = None
+    _post_info = None
     index_data = {}
 
     def __init__(self):
         pass
- 
+
     def cache_posts(self, plist=None, force=False):
-        """ Cache posts and return the number of changes 
+        """ Cache posts and return the number of changes
 
         @param plist [list] - A list of source filenames to cache
-        @param force [bool] - Cache regardless of file mtimes 
-        @returns [int] - Number of files changed 
+        @param force [bool] - Cache regardless of file mtimes
+        @returns [int] - Number of files changed
         """
 
         cached = 0;
@@ -307,9 +308,9 @@ class PostController(object):
         return cached
 
     def cache_uploads(self):
-        """ Find file differences (mtime) and copy them to docroot 
+        """ Find file differences (mtime) and copy them to docroot
 
-        @returns [bool] - True if successful, false otherwise 
+        @returns [bool] - True if successful, false otherwise
         """
 
 
@@ -336,19 +337,19 @@ class PostController(object):
 
         conf.logger.info('Copied %s new uploads'%(cnt))
         return True
-         
+
 
     def cache_postlist(self):
-        
+
         order_field = conf.postlist['order_field']
         order_type = conf.postlist['order_type']
         max_pages = conf.postlist['max_pages']
         per_page = conf.postlist['per_page']
         post_type = conf.postlist['post_type']
-        
-        posts = self.get_posts(sort_key=order_field, private=False, 
+
+        posts = self.get_posts(sort_key=order_field, private=False,
             direction=order_type, filters=None, limit=(max_pages*per_page))
-   
+
         post_count = len(posts)
         if post_count > max_pages * per_page:
             post_count = max_pages * per_page
@@ -363,15 +364,15 @@ class PostController(object):
                     break
                 this_posts.append(posts.pop(0))
 
-            html = render_theme_template(conf.postlist_tpl, 
+            html = render_theme_template(conf.postlist_tpl,
                 this_page_num=page_num, posts=this_posts,
-                page_count=page_count, post_count=post_count, 
+                page_count=page_count, post_count=post_count,
                 post_type=post_type, per_page=per_page)
             out = os.path.join(conf.target_path, 'postlist-%s.html'%(page_num))
             u_write(out, html)
 
         html = render_theme_template(conf.posts_tpl,
-            post_count=post_count, page_count=page_count, 
+            post_count=post_count, page_count=page_count,
             post_type=post_type, per_page=per_page)
         out = os.path.join(conf.target_path, conf.posts_tpl)
         u_write(out, html)
@@ -393,7 +394,7 @@ class PostController(object):
         out = os.path.join(conf.target_path, conf.search_tpl)
         u_write(out, html)
 
-        # Post Listing 
+        # Post Listing
         self.cache_postlist()
 
         # Home post
@@ -401,10 +402,10 @@ class PostController(object):
         if home_page in [conf.posts_tpl, conf.search_tpl]:
             html = render_theme_template(home_page)
             out = os.path.join(conf.target_path, conf.docroot_index)
-            u_write(out, html) 
+            u_write(out, html)
         else:
             if not home_page.endswith(conf.source_ext):
-                home_page = home_page + conf.source_ext 
+                home_page = home_page + conf.source_ext
             home_page_path = os.path.join(conf.source_path, home_page)
             if os.path.exists(home_page_path):
                 conf.logger.info('Writing %s as home post (%s)'\
@@ -426,12 +427,16 @@ class PostController(object):
             if os.path.exists(style_src):
                 shutil.copytree(style_src, style_dest)
 
+        # In case source doesn't have a static/ directory
+        if not os.path.exists(style_dest):
+            os.makedirs(style_dest)
+
         # Cache scss
         conf.logger.debug("Compiling scss to static/styles/style.css")
         style_data = scss.Compiler().compile(conf.style_file_path)
         with open(os.path.join(style_dest, 'style.css'), 'w') as fh:
             fh.write(style_data)
-            
+
 
     def cache_rss_feed(self):
 
@@ -442,7 +447,7 @@ class PostController(object):
         if not os.path.exists(rss_tpl):
             conf.logger.warning('No rss template found in theme')
             return False
-        
+
         posts = self.get_posts(limit=conf.rss_max_entries)
         xml = render_theme_template(conf.rss_tpl, posts=posts)
         outf = os.path.join(conf.target_path, conf.rss_tpl)
@@ -473,7 +478,7 @@ class PostController(object):
 
         return {}
 
-    @property                
+    @property
     def theme_menu(self):
         if self._theme_menu:
             return self._theme_menu
@@ -483,7 +488,7 @@ class PostController(object):
                     <= os.path.getmtime(conf.link_json_path):
                 js = u_read(conf.link_json_path)
                 links = json.loads(js)
-                self._theme_menu = render_theme_template(conf.menu_tpl, 
+                self._theme_menu = render_theme_template(conf.menu_tpl,
                     links=links)
                 return self._theme_menu
 
@@ -491,7 +496,7 @@ class PostController(object):
         link_path = conf.link_path
         if not os.path.exists(link_path):
             return 'Unable to locate %s'%(link_path)
-        
+
         def get_clean_links(dlist):
             ll = []
             for d in dlist:
@@ -515,7 +520,7 @@ class PostController(object):
                     new_d['children'] = get_clean_links(new_d['children'])
                 ll.append(new_d)
             return ll
-            
+
         ltxt = u_read(link_path)
         links = yaml.load(ltxt)
         menu_links = get_clean_links(links)
@@ -531,8 +536,8 @@ class PostController(object):
 
         if not plist:
             plist = self.source_files
-        
-        
+
+
 
     def index_posts(self, plist=None, search_index=True):
         """ Build a search index and post data JSON file
@@ -604,8 +609,8 @@ class PostController(object):
             data[k] = sorted(data[k], key=data[k].get, reverse=True)
 
         self.index_data = {
-            'ids':ids, 
-            'index':data, 
+            'ids':ids,
+            'index':data,
             'tags':tags,
             'updated':int(time.time()),
         }
@@ -614,20 +619,20 @@ class PostController(object):
             'info':info,
             'ids':ids,
         }
-            
+
         post_info_path = os.path.join(conf.target_path, conf.post_data_file)
         conf.logger.debug('Writing post info to %s'%(post_info_path))
         u_write(post_info_path, json.dumps(post_info))
-        
+
         index_path = os.path.join(conf.target_path, conf.index_file)
         conf.logger.debug('Writing search index to %s'%(index_path))
         u_write(index_path, json.dumps(self.index_data))
-        
 
-    def get_posts(self, sort_key='mtime', private=False, direction='desc', 
+
+    def get_posts(self, sort_key='mtime', private=False, direction='desc',
             filters=None, limit=0):
         """ Get a sorted and filtered list of posts
-         
+
         @param sort_key [str] - The post property to sort on, default: mtime
         @param private [bool] - Include private posts if true
         @param direction [str] - Either ascending or descending
@@ -639,7 +644,7 @@ class PostController(object):
         rev = False
         if direction == 'desc' or direction == 'descending':
             rev = True
-        
+
         # Set the limit to something crazy, like 10K
         if not limit:
             limit = 10000
@@ -669,7 +674,7 @@ class PostController(object):
                     plist = [p for p in plist if getattr(p, k) != v]
                 else:
                     raise Exception('Invalid filter operator found: %s'%(o))
-                                    
+
         if sort_key:
             plist.sort(key=lambda x: getattr(x, sort_key), reverse=rev)
 
@@ -680,7 +685,7 @@ class PostController(object):
 
     def get_post_dates(self, private=False, direction='desc', limit=0):
         """ Return a list of post dates in mdate_string format
-        
+
         @param private [bool] - Include private posts if True
         @param direction [str] - Either ascending or descending
         @param limit [int] - Maximum number of post dates to return
@@ -748,9 +753,6 @@ class Post(object):
     """ Post object loads, saves, and caches posts """
 
     source_fname = None
-    source_path = None
-    target_fname = None
-    target_path = None
     toc = None
     _source_text = None
     _target_text = None
@@ -772,7 +774,7 @@ class Post(object):
     def save(self):
 
         full_dir = os.path.split(self.target_path)[0]
-    
+
         if not os.path.exists(full_dir):
             try:
                 conf.logger.info('Making directory: %s'%(full_dir))
@@ -783,8 +785,8 @@ class Post(object):
 
         pc = self.conf
         tt = self.target_text
-        conf.logger.debug('Saving to: %s'%(self.target_path))        
-        html = render_theme_template(conf.post_tpl, post=self)        
+        conf.logger.debug('Saving to: %s'%(self.target_path))
+        html = render_theme_template(conf.post_tpl, post=self)
         u_write(self.target_path, html)
 
     def get_section(self, name, raw=True):
@@ -797,7 +799,7 @@ class Post(object):
         # By default, return raw text
         if raw:
             return m.group(1)
-        return markdown.markdown(m.group(1), 
+        return markdown.markdown(m.group(1),
             extensions=conf.markdown_exts)
 
     @property
@@ -828,13 +830,13 @@ class Post(object):
             conf.logger.warning('No post config specified for %s'%(self.source_fname))
             self._conf = {'foo':True}
             return {}
-        
+
         try:
             self._conf = yaml.load(m.group(1))
             self._source_text = self.source_text.replace(m.group(0), '')
         except Exception as e:
             conf.logger.exception('Invalid post configuration found!')
-        
+
         return self._conf
 
 
@@ -919,7 +921,7 @@ class Post(object):
         if self.conf.get('timestamp'):
             self._mtime = time.mktime(time.strptime(self.conf['timestamp'], conf.timestamp_format))
             return self._mtime
-            
+
         self._mtime = self.source_mtime
         return self._mtime
 
@@ -979,7 +981,7 @@ class Post(object):
     @property
     def nowrap(self):
         return self.conf.get('nowrap');
- 
+
     @property
     def blurb(self):
         if self._blurb:
@@ -1000,7 +1002,7 @@ class Post(object):
         self._blurb = blurb
         return self._blurb
 
-    @property 
+    @property
     def keywords(self):
         if self._keywords:
             return self._keywords
