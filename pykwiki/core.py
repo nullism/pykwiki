@@ -136,6 +136,8 @@ class Config(object):
         'style',
         'upload_exts',
         'version',
+        'target_dir',
+        'source_dir'
     ]
 
     def __init__(self):
