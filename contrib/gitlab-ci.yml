@@ -1,0 +1,29 @@
+# GitLab CI integration to build GitLab pages
+#  - copy this file to the root of your git project as .gitlab-ci.yml
+#
+# Requires:
+#  - PyKwiki 2.1.20+
+#  - "target_dir: public" set in config.yaml
+
+image: python:latest
+
+before_script:
+  - pip install pykwiki
+
+test:
+  stage: test
+  script:
+  - pykwiki cache -f
+  only:
+  - branches
+  - tags
+
+pages:
+  stage: deploy
+  script:
+  - pykwiki cache -f
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
