@@ -112,6 +112,7 @@ class Config(object):
     ]
     # The regex to grab post data blocks
     post_conf_re = re.compile('^\[\[(.*?)\]\]', re.DOTALL)
+    post_conf_re2 = re.compile('^---(.*?)\\n---', re.DOTALL)
     post_toc_re = re.compile('^\s{0,3}\[TOC\]', re.MULTILINE)
     blurb_max = 50
     home_page = 'index'
@@ -827,7 +828,10 @@ class Post(object):
         if self._conf:
             return self._conf
 
-        m = conf.post_conf_re.search(self.source_text)
+        m = (
+            conf.post_conf_re.search(self.source_text) or
+            conf.post_conf_re2.search(self.source_text)
+        )
         if not m:
             conf.logger.warning('No post config specified for %s'%(self.source_fname))
             self._conf = {'foo':True}
