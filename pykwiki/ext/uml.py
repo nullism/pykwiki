@@ -18,8 +18,8 @@ class UMLPreprocessor(markdown.preprocessors.Preprocessor):
         except:
             print("WARNING: Plantuml not installed for this python version: ext.uml disabled.")
             return lines
-    
-        
+
+
         text = '\n'.join(lines)
         pat = re.compile(UML_RE, re.DOTALL|re.M)
         ms = pat.findall(text)
@@ -31,8 +31,8 @@ class UMLPreprocessor(markdown.preprocessors.Preprocessor):
         for m in ms:
             uml = m[1]
             url = puml.get_url(uml)
-            text = pat.sub('<img src="%s"/>'%(url), text, 1)  
- 
+            text = pat.sub('<img src="%s"/>'%(url), text, 1)
+
         return text.split('\n')
 
 class UMLExtension(markdown.Extension):

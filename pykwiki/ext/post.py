@@ -1,7 +1,7 @@
 import markdown
 from pykwiki.core import conf, Post
 
-POST_RE = r'(\[\[([a-zA-Z0-9]+.*?)\]\])' 
+POST_RE = r'(\[\[([a-zA-Z0-9]+.*?)\]\])'
 SEC_START_RE = r'(\{section:(.*?)\})'
 SEC_END_RE = r'(\{endsection\})'
 
@@ -33,7 +33,7 @@ class PostPattern(markdown.inlinepatterns.Pattern):
 
         # For [[page:link]]
         if action == 'link':
-            url = '%s/%s'%(conf.web_prefix, 
+            url = '%s/%s'%(conf.web_prefix,
                 post.replace(conf.source_ext, conf.target_ext))
             el = markdown.util.etree.Element("a")
             el.set('href', url)
@@ -53,7 +53,7 @@ class PostPattern(markdown.inlinepatterns.Pattern):
         # For [[page:blurb]]
         if action == 'blurb':
             return pg.blurb
-        
+
         # For [[page:title]]
         if action == 'title':
             return pg.title
@@ -62,7 +62,7 @@ class PostPattern(markdown.inlinepatterns.Pattern):
         if action == 'section':
             if not extra:
                 return 'No section name given'
-            sec = pg.get_section(extra, raw=False) 
+            sec = pg.get_section(extra, raw=False)
             if not sec:
                 return 'Cannot find section: %s'%(extra)
             el = markdown.util.etree.Element("div")
