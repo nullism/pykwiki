@@ -5,7 +5,6 @@ import jinja2
 import re
 
 UML_RE = r'^(\{uml\})(.+?)(\{enduml\})'
-PLANT_UML_CONFIGS = {}
 
 class UMLPreprocessor(markdown.preprocessors.Preprocessor):
 
@@ -45,9 +44,8 @@ class UMLExtension(markdown.Extension):
         md.plant_options = self.config
         md.preprocessors.add('pykwiki.uml', UMLPreprocessor(md), '_begin')
 
-def makeExtension(**configs):
-    PLANT_UML_CONFIGS = configs
-    return UMLExtension(**configs)
+def makeExtension(**kwargs):
+    return UMLExtension(**kwargs)
 
 if __name__ == "__main__":
     import doctest

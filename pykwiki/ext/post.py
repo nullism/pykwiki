@@ -79,8 +79,8 @@ class PostExtension(markdown.Extension):
         md.inlinePatterns['pykwiki.post.section_start'] = SectionStartPattern(SEC_START_RE, md)
         md.inlinePatterns['pykwiki.post.section_end'] = SectionEndPattern(SEC_END_RE, md)
 
-def makeExtension(configs={}):
-    return PostExtension(configs=configs)
+def makeExtension(**kwargs):
+    return PostExtension(**kwargs)
 
 if __name__ == "__main__":
     import doctest

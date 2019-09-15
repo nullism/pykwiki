@@ -43,8 +43,8 @@ class TPLExtension(markdown.Extension):
     def extendMarkdown(self, md, md_globals):
         md.preprocessors.add('pykwiki.tpl', TPLPreprocessor(md), '_begin')
 
-def makeExtension(configs={}):
-    return TPLExtension(configs=configs)
+def makeExtension(**kwargs):
+    return TPLExtension(**kwargs)
 
 if __name__ == "__main__":
     import doctest
