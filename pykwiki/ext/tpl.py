@@ -28,14 +28,14 @@ class TPLPreprocessor(markdown.preprocessors.Preprocessor):
 
             if not tpl.endswith(conf.template_ext):
                 tpl = tpl + conf.template_ext
-            
+
             d = {}
             if args:
-                d = yaml.load(args)           
-            
+                d = yaml.load(args)
+
             html = render_tpl(tpl, **d)
-            text = pat.sub(html, text, 1)        
- 
+            text = pat.sub(html, text, 1)
+
         return text.split('\n')
 
 class TPLExtension(markdown.Extension):
@@ -43,8 +43,8 @@ class TPLExtension(markdown.Extension):
     def extendMarkdown(self, md, md_globals):
         md.preprocessors.add('pykwiki.tpl', TPLPreprocessor(md), '_begin')
 
-def makeExtension(configs={}):
-    return TPLExtension(configs=configs)
+def makeExtension(**kwargs):
+    return TPLExtension(**kwargs)
 
 if __name__ == "__main__":
     import doctest
